@@ -34,7 +34,7 @@ class GameScene
     # @ignoreShaderLogs()
 
     @resize()
-    window.addEventListener 'optimizedResize', ->
+    window.addEventListener 'optimizedResize', =>
       @resize()
 
     @lastUpdate = undefined
