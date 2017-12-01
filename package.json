@@ -1,0 +1,19 @@
+{
+  "name": "Three-Default",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/server"
+  },
+  "dependencies": {
+    "bundle-loader": "^0.5.5",
+    "coffee-loader": "^0.7.3",
+    "coffee-script": "^1.12.7",
+    "express": "^4.15.3",
+    "script-loader": "^0.7.0",
+    "webpack": "^3.5.5"
+  },
+  "directories": {
+    "bin": "bin"
+  }
+}
