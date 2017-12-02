@@ -12,8 +12,6 @@ class Room extends Group
     @doors = {}
     @neighbourRooms = {}
     @objects = []
-    @light = new RoomLight
-    @add @light
 
   addWalls: (up, right, down, left) ->
     @wallUp = new Wall Math.PI * 0.5, up
@@ -23,7 +21,7 @@ class Room extends Group
     @add wall for wall in [@wallUp, @wallRight, @wallDown, @wallLeft]
 
   addGround: ->
-    @ground = AssetCache.getModel 'ground', false, true
+    @ground = AssetCache.getModel 'ground'
     @userData.clickHandler = =>
       @onGroundClick? @
 
@@ -71,6 +69,6 @@ class Room extends Group
     @seen = true
     @ground.material = @groundMaterial
     @addObjects? @objectClickHandler
-    @light.activate()
+
 
 module.exports = Room

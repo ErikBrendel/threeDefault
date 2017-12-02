@@ -12,9 +12,6 @@ Scheduler = require './Scheduler'
 class GameScene
   constructor: (@updateCallback) ->
     @scene = new THREE.Scene()
-    #@scene.overrideMaterial = new THREE.MeshBasicMaterial
-    #  color:0x113311
-    #  wireframe:true
 
     @floor = new Floor layouts[0], @
     @add @floor
