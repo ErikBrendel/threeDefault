@@ -23,7 +23,7 @@ class Room extends Group
     @ground.userData.clickHandler = =>
       @onGroundClick? @
 
-    @ground.userData.hoverHandler = =>
+    @ground.userData.mouseEnterHandler = =>
       @showDescription? @description
     @add @ground
 
