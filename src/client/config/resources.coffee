@@ -3,7 +3,7 @@ require '../util/ResourceCache'
 models = [
   'wall',
   'wall_open',
-  'floor',
+  'ground',
   'player'
 ]
 

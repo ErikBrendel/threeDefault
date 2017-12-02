@@ -15,6 +15,9 @@ class ResourceCache
       console.warn "Model #{name} already loaded."
 
   getModel: (name) ->
-    new THREE.Mesh @models[name].geometry, @models[name].materials
+    mesh = new THREE.Mesh @models[name].geometry, @models[name].materials
+    mesh.castShadow = true
+    mesh.receiveShadow = true
+    mesh
 
 window.AssetCache = new ResourceCache
