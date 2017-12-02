@@ -9,10 +9,21 @@ PlayerCamera = require './actor/PlayerCamera'
 
 class GameScene
   constructor: (@updateCallback) ->
+    @scene = new THREE.Scene()
+
+    @floor = new Floor layouts[0], @
+    @add @floor
+
     @player = new Player
+    @player.setRoom @floor.rooms[0][0]
+    @add @player
+
+    @guard = new Guard
+    @add @guard
+    @guard.setPosition new THREE.Vector3 4, 0, 4
+
     @camera = new PlayerCamera @player
 
-    @scene = new THREE.Scene()
 
     # uncomment for nice fog
     # @scene.fog = new THREE.FogExp2 0x000000, 0.1
@@ -47,14 +58,6 @@ class GameScene
     @rayCaster = new THREE.Raycaster
     @hoveredObjects = []
 
-    @floor = new Floor layouts[0], @
-    @add @floor
-
-    @add @player
-
-    @guard = new Guard
-    @add @guard
-    @guard.setPosition new THREE.Vector3 4, 0, 4
     # uncomment to hide all shader compilation warnings
     # @ignoreShaderLogs()
 
@@ -124,6 +127,6 @@ class GameScene
 
   onGroundClicked: (room) ->
     if(@player.position.distanceTo(room.position) <= 4)
-      @player.setPosition(room.position)
+      @player.setRoom room
 
 module.exports = GameScene

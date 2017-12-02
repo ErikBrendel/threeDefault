@@ -23,4 +23,8 @@ class Room extends Group
       @onGroundClick? @
     @add @ground
 
+  onLeave: (newRoom) -> console.log 'leave'
+  onEnter: (oldRoom) -> console.log 'enter'
+
+
 module.exports = Room

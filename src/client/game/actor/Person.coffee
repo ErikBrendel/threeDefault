@@ -7,6 +7,13 @@ class Person
     @mesh = AssetCache.getModel @type
 
   setPosition: (@position) ->
-    console.log @position
     @mesh.position.copy @position
+
+  setRoom: (newRoom) ->
+    oldRoom = @currentRoom
+    @currentRoom?.onLeave newRoom
+    @currentRoom = newRoom
+    @setPosition(@currentRoom.position)
+    @currentRoom.onEnter oldRoom
+
 module.exports = Person
