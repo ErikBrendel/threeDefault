@@ -1,27 +1,46 @@
 SmoothVector = require '../../util/SmoothVector3'
 
+Z_OFFSET = 2
+MIN_HEIGHT = 5
+DEFAULT_HEIGHT = 10
+MAX_HEIGHT = 30
+
 class PlayerCamera extends THREE.PerspectiveCamera
   constructor: (@player) ->
     super(45, 1, 0.1, 100)
-    @position.set(0, 5, 0)
-    @addControls()
-    @smoothPosition = new SmoothVector(1000, @position, 1)
+    @position.set(0,0,0)
+    @position.y = DEFAULT_HEIGHT
+    @setLookAt @player.position
+    @smoothPosition = new SmoothVector(1000, @position.clone(), 1)
     @smoothPosition.addUpdateHandler (pos) =>
       @position.x = pos.x
-      @position.z = pos.z
-      @controls.target.x = pos.x
-      @controls.target.z = pos.z
+      @position.z = pos.z + Z_OFFSET
+      @setLookAt new THREE.Vector3 pos.x, 0, pos.z
     @player.moveCamera = (position) => @setPosition position
+    @eventAttatschden()
+
+  setLookAt: (vec) ->
+    @lookVector = vec
+    @lookAt vec
+
+  applyLookAt: ->
+    @lookAt @lookVector
 
   setPosition: (position) ->
     @smoothPosition.set(position)
 
-  addControls: ->
-    @controls = new THREE.OrbitControls @
-    @controls.enablePan = false
-    @controls.enableRotate = false
-    @controls.enableZoom = true
-    @controls.minDistance = 3
-    @controls.maxDistance = 30
+  eventAttatschden: ->
+    document.addEventListener 'mousewheel', @mouseWheel
+    document.addEventListener 'zoom', @mouseWheel
+
+  applyZoom: (factor) ->
+    @position.y -= factor
+    @position.y = Math.max(MIN_HEIGHT, Math.min(@position.y, MAX_HEIGHT))
+    @applyLookAt()
+
+  mouseWheel: (evt) =>
+    event.preventDefault()
+    event.stopPropagation()
+    @applyZoom evt.deltaY * 0.25
 
 module.exports = PlayerCamera
