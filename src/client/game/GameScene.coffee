@@ -5,12 +5,12 @@ Floor = require './building/Floor'
 Player = require './actor/Player'
 Guard = require './actor/Guard'
 layouts = require './building/floors/Layouts'
+PlayerCamera = require './actor/PlayerCamera'
 
 class GameScene
   constructor: (@updateCallback) ->
-    @camera = new THREE.PerspectiveCamera 45, 1, 0.1, 100
-    @camera.position.z = 5
-    @camera.position.y = 3
+    @player = new Player
+    @camera = new PlayerCamera @player
 
     @scene = new THREE.Scene()
 
@@ -38,8 +38,8 @@ class GameScene
     @renderer.shadowMap.enabled = true
     @renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
-    @controls = new THREE.OrbitControls @camera, @renderer.domElement
-    @controls.enableZoom = true
+    #@controls = new THREE.OrbitControls @camera, @renderer.domElement
+    #@controls.enableZoom = true
 
     @mouse = new THREE.Vector2
     window.addEventListener 'mousemove', @onMouseMove, false
@@ -50,7 +50,6 @@ class GameScene
     @floor = new Floor layouts[0], @
     @add @floor
 
-    @player = new Player
     @add @player
 
     @guard = new Guard
@@ -124,6 +123,7 @@ class GameScene
     clicked.userData.clickHandler?()
 
   onGroundClicked: (room) ->
+    @camera.setPosition(room.position)
     @player.setPosition(room.position)
 
 module.exports = GameScene

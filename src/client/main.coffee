@@ -10,7 +10,7 @@ gameInit = ->
     console.log 'update!'
   window.gs = gameScene
 
-  gameScene.addAxisHelper 10
+  gameScene.addAxisHelper 1
   gameScene.appendChildFullscreen()
   gameScene.animation()
 
