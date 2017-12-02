@@ -124,6 +124,7 @@ class GameScene
     clicked.userData.clickHandler?()
 
   onGroundClicked: (room) ->
-    @player.setPosition(room.position)
+    if(@player.position.distanceTo(room.position) <= 4)
+      @player.setPosition(room.position)
 
 module.exports = GameScene

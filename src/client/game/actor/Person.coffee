@@ -3,12 +3,11 @@
 class Person
   constructor: (@type) ->
     @position =
-      x: 0
-      y: 0
+      new THREE.Vector3 0, 0, 0
     @mesh = AssetCache.getModel @type
 
-  setPosition: (position) ->
-    console.log position
-    @mesh.position.copy position
+  setPosition: (@position) ->
+    console.log @position
+    @mesh.position.copy @position
 
 module.exports = Person
