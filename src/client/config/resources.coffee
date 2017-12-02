@@ -4,7 +4,8 @@ models = [
   'wall',
   'wall_open',
   'ground',
-  'player'
+  'player',
+  'guard'
 ]
 
 module.exports = ->

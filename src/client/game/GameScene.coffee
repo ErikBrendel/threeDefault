@@ -3,6 +3,7 @@
 require '../util/ThrottleResizeEvent'
 Floor = require './building/Floor'
 Player = require './actor/Player'
+Guard = require './actor/Guard'
 layouts = require './building/floors/Layouts'
 
 class GameScene
@@ -51,6 +52,10 @@ class GameScene
 
     @player = new Player
     @add @player
+
+    @guard = new Guard
+    @add @guard
+    @guard.setPosition new THREE.Vector3 4, 0, 4
     # uncomment to hide all shader compilation warnings
     # @ignoreShaderLogs()
 
@@ -118,7 +123,7 @@ class GameScene
     return if not clicked?
     clicked.userData.clickHandler?()
 
-  onGroundClicked: (ground) ->
-    @player.setPosition(ground.position)
+  onGroundClicked: (room) ->
+    @player.setPosition(room.position)
 
 module.exports = GameScene
