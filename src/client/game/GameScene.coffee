@@ -16,12 +16,25 @@ class GameScene
     # @scene.fog = new THREE.FogExp2 0x000000, 0.1
 
     ambiColor = '#ffffff'
-    ambientLight = new THREE.AmbientLight ambiColor
+    ambientLight = new THREE.AmbientLight ambiColor, 0.2
     @scene.add ambientLight
+    lightColor = '#fff0ca'
+    light = new THREE.PointLight lightColor, 1, 10, 2
+    light.position.set( 0, 1.05, 0 );
+    light.castShadow = true;
+    light.shadow.mapSize.width = 1024;
+    light.shadow.mapSize.height = 1024;
+    @scene.add( light );
+
+    plh = new THREE.PointLightHelper(light, 0.1)
+    @scene.add(plh)
+
 
     @renderer = new THREE.WebGLRenderer
       antialias: true
     @renderer.setClearColor 0x000000, 1
+    @renderer.shadowMap.enabled = true
+    @renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
     @controls = new THREE.OrbitControls @camera, @renderer.domElement
     @controls.enableZoom = true
@@ -33,6 +46,7 @@ class GameScene
     @hoveredObjects = []
 
     @floor = new Floor {x: 5, y: 5}, @
+    @add @floor
     @player = new Player
     @add @player
     # uncomment to hide all shader compilation warnings
@@ -102,7 +116,7 @@ class GameScene
     return if not clicked?
     clicked.userData.clickHandler?()
 
-  onFloorClicked: (position) ->
-    @player.setPosition(position)
+  onGroundClicked: (ground) ->
+    @player.setPosition(ground.position)
 
 module.exports = GameScene

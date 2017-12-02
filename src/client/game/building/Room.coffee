@@ -1,32 +1,25 @@
-class Room
-  constructor: (scene, position) ->
+Wall = require './Wall'
 
-    translation = new THREE.Vector3( position.x * 4, 0, position.y * 4 )
+{ Group } = THREE
 
-    up = AssetCache.getModel 'wall'
-    up.position.copy translation
-    scene.add up
+class Room extends Group
+  constructor: ({up, right, down, left}) ->
+    super()
+    @addWalls up, right, down, left
+    @addGround()
 
-    right = AssetCache.getModel 'wall_open'
-    right.position.copy translation
-    right.rotation.y = Math.PI / 2
-    scene.add right
+  addWalls: (up, right, down, left) ->
+    @wallUp = new Wall Math.PI * 0.5, up
+    @wallLeft = new Wall Math.PI, left
+    @wallDown = new Wall Math.PI * 1.5, down
+    @wallRight = new Wall 0, right
+    @add wall for wall in [@wallUp, @wallRight, @wallDown, @wallLeft]
 
-    down = AssetCache.getModel 'wall_open'
-    down.position.copy translation
-    down.rotation.y = Math.PI
-    scene.add down
-
-    left = AssetCache.getModel 'wall'
-    left.position.copy translation
-    left.rotation.y = Math.PI * 1.5
-    scene.add left
-
-    floor = AssetCache.getModel 'floor'
-    floor.position.copy translation
-    scene.add floor
-    floor.userData.clickHandler = ->
-      console.log('you clicked the floor')
-      scene.onFloorClicked position
+  addGround: ->
+    @ground = AssetCache.getModel 'ground'
+    @ground.userData.clickHandler = =>
+      console.log('you clicked the ground')
+      @onGroundClick? @
+    @add @ground
 
 module.exports = Room

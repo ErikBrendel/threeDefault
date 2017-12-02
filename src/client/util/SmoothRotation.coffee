@@ -1,10 +1,3 @@
-
-
-THREE = null
-THREE_LOAD = require 'bundle-loader?name=three!three'
-THREE_LOAD (three) -> THREE = three
-
-
 SmoothValue = require 'util/SmoothValue'
 
 class SmoothRotation extends SmoothValue

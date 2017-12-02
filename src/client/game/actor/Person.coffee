@@ -7,10 +7,8 @@ class Person
       y: 0
     @mesh = AssetCache.getModel @type
 
-
-
-  setPosition: (@position) ->
-    console.log @position
-    @mesh.position.set @position.x * 4, 0, @position.y * 4
+  setPosition: (position) ->
+    console.log position
+    @mesh.position.copy position
 
 module.exports = Person
