@@ -1,4 +1,6 @@
 Room = require './Room'
+StairsRoom = require './StairsRoom'
+SafeRoom = require './SafeRoom'
 Door = require './Door'
 
 { Group } = THREE
@@ -18,16 +20,29 @@ class Floor extends Group
     for x in [0..@floorSize.x - 1]
       @rooms[x] = []
       for y in [0..@floorSize.y - 1]
-        roomType = 'default'
-        roomType = 'stairs' if x is 2 and y is 0
-        roomType = 'safe' if x is 0 and y is 3
-        room = new Room
-          up: @isUp x, y
-          right: @isRight x, y
-          down: @isDown x, y
-          left: @isLeft x, y
-          type: roomType
-          objectClickHandler: objectClickHandler
+        if x is 0 and y is 3
+          room = new StairsRoom
+            up: @isUp x, y
+            right: @isRight x, y
+            down: @isDown x, y
+            left: @isLeft x, y
+            objectClickHandler: objectClickHandler
+        else if x is 2 and y is 0
+          room = new SafeRoom
+            up: @isUp x, y
+            right: @isRight x, y
+            down: @isDown x, y
+            left: @isLeft x, y
+            objectClickHandler: objectClickHandler
+        else
+          room = new Room
+            up: @isUp x, y
+            right: @isRight x, y
+            down: @isDown x, y
+            left: @isLeft x, y
+            objectClickHandler: objectClickHandler
+
+
         room.position.set x * 4, 0, y * 4
 
         room.neighbourRooms.up = @rooms[x][y - 1]

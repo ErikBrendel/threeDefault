@@ -13,7 +13,6 @@ class Person
     @positionSmoother = new SmoothVector3 900
     @positionSmoother.addProgressListener (progress) =>
       @mesh.rotation.setFromVector3(@direction.clone().multiplyScalar(0.5 * Math.sin(progress * Math.PI) * Math.sin(progress * Math.PI * 3)))
-      console.log(@direction)
 
     @positionSmoother.addUpdateHandler (newPosition) =>
       @mesh.position.copy newPosition
@@ -39,7 +38,6 @@ class Person
         @moving = true
         @newRoom = newRoom
         @direction = @newRoom.position.clone().sub(@currentRoom.position).normalize()
-        #console.log(@direction)
         @currentRoom.onDepart(@newRoom)
         @setPosition(@newRoom.position)
       else if not @currentRoom?
