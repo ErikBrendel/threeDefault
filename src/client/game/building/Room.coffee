@@ -7,6 +7,7 @@ class Room extends Group
     super()
     @addWalls up, right, down, left
     @addGround()
+    @doors = {}
 
   addWalls: (up, right, down, left) ->
     @wallUp = new Wall Math.PI * 0.5, up
