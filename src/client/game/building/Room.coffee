@@ -1,19 +1,17 @@
 Wall = require './Wall'
 
-Safe = require './objects/Safe'
-Stairs= require './objects/Stairs'
-
 { Group } = THREE
 
 class Room extends Group
-  constructor: ({up, right, down, left, type, objectClickHandler}) ->
+  constructor: ({up, right, down, left, objectClickHandler}) ->
     super()
     @description = 'Default Room'
     @addWalls up, right, down, left
     @addGround()
     @doors = {}
     @neighbourRooms = {}
-    @addObjects type, objectClickHandler
+    @objects = []
+    @addObjects? objectClickHandler
 
   addWalls: (up, right, down, left) ->
     @wallUp = new Wall Math.PI * 0.5, up
@@ -30,13 +28,6 @@ class Room extends Group
     @userData.mouseEnterHandler = =>
       @showDescription? @description
     @add @ground
-
-  addObjects: (type, objectClickHandler) ->
-    @objects = []
-    if type is 'stairs'
-      @objects.push new Stairs @, objectClickHandler
-    if type is 'safe'
-      @objects.push new Safe @, objectClickHandler
 
   getSharedDoorWith: (otherRoom) ->
     for direction, neighbourRoom of @neighbourRooms
