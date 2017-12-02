@@ -6,6 +6,7 @@ Player = require './actor/Player'
 Guard = require './actor/Guard'
 layouts = require './building/floors/Layouts'
 PlayerCamera = require './actor/PlayerCamera'
+PlayerLight = require './actor/PlayerLight'
 
 class GameScene
   constructor: (@updateCallback) ->
@@ -31,15 +32,11 @@ class GameScene
     ambiColor = '#ffffff'
     ambientLight = new THREE.AmbientLight ambiColor, 0.2
     @scene.add ambientLight
-    lightColor = '#fff0ca'
-    light = new THREE.PointLight lightColor, 1, 10, 2
-    light.position.set( 0, 1.05, 0 );
-    light.castShadow = true;
-    light.shadow.mapSize.width = 1024;
-    light.shadow.mapSize.height = 1024;
-    @scene.add( light );
+    @playerLight = new PlayerLight @player
 
-    plh = new THREE.PointLightHelper(light, 0.1)
+    @scene.add( @playerLight );
+
+    plh = new THREE.PointLightHelper(@playerLight, 0.1)
     @scene.add(plh)
 
 

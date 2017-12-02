@@ -9,5 +9,6 @@ class Player extends Person
   setPosition: (position) ->
     super(position)
     @moveCamera? position
+    @moveLight? position
 
 module.exports = Player
