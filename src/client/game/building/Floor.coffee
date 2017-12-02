@@ -37,8 +37,8 @@ class Floor extends Group
         @rooms[x][y] = room
 
   createDoors: ->
-    for x in [0..@floorSize.x - 2]
-      for y in [0..@floorSize.y - 2]
+    for x in [0..@floorSize.x - 1]
+      for y in [0..@floorSize.y - 1]
         if @isDown x, y
           @createDoor x, y, false
         if @isRight x, y
