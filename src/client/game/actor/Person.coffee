@@ -12,7 +12,7 @@ class Person
     @moving = false
     @positionSmoother = new SmoothVector3 900
     @positionSmoother.addProgressListener (progress) =>
-      @mesh.rotation.setFromVector3(@direction.clone().multiplyScalar(0.5 * Math.sin(progress * Math.PI) * Math.sin(progress * Math.PI * 3)))
+      @mesh.rotation.setFromVector3(@direction.clone().multiplyScalar(0.2 * Math.sin(progress * Math.PI) * Math.sin(progress * Math.PI * 3)))
 
     @positionSmoother.addUpdateHandler (newPosition) =>
       @mesh.position.copy newPosition
