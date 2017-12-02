@@ -19,4 +19,5 @@ gameInit = ->
 # export to the browser console
 
 window.onload = ->
-  LoadResources().then -> gameInit()
+  await LoadResources()
+  gameInit()
