@@ -10,11 +10,16 @@ class SmoothValue
     @oldTarget = @value
     @oldTime = Date.now()
     @updateHandlers = []
+    @progressListener = []
     @finishHandlers = []
     @updateLoopRunning = false
 
   addUpdateHandler: (newHandler) ->
     @updateHandlers.push newHandler
+    @updateLoop()
+
+  addProgressListener: (newListener) ->
+    @progressListener.push newListener
     @updateLoop()
 
   addFinishHandler: (newHandler) ->
@@ -58,12 +63,13 @@ class SmoothValue
     loopFunc = =>
       value = @get()
       if value?
-        handler(value) for handler in @updateHandlers
+        handler value for handler in @updateHandlers
       if @isAnimating()
         window.requestAnimationFrame => loopFunc()
       else
         @updateLoopRunning = false
         handler() for handler in @finishHandlers
+        listener 1 for listener in @progressListener
     loopFunc()
 
 # true while the value changes
@@ -80,6 +86,8 @@ class SmoothValue
 
     progress = deltaTime / @lerpTime
     smoothed = @smoothValue progress
+
+    listener smoothed for listener in @progressListener
 
     @value = @lerp @oldTarget, @target, smoothed
 

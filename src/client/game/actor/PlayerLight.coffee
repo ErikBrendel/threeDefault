@@ -10,7 +10,7 @@ class PlayerLight extends THREE.PointLight
     @player.moveLight = (position) => @setPosition position
 
   setPosition: (position) ->
-    @position.set(position.x, 1.05, position.z)
+    @position.set(position.x + 0.1, 1.05, position.z + 0.3)
 
 
 module.exports = PlayerLight
