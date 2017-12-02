@@ -8,6 +8,7 @@ models = [
   'guard',
   'door',
   'objects/stairs',
+  'objects/safe',
 ]
 
 module.exports = ->
