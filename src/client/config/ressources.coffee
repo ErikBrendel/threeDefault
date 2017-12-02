@@ -7,6 +7,7 @@ models = [
 ]
 
 loadResources = ->
+  #TODO: Set THREE.DefaultLoadingManager listeners for progress reports
   new Promise (resolve) ->
     THREE.DefaultLoadingManager.onLoad = ->
       resolve

@@ -4,7 +4,6 @@ class ResourceCache
     @sounds = {}
     @textures = {}
     @jsonLoader = new THREE.JSONLoader()
-    #TODO: Set THREE.DefaultLoadingManager listeners for progress reports
 
   loadModel: (name) ->
     unless @models[name]?
