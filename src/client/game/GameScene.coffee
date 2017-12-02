@@ -7,6 +7,7 @@ Guard = require './actor/Guard'
 layouts = require './building/floors/Layouts'
 PlayerCamera = require './actor/PlayerCamera'
 PlayerLight = require './actor/PlayerLight'
+Scheduler = require './Scheduler'
 
 class GameScene
   constructor: (@updateCallback) ->
@@ -22,6 +23,9 @@ class GameScene
     @guard = new Guard
     @add @guard
     @guard.setPosition new THREE.Vector3 4, 0, 4
+
+    @scheduler = new Scheduler @player, @guard
+
 
     @camera = new PlayerCamera @player
 
@@ -131,9 +135,7 @@ class GameScene
   showDescription: (description) ->
     document.getElementById('info').innerText = description
 
-  onGroundClicked: (room) ->
-    if(@player.position.distanceTo(room.position) <= 4)
-      @player.setRoom room
-      @guard.onAction()
+  onRoomClicked: (room) ->
+    @player.onRoomClicked room
 
 module.exports = GameScene

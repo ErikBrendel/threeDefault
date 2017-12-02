@@ -3,7 +3,7 @@
 SmoothVector3 = require '../../util/SmoothVector3'
 
 class Person
-  constructor: (@type) ->
+  constructor: (@type, @waitTime = 0) ->
     @direction =
       new THREE.Vector3 0, 0, 0
     @position =
@@ -44,5 +44,7 @@ class Person
         @moving = true
         @currentRoom = newRoom
         @setPosition(@currentRoom.position)
+
+  onAction: (done) ->
 
 module.exports = Person

@@ -14,6 +14,7 @@ gameInit = ->
   #gameScene.addAxisHelper 1
   gameScene.appendChildFullscreen()
   gameScene.animation()
+  gameScene.scheduler.step()
 
 # export to the browser console
 

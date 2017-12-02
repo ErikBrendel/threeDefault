@@ -33,7 +33,6 @@ class Room extends Group
     for direction, neighbourRoom of @neighbourRooms
       if neighbourRoom is otherRoom
         return @doors[direction]
-    null
 
   canEnter: (newRoom) ->
     door = @getSharedDoorWith(newRoom)
