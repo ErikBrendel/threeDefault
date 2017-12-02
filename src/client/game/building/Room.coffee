@@ -1,15 +1,19 @@
 Wall = require './Wall'
 
+Safe = require './objects/Safe'
+Stairs= require './objects/Stairs'
+
 { Group } = THREE
 
 class Room extends Group
-  constructor: ({up, right, down, left}) ->
+  constructor: ({up, right, down, left, type, objectClickHandler}) ->
     super()
     @description = 'Default Room'
     @addWalls up, right, down, left
     @addGround()
     @doors = {}
     @neighbourRooms = {}
+    @addObjects type, objectClickHandler
 
   addWalls: (up, right, down, left) ->
     @wallUp = new Wall Math.PI * 0.5, up
@@ -26,6 +30,13 @@ class Room extends Group
     @userData.mouseEnterHandler = =>
       @showDescription? @description
     @add @ground
+
+  addObjects: (type, objectClickHandler) ->
+    @objects = []
+    if type is 'stairs'
+      @objects.push new Stairs @, objectClickHandler
+    if type is 'safe'
+      @objects.push new Safe @, objectClickHandler
 
   getSharedDoorWith: (otherRoom) ->
     for direction, neighbourRoom of @neighbourRooms
@@ -45,11 +56,11 @@ class Room extends Group
     usedDoor?.playOpenCloseAnimation(goesUpOrRight)
 
   onLeave: (person, newRoom) ->
-    # TODO: Game logic
+    object.onLeave person, newRoom for object in @objects
     console.log 'LEAVE'
 
   onEnter: (person, oldRoom) ->
-    # TODO: Game logic
+    object.onEnter person, oldRoom for object in @objects
     console.log 'ENTER'
 
   onArrive: (oldRoom) ->
