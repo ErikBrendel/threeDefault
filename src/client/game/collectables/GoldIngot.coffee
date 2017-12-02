@@ -5,3 +5,5 @@ Treasure = require './Treasure'
 class GoldIngot extends Treasure
   constructor: ->
     super 'GoldIngot', 100
+
+module.exports = GoldIngot

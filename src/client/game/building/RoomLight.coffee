@@ -4,7 +4,7 @@ class RoomLight extends THREE.PointLight
   constructor: ->
     super('#fff0ca', 1, 10, 2)
     @position.set 1, 1, 1
-    @castShadow = false;
+    @castShadow = false
     #@shadow.mapSize.width = 256;
     #@shadow.mapSize.height = 256;
 
