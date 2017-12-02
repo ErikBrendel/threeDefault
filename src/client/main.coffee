@@ -1,7 +1,7 @@
 # test main implementation
 
-GameScene = require './GameScene'
-RotatingIcoSphere = require './RotatingIcoSphere'
+GameScene = require './game/GameScene'
+RotatingIcoSphere = require './game/RotatingIcoSphere'
 LoadResources = require './config/resources'
 
 

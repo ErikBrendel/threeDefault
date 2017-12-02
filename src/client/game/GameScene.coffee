@@ -1,7 +1,7 @@
 # The GameScene encapsulates the three-stuff behind a running game
 
-require './util/ThrottleResizeEvent'
-Floor = require './Floor'
+require '../util/ThrottleResizeEvent'
+Floor = require './building/Floor'
 
 class GameScene
   constructor: (@updateCallback) ->
