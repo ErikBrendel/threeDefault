@@ -24,7 +24,6 @@ class RoomObject
         @mesh.material[0].emissive = new THREE.Color 0, 0, 0
 
   onMouseEnter: ->
-    console.log "HOVERING!"
     @hoverEffectActive = true
     @hoverPulse.set 1
 
