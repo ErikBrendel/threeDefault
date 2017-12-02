@@ -6,7 +6,11 @@ class Person
     @position =
       x: 0
       y: 0
-    @mesh = AssetCache.getModel type
+    @mesh = AssetCache.getModel @type
+
+
 
   setPosition: (@position) ->
-    @mesh.position. position
+    @mesh.position.copy @position
+
+module.exports = Person

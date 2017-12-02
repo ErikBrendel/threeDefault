@@ -2,6 +2,8 @@
 Person = require './Person'
 
 class Player extends Person
-  constructor: () ->
+  constructor: ->
     super 'player'
     @inventory = []
+
+module.exports = Player

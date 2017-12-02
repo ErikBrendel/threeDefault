@@ -2,6 +2,7 @@
 
 require '../util/ThrottleResizeEvent'
 Floor = require './building/Floor'
+Player = require './actor/Player'
 
 class GameScene
   constructor: (@updateCallback) ->
@@ -31,6 +32,8 @@ class GameScene
     @hoveredObjects = []
 
     @floor = new Floor {x: 5, y: 5}, @
+    @player = new Player
+    @add @player
     # uncomment to hide all shader compilation warnings
     # @ignoreShaderLogs()
 

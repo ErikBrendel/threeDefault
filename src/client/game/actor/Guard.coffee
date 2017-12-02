@@ -2,5 +2,7 @@
 Person = require './Person'
 
 class Guard extends Person
-  constructor: () ->
+  constructor: ->
     super 'guard'
+
+module.exports = Guard
