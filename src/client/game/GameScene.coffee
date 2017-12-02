@@ -34,11 +34,12 @@ class GameScene
     # @scene.fog = new THREE.FogExp2 0x000000, 0.1
 
     ambiColor = '#ffffff'
-    ambientLight = new THREE.AmbientLight ambiColor, 0.8
+    ambientLight = new THREE.AmbientLight ambiColor, 0.4
     @scene.add ambientLight
     @playerLight = new PlayerLight @player
 
-    @scene.add( @playerLight );
+    @scene.add @playerLight
+    @scene.add @playerLight.target
 
     @renderer = new THREE.WebGLRenderer
       antialias: true

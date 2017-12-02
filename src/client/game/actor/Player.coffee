@@ -6,8 +6,6 @@ class Player extends Person
     super 'player', 'You'
     @inventory = []
     @isDran = false
-    @positionSmoother.addUpdateHandler (newPosition) =>
-      @moveLight? newPosition
 
   setPosition: (position) ->
     super position
