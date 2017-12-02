@@ -1,7 +1,7 @@
 # The GameScene encapsulates the three-stuff behind a running game
 
 require './util/ThrottleResizeEvent'
-
+Floor = require './Floor'
 
 class GameScene
   constructor: (@updateCallback) ->
@@ -30,6 +30,7 @@ class GameScene
     @rayCaster = new THREE.Raycaster
     @hoveredObjects = []
 
+    @floor = new Floor {x: 5, y: 5}, @
     # uncomment to hide all shader compilation warnings
     # @ignoreShaderLogs()
 
