@@ -31,15 +31,29 @@ class Room extends Group
     for direction, neighbourRoom of @neighbourRooms
       if neighbourRoom is otherRoom
         return @doors[direction]
+    null
 
-  onLeave: (newRoom) ->
+  canEnter: (newRoom) ->
+    door = @getSharedDoorWith(newRoom)
+    console.dir(door)
+    door?
+
+  onDepart: (newRoom) ->
     # door animation
     usedDoor = @getSharedDoorWith newRoom
     goesUpOrRight = @neighbourRooms.up is newRoom or @neighbourRooms.right is newRoom
     usedDoor?.playOpenCloseAnimation(goesUpOrRight)
 
-  onEnter: (oldRoom) ->
-    # nothing to do
+  onLeave: (person, newRoom) ->
+    # TODO: Game logic
+    console.log 'LEAVE'
+
+  onEnter: (person, oldRoom) ->
+    # TODO: Game logic
+    console.log 'ENTER'
+
+  onArrive: (oldRoom) ->
+    # Nothing so far
 
 
 module.exports = Room

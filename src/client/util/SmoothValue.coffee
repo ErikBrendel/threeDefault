@@ -10,11 +10,15 @@ class SmoothValue
     @oldTarget = @value
     @oldTime = Date.now()
     @updateHandlers = []
+    @finishHandlers = []
     @updateLoopRunning = false
 
   addUpdateHandler: (newHandler) ->
     @updateHandlers.push newHandler
     @updateLoop()
+
+  addFinishHandler: (newHandler) ->
+    @finishHandlers.push newHandler
 
 # set a new target for this SmoothValue
 # it starts a fading there immediately, starting from the current value
@@ -59,6 +63,7 @@ class SmoothValue
         window.requestAnimationFrame => loopFunc()
       else
         @updateLoopRunning = false
+        handler() for handler in @finishHandlers
     loopFunc()
 
 # true while the value changes
