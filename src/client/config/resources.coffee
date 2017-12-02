@@ -5,7 +5,6 @@ models = [
   'wall_open',
   'floor',
   'player'
-
 ]
 
 module.exports = ->
