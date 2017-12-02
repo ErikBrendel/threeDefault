@@ -125,9 +125,8 @@ class GameScene
     return if not clicked?
     clicked.userData.clickHandler?()
 
-
-  onRoomHover: (room) ->
-    console.log(room.position)
+  showDescription: (description) ->
+    console.log(description)
 
   onGroundClicked: (room) ->
     if(@player.position.distanceTo(room.position) <= 4)
