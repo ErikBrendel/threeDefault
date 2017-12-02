@@ -20,10 +20,10 @@ class Room extends Group
 
   addGround: ->
     @ground = AssetCache.getModel 'ground'
-    @ground.userData.clickHandler = =>
+    @userData.clickHandler = =>
       @onGroundClick? @
 
-    @ground.userData.mouseEnterHandler = =>
+    @userData.mouseEnterHandler = =>
       @showDescription? @description
     @add @ground
 
