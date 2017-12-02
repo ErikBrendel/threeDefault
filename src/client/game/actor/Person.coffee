@@ -13,9 +13,11 @@ class Person
     @positionSmoother = new SmoothVector3 900
     @positionSmoother.addProgressListener (progress) =>
       @mesh.rotation.setFromVector3(@direction.clone().multiplyScalar(0.2 * Math.sin(progress * Math.PI) * Math.sin(progress * Math.PI * 3)))
+      @mesh.position.y = Math.abs(0.3 * Math.sin(progress * Math.PI * 3)) unless @direction.length() < 0.001
 
     @positionSmoother.addUpdateHandler (newPosition) =>
-      @mesh.position.copy newPosition
+      @mesh.position.x = newPosition.x
+      @mesh.position.z = newPosition.z
       if @moving
         if @newRoom? and @mesh.position.distanceTo(@newRoom.position) < @mesh.position.distanceTo(@currentRoom.position)
           @currentRoom.onLeave @, @newRoom
@@ -39,11 +41,11 @@ class Person
         @newRoom = newRoom
         @direction = @newRoom.position.clone().sub(@currentRoom.position).normalize()
         @currentRoom.onDepart(@newRoom)
-        @setPosition(@newRoom.position)
+        @setPosition(@newRoom.position.clone())
       else if not @currentRoom?
         @moving = true
         @currentRoom = newRoom
-        @setPosition(@currentRoom.position)
+        @setPosition(@currentRoom.position.clone())
 
   onAction: (done) ->
 
