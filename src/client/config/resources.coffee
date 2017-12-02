@@ -7,6 +7,7 @@ models = [
   'player',
   'guard',
   'door',
+  'objects/stairs',
 ]
 
 module.exports = ->

@@ -5,10 +5,11 @@ class Player extends Person
   constructor: ->
     super 'player'
     @inventory = []
+    @positionSmoother.addUpdateHandler (newPosition) =>
+      @moveLight? newPosition
 
   setPosition: (position) ->
     super(position)
     @moveCamera? position
-    @moveLight? position
 
 module.exports = Player
