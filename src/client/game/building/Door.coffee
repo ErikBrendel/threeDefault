@@ -13,14 +13,16 @@ class Door
     @openCloseAnimationProgress.addUpdateHandler (progress) =>
       @mesh.rotation.y = progress * Math.PI / 2 + @rotationOffset
 
-  playOpenCloseAnimation: ->
-    @playOpenAnimation()
+  playOpenCloseAnimation: (goesUpOrRight) ->
+    @playOpenAnimation goesUpOrRight
     setTimeout (=>
       @playCloseAnimation()
     ), 700
 
-  playOpenAnimation: ->
-    @openCloseAnimationProgress.set 1
+  playOpenAnimation: (goesUpOrRight) ->
+    direction = 1
+    if (goesUpOrRight) then direction = 1 else direction = -1
+    @openCloseAnimationProgress.set direction
 
   playCloseAnimation: ->
     @openCloseAnimationProgress.set 0

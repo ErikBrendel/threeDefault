@@ -23,7 +23,7 @@ class Room extends Group
     @ground.userData.clickHandler = =>
       @onGroundClick? @
 
-    @ground.userData.hoverHandler = =>
+    @ground.userData.mouseEnterHandler = =>
       @showDescription? @description
     @add @ground
 
@@ -35,7 +35,8 @@ class Room extends Group
   onLeave: (newRoom) ->
     # door animation
     usedDoor = @getSharedDoorWith newRoom
-    usedDoor?.playOpenCloseAnimation()
+    goesUpOrRight = @neighbourRooms.up is newRoom or @neighbourRooms.right is newRoom
+    usedDoor?.playOpenCloseAnimation(goesUpOrRight)
 
   onEnter: (oldRoom) ->
     # nothing to do
