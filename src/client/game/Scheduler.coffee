@@ -10,6 +10,7 @@ class Scheduler
     shortestWaitTime = @persons[0].waitTime
     @wait shortestWaitTime, =>
       @persons[0].onAction =>
+        [@persons[0], @persons[@persons.length - 1]] = [@persons[@persons.length - 1], @persons[0]]
         @step()
 
   wait: (amount, waitingDone) ->
@@ -22,7 +23,7 @@ class Scheduler
     newContent = ''
     max = @persons[@persons.length - 1].waitTime
     for line in [0 .. max]
-      newContent += @persons.filter((p) -> p.waitTime is line).map((p) -> p.name)
+      newContent += @persons.filter((p) -> p.waitTime is line).map((p) -> p.name).join('<br>')
       newContent += '<br>'
 
     @div.innerHTML = newContent

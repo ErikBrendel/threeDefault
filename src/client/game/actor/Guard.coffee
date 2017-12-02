@@ -12,7 +12,7 @@ class Guard extends Person
     y = Math.floor(Math.random() * 4)
     @setPosition(new THREE.Vector3(x * 4, 0, y * 4))
     @waitTime = 4 #TODO: balancing here
-    setTimeout done, 900
+    setTimeout done, 500
 
 
 module.exports = Guard

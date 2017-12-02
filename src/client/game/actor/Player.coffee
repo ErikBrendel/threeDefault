@@ -23,7 +23,7 @@ class Player extends Person
       @setRoom room
       @isDran = false
       @waitTime = @walkWaitTime()
-      setTimeout @doneHandler, 900
+      setTimeout @doneHandler, 500
 
   canWalkTo: (room) ->
     @position.distanceTo(room.position) <= 4 and
