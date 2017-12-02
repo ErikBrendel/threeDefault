@@ -56,7 +56,7 @@ class GameScene
     @hoveredObjects = []
 
     # uncomment to hide all shader compilation warnings
-    # @ignoreShaderLogs()
+    @ignoreShaderLogs()
 
     @resize()
     window.addEventListener 'optimizedResize', =>
