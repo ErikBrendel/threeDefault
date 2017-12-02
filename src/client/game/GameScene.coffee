@@ -112,6 +112,9 @@ class GameScene
     # (-1 to +1) for both components
     @mouse.x = event.clientX / window.innerWidth * 2 - 1
     @mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+    hovered = @hoveredObjects[0]
+    return if not hovered?
+    hovered.userData.hoverHandler?()
 
   add: (newObject) ->
     @scene.add if newObject.mesh then newObject.mesh else newObject
@@ -121,6 +124,10 @@ class GameScene
     clicked = @hoveredObjects[0]
     return if not clicked?
     clicked.userData.clickHandler?()
+
+
+  onRoomHover: (room) ->
+    console.log(room.position)
 
   onGroundClicked: (room) ->
     if(@player.position.distanceTo(room.position) <= 4)
