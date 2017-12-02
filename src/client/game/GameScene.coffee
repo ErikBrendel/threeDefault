@@ -114,6 +114,10 @@ class GameScene
     @mouse.x = event.clientX / window.innerWidth * 2 - 1
     @mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
     hovered = @hoveredObjects[0]
+
+    while hovered? and not (hovered.userData.mouseEnterHandler? or hovered.userData.mouseLeaveHandler?)
+      hovered = hovered.parent
+
     if hovered isnt @lastHoveredObject
       @lastHoveredObject?.userData.mouseLeaveHandler?()
       hovered?.userData.mouseEnterHandler?()
@@ -125,12 +129,11 @@ class GameScene
   onClick: (event) ->
     event.preventDefault()
     clicked = @hoveredObjects[0]
-    return if not clicked?
 
-    while not clicked.userData.clickHandler?
+    while clicked? and not clicked.userData.clickHandler?
       clicked = clicked.parent
-      return if not clicked?
-    clicked.userData.clickHandler()
+
+    clicked?.userData.clickHandler?()
 
   showDescription: (description) ->
     document.getElementById('info').innerText = description
