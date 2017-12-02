@@ -14,7 +14,7 @@ class Guard extends Person
     @direction = newPos.clone().sub(@position).normalize()
     @setPosition newPos
     @waitTime = 4 #TODO: balancing here
-    setTimeout done, 900
+    setTimeout done, 500
 
 
 module.exports = Guard
