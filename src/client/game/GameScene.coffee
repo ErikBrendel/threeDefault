@@ -36,18 +36,11 @@ class GameScene
 
     @scene.add( @playerLight );
 
-    plh = new THREE.PointLightHelper(@playerLight, 0.1)
-    @scene.add(plh)
-
-
     @renderer = new THREE.WebGLRenderer
       antialias: true
     @renderer.setClearColor 0x000000, 1
     @renderer.shadowMap.enabled = true
     @renderer.shadowMap.type = THREE.PCFSoftShadowMap
-
-    #@controls = new THREE.OrbitControls @camera, @renderer.domElement
-    #@controls.enableZoom = true
 
     @mouse = new THREE.Vector2
     window.addEventListener 'mousemove', @onMouseMove, false

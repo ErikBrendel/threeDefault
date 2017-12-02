@@ -11,7 +11,7 @@ gameInit = ->
 
   window.gs = gameScene
 
-  gameScene.addAxisHelper 1
+  #gameScene.addAxisHelper 1
   gameScene.appendChildFullscreen()
   gameScene.animation()
 
