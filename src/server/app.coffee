@@ -4,12 +4,8 @@ path = require 'path'
 
 app = express()
 
-
-app.get '/texture/:name', (req, res) ->
-  res.sendFile req.params.name, { root: path.join(__dirname, '../../res/texture') }
-
-app.get '/model/:name', (req, res) ->
-  res.sendFile req.params.name, { root: path.join(__dirname, '../../res/models') }
+#Assets
+app.use '/assets', express.static path.join __dirname, '../../res'
 
 # all other static files
 app.use express.static path.join __dirname, '../../dist'
