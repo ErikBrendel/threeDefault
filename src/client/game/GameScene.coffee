@@ -3,6 +3,7 @@
 require '../util/ThrottleResizeEvent'
 Floor = require './building/Floor'
 Player = require './actor/Player'
+layouts = require './building/floors/Layouts'
 
 class GameScene
   constructor: (@updateCallback) ->
@@ -44,8 +45,9 @@ class GameScene
     @rayCaster = new THREE.Raycaster
     @hoveredObjects = []
 
-    @floor = new Floor {x: 5, y: 5}
+    @floor = new Floor layouts[0]
     @add @floor
+
     @player = new Player
     @add @player
     # uncomment to hide all shader compilation warnings
