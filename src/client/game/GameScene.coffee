@@ -42,10 +42,11 @@ class GameScene
 
     @mouse = new THREE.Vector2
     window.addEventListener 'mousemove', @onMouseMove, false
+    window.addEventListener 'click', ((event) => @onClick event), false
     @rayCaster = new THREE.Raycaster
     @hoveredObjects = []
 
-    @floor = new Floor layouts[0]
+    @floor = new Floor layouts[0], @
     @add @floor
 
     @player = new Player
@@ -84,8 +85,8 @@ class GameScene
       return
 
     # uncomment to use raycasting for mouse-object interaction
-    # @rayCaster.setFromCamera @mouse, @camera
-    # @hoveredObjects = (res.object for res in (@rayCaster.intersectObjects @scene.children, true))
+    @rayCaster.setFromCamera @mouse, @camera
+    @hoveredObjects = (res.object for res in (@rayCaster.intersectObjects @scene.children, true))
 
     # update loop
     now = Date.now()
@@ -110,5 +111,14 @@ class GameScene
 
   add: (newObject) ->
     @scene.add if newObject.mesh then newObject.mesh else newObject
+
+  onClick: (event) ->
+    event.preventDefault()
+    clicked = @hoveredObjects[0]
+    return if not clicked?
+    clicked.userData.clickHandler?()
+
+  onGroundClicked: (ground) ->
+    @player.setPosition(ground.position)
 
 module.exports = GameScene

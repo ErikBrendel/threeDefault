@@ -24,7 +24,7 @@
         "shading":"phong",
         "blending":1,
         "DbgIndex":0,
-        "mapDiffuse":"../texture/wood_planks.jpg",
+        "mapDiffuse":"../texture/door.jpg",
         "DbgName":"Material.004",
         "mapDiffuseAnisotropy":1,
         "mapDiffuseWrap":["repeat","repeat"],

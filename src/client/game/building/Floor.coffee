@@ -3,7 +3,7 @@ Room = require "./Room"
 { Group } = THREE
 
 class Floor extends Group
-  constructor: (layout) ->
+  constructor: (layout, scene) ->
     super()
     @lines = layout.layout.split('\n')
     @floorSize = layout.floorSize
@@ -17,6 +17,9 @@ class Floor extends Group
           down: @isDown x, y
           left: @isLeft x, y
         @rooms[x][y].position.set(x * 4, 0, y * 4)
+        @rooms[x][y].onGroundClick = (room) ->
+          console.log('you clicked the floor')
+          scene.onGroundClicked room
         @add @rooms[x][y]
 
   isUp: (x, y) ->

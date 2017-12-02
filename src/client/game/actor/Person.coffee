@@ -1,5 +1,4 @@
 # abstract parent of guards and players
-#AssetCache = require './'
 
 class Person
   constructor: (@type) ->
@@ -8,9 +7,8 @@ class Person
       y: 0
     @mesh = AssetCache.getModel @type
 
-
-
-  setPosition: (@position) ->
-    @mesh.position.copy @position
+  setPosition: (position) ->
+    console.log position
+    @mesh.position.copy position
 
 module.exports = Person
