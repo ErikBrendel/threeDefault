@@ -4,7 +4,7 @@ webpack = require './webpack'
 
 port = 3000
 
-app.set 'port', port
+app.set 'port', process.env.PORT || port
 
 server = http.createServer app
 server.listen port, '0.0.0.0'
