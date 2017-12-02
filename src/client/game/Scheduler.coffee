@@ -2,18 +2,30 @@
 
 class Scheduler
   constructor: (@persons...) ->
+    @div = document.getElementById 'prio'
 
   step: ->
     @persons.sort (a, b) ->
       a.waitTime > b.waitTime
     shortestWaitTime = @persons[0].waitTime
-    @wait shortestWaitTime
-    @persons[0].onAction =>
-      @step()
+    @wait shortestWaitTime, =>
+      @persons[0].onAction =>
+        @step()
 
-  wait: (amount) ->
-    person.waitTime -= amount for person in @persons
-    # TODO animation here
+  wait: (amount, waitingDone) ->
+    @updateUI()
+    return waitingDone() if amount is 0
+    person.waitTime -= 1 for person in @persons
+    setTimeout (=> @wait amount - 1, waitingDone), 200
+
+  updateUI: ->
+    newContent = ''
+    max = @persons[@persons.length - 1].waitTime
+    for line in [0 .. max]
+      newContent += @persons.filter((p) -> p.waitTime is line).map((p) -> p.name)
+      newContent += '<br>'
+
+    @div.innerHTML = newContent
 
 
 

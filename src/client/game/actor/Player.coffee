@@ -3,7 +3,7 @@ Person = require './Person'
 
 class Player extends Person
   constructor: ->
-    super 'player'
+    super 'player', 'You'
     @inventory = []
     @isDran = false
     @positionSmoother.addUpdateHandler (newPosition) =>
@@ -23,7 +23,7 @@ class Player extends Person
       @setRoom room
       @isDran = false
       @waitTime = @walkWaitTime()
-      @doneHandler()
+      setTimeout @doneHandler, 900
 
   canWalkTo: (room) ->
     @position.distanceTo(room.position) <= 4 and
@@ -32,7 +32,7 @@ class Player extends Person
     @currentRoom.canEnter room
 
   walkWaitTime: ->
-    1 #TODO: balancing here
+    3 #TODO: balancing here
 
 
 module.exports = Player

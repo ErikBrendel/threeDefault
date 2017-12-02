@@ -3,7 +3,7 @@
 SmoothVector3 = require '../../util/SmoothVector3'
 
 class Person
-  constructor: (@type, @waitTime = 0) ->
+  constructor: (@type, @name, @waitTime = 0) ->
     @direction =
       new THREE.Vector3 0, 0, 0
     @position =

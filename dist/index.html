@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>threeDefault</title>
-    <div id="info">Description</div>
-    <div id="fps">Description</div>
     <style type="text/css">
         body {
             /* enable render surface to go fullscreen */
             margin: 0;
             overflow: hidden;
         }
-        #info {
+        .overlay {
             position: absolute;
             top: 10px;
             width: 100%;
@@ -20,22 +18,25 @@
             display:block;
             color: #04ff00;
         }
+        #info {
+            text-align: center;
+        }
         #fps {
-            position: absolute;
-            top: 10px;
-            width: 100%;
             text-align: left;
-            z-index: 100;
-            display:block;
-            color: #04ff00;
+        }
+        #prio {
+            width: 200px;
+            text-align: left;
+            right: 0;
         }
     </style>
-    <script>
-        ICO_COLOR = 0x008800;
-    </script>
     <script src="three/three.js"></script>
     <script src="three/orbitControls.js"></script>
     <script src="bundle/main.js"></script>
 </head>
-<body></body>
+<body>
+    <div id="info" class="overlay">Description</div>
+    <div id="fps" class="overlay">all of them fps</div>
+    <div id="prio" class="overlay">It's your turn</div>
+</body>
 </html>

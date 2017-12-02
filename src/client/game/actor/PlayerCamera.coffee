@@ -7,8 +7,8 @@ MAX_HEIGHT = 30
 
 class PlayerCamera extends THREE.PerspectiveCamera
   constructor: (@player) ->
-    super(45, 1, 0.1, 100)
-    @position.set(0,0,0)
+    super 45, 1, 0.1, 100
+    @position.set 0, 0, 0
     @position.y = DEFAULT_HEIGHT
     @setLookAt @player.position
     @smoothPosition = new SmoothVector(1000, @position.clone(), 1)
@@ -30,17 +30,16 @@ class PlayerCamera extends THREE.PerspectiveCamera
     @smoothPosition.set(position)
 
   eventAttatschden: ->
-    document.addEventListener 'mousewheel', @mouseWheel
-    document.addEventListener 'zoom', @mouseWheel
+    document.addEventListener 'wheel', @mouseWheel
 
   applyZoom: (factor) ->
     @position.y -= factor
     @position.y = Math.max(MIN_HEIGHT, Math.min(@position.y, MAX_HEIGHT))
     @applyLookAt()
 
-  mouseWheel: (evt) =>
+  mouseWheel: (event) =>
     event.preventDefault()
     event.stopPropagation()
-    @applyZoom evt.deltaY * 0.25
+    @applyZoom event.deltaY * -0.25
 
 module.exports = PlayerCamera
