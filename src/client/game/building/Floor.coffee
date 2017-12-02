@@ -1,7 +1,10 @@
 Room = require "./Room"
 
-class Floor
-  constructor: (@floorSize, scene) ->
+{ Group } = THREE
+
+class Floor extends Group
+  constructor: (@floorSize) ->
+    super()
     @rooms = []
     for x in [0..@floorSize.x - 1]
       @rooms[x] = []
@@ -12,6 +15,6 @@ class Floor
           down: true
           left: false
         @rooms[x][y].position.set(x * 4, 0, y * 4)
-        scene.add @rooms[x][y]
+        @add @rooms[x][y]
 
 module.exports = Floor

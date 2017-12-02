@@ -44,7 +44,8 @@ class GameScene
     @rayCaster = new THREE.Raycaster
     @hoveredObjects = []
 
-    @floor = new Floor {x: 5, y: 5}, @
+    @floor = new Floor {x: 5, y: 5}
+    @add @floor
     @player = new Player
     @add @player
     # uncomment to hide all shader compilation warnings
