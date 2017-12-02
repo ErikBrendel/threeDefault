@@ -6,8 +6,9 @@ LoadResources = require './config/resources'
 
 
 gameInit = ->
-  gameScene = new GameScene ->
-    console.log 'update!'
+  gameScene = new GameScene (deltaTime) ->
+    document.getElementById('fps').innerText = Math.floor(1000.0 / deltaTime)
+
   window.gs = gameScene
 
   gameScene.addAxisHelper 1
