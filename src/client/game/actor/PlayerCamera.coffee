@@ -33,13 +33,14 @@ class PlayerCamera extends THREE.PerspectiveCamera
     document.addEventListener 'wheel', @mouseWheel
 
   applyZoom: (factor) ->
-    @position.y -= factor
+    @position.y -= Math.max(-2, Math.min(factor, 2))
     @position.y = Math.max(MIN_HEIGHT, Math.min(@position.y, MAX_HEIGHT))
     @applyLookAt()
 
   mouseWheel: (event) =>
     event.preventDefault()
     event.stopPropagation()
+    console.log(event.deltaY)
     @applyZoom event.deltaY * -0.25
 
 module.exports = PlayerCamera
