@@ -25,5 +25,8 @@ class Room
     floor = AssetCache.getModel 'floor'
     floor.position.copy translation
     scene.add floor
+    floor.userData.clickHandler = ->
+      console.log('you clicked the floor')
+      scene.onFloorClicked position
 
 module.exports = Room
