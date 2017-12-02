@@ -19,9 +19,12 @@ class Room extends Group
   addGround: ->
     @ground = AssetCache.getModel 'ground'
     @ground.userData.clickHandler = =>
-      console.log('you clicked the ground')
       @onGroundClick? @
+
+    @ground.userData.hoverHandler = =>
+      @onRoomHover? @
     @add @ground
+
 
   onLeave: (newRoom) -> console.log 'leave'
   onEnter: (oldRoom) -> console.log 'enter'

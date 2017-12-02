@@ -23,8 +23,9 @@ class Floor extends Group
           left: @isLeft x, y
         @rooms[x][y].position.set(x * 4, 0, y * 4)
         @rooms[x][y].onGroundClick = (room) ->
-          console.log('you clicked the floor')
           scene.onGroundClicked room
+        @rooms[x][y].onRoomHover = (room) ->
+          scene.onRoomHover room
         @add @rooms[x][y]
 
   createDoors: ->
