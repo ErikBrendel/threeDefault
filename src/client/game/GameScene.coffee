@@ -123,7 +123,6 @@ class GameScene
     clicked.userData.clickHandler?()
 
   onGroundClicked: (room) ->
-    @camera.setPosition(room.position)
     @player.setPosition(room.position)
 
 module.exports = GameScene

@@ -11,6 +11,7 @@ class PlayerCamera extends THREE.PerspectiveCamera
       @position.z = pos.z
       @controls.target.x = pos.x
       @controls.target.z = pos.z
+    @player.moveCamera = (position) => @setPosition position
 
   setPosition: (position) ->
     @smoothPosition.set(position)
