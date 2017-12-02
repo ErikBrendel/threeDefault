@@ -30,7 +30,7 @@
         "depthWrite":true,
         "DbgIndex":0,
         "doubleSided":false,
-        "mapDiffuse":"../texture/blue.png",
+        "mapDiffuse":"../../texture/blue.png",
         "depthTest":true,
         "mapDiffuseAnisotropy":1
     }],
