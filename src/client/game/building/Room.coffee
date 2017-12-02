@@ -32,7 +32,8 @@ class Room extends Group
   onLeave: (newRoom) ->
     # door animation
     usedDoor = @getSharedDoorWith newRoom
-    usedDoor?.playOpenCloseAnimation()
+    goesUpOrRight = @neighbourRooms.up is newRoom or @neighbourRooms.right is newRoom
+    usedDoor?.playOpenCloseAnimation(goesUpOrRight)
 
   onEnter: (oldRoom) ->
     # nothing to do
