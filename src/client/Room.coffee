@@ -1,7 +1,7 @@
 class Room
   constructor: (scene, position) ->
 
-    translation = Three.Vector3( position.x * 4, 0, position.y * 4 )
+    translation = THREE.Vector3( position.x * 4, 0, position.y * 4 )
 
     up = AssetCache.getModel 'wall'
     up.position = translation
