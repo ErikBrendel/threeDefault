@@ -1,17 +1,17 @@
 Wall = require './Wall'
-
+RoomLight = require './RoomLight'
 { Group } = THREE
 
 class Room extends Group
-  constructor: ({up, right, down, left, objectClickHandler}) ->
+  constructor: ({up, right, down, left, @objectClickHandler}) ->
     super()
+    @seen = false
     @description = 'Default Room'
     @addWalls up, right, down, left
     @addGround()
     @doors = {}
     @neighbourRooms = {}
     @objects = []
-    @addObjects? objectClickHandler
 
   addWalls: (up, right, down, left) ->
     @wallUp = new Wall Math.PI * 0.5, up
@@ -24,6 +24,11 @@ class Room extends Group
     @ground = AssetCache.getModel 'ground'
     @userData.clickHandler = =>
       @onGroundClick? @
+
+    @groundMaterial = @ground.material
+
+    @ground.material = [new THREE.MeshPhongMaterial
+      color: 0x222222]
 
     @userData.mouseEnterHandler = =>
       @showDescription? @description
@@ -49,11 +54,22 @@ class Room extends Group
     console.log 'LEAVE'
 
   onEnter: (person, oldRoom) ->
+    @discover()
     object.onEnter person, oldRoom for object in @objects
     console.log 'ENTER'
 
+  onPeek: (person) ->
+    @discover()
+
   onArrive: (oldRoom) ->
     # Nothing so far
+
+  discover: ->
+    return if @seen
+    @seen = true
+    @ground.material = @groundMaterial
+    @addObjects? @objectClickHandler
+    @add new RoomLight
 
 
 module.exports = Room
