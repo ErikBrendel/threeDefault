@@ -16,16 +16,23 @@ class Floor extends Group
     for x in [0..@floorSize.x - 1]
       @rooms[x] = []
       for y in [0..@floorSize.y - 1]
-        @rooms[x][y] = new Room
+        room = new Room
           up: @isUp x, y
           right: @isRight x, y
           down: @isDown x, y
           left: @isLeft x, y
-        @rooms[x][y].position.set(x * 4, 0, y * 4)
-        @rooms[x][y].onGroundClick = (room) ->
+        room.position.set x * 4, 0, y * 4
+
+        room.neighbourRooms.up = @rooms[x][y - 1]
+        @rooms[x][y - 1]?.neighbourRooms.down = room
+        room.neighbourRooms.left = @rooms[x - 1]?[y]
+        @rooms[x - 1]?[y].neighbourRooms.right = room
+
+        room.onGroundClick = (room) ->
           console.log('you clicked the floor')
           scene.onGroundClicked room
-        @add @rooms[x][y]
+        @add room
+        @rooms[x][y] = room
 
   createDoors: ->
     for x in [0..@floorSize.x - 2]

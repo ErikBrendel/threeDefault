@@ -8,6 +8,7 @@ class Room extends Group
     @addWalls up, right, down, left
     @addGround()
     @doors = {}
+    @neighbourRooms = {}
 
   addWalls: (up, right, down, left) ->
     @wallUp = new Wall Math.PI * 0.5, up
@@ -23,8 +24,18 @@ class Room extends Group
       @onGroundClick? @
     @add @ground
 
-  onLeave: (newRoom) -> console.log 'leave'
-  onEnter: (oldRoom) -> console.log 'enter'
+  getSharedDoorWith: (otherRoom) ->
+    for direction, neighbourRoom of @neighbourRooms
+      if neighbourRoom is otherRoom
+        return @doors[direction]
+
+  onLeave: (newRoom) ->
+    # door animation
+    usedDoor = @getSharedDoorWith newRoom
+    usedDoor?.playOpenCloseAnimation()
+
+  onEnter: (oldRoom) ->
+    # nothing to do
 
 
 module.exports = Room
