@@ -9,17 +9,17 @@ class Room
 
     right = AssetCache.getModel 'wall_open'
     right.position.add translation
-    right.rotation.x = Math.PI / 2
+    right.rotation.y = Math.PI / 2
     scene.add right
 
     down = AssetCache.getModel 'wall_open'
     down.position.add translation
-    down.rotation.x = Math.PI
+    down.rotation.y = Math.PI
     scene.add down
 
     left = AssetCache.getModel 'wall'
     left.position.add translation
-    left.rotation.x = Math.PI * 1.5
+    left.rotation.y = Math.PI * 1.5
     scene.add left
 
     floor = AssetCache.getModel 'floor'
