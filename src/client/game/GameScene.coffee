@@ -134,5 +134,6 @@ class GameScene
   onGroundClicked: (room) ->
     if(@player.position.distanceTo(room.position) <= 4)
       @player.setRoom room
+      @guard.onAction()
 
 module.exports = GameScene
