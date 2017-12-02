@@ -9,5 +9,4 @@ class Person
   setPosition: (@position) ->
     console.log @position
     @mesh.position.copy @position
-
 module.exports = Person

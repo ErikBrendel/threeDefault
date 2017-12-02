@@ -6,4 +6,8 @@ class Player extends Person
     super 'player'
     @inventory = []
 
+  setPosition: (position) ->
+    super(position)
+    @moveCamera? position
+
 module.exports = Player
