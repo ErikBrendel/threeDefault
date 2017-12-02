@@ -32,7 +32,8 @@ class Player extends Person
     @currentRoom.canEnter room
 
   walkWaitTime: ->
-    3 #TODO: balancing here
+    3 + @inventory.filter((item) -> item.name is 'GoldIngot').length
+    #TODO: balancing here
 
 
 module.exports = Player
