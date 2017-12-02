@@ -1,6 +1,6 @@
 {
     "materials":[{
-        "specularCoef":50,
+        "specularCoef":16,
         "depthWrite":true,
         "colorEmissive":[0,0,0],
         "depthTest":true,
@@ -8,7 +8,7 @@
         "opacity":1,
         "mapDiffuseRepeat":[1,1],
         "transparent":false,
-        "colorSpecular":[0.5,0.5,0.5],
+        "colorSpecular":[0.3,0.3,0.3],
         "mapDiffuse":"../texture/red.png",
         "shading":"phong",
         "mapDiffuseWrap":["repeat","repeat"],

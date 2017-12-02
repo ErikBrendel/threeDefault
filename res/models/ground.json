@@ -9,7 +9,7 @@
         "mapDiffuseWrap":["repeat","repeat"],
         "doubleSided":false,
         "mapDiffuseRepeat":[1,1],
-        "colorSpecular":[0.5,0.5,0.5],
+        "colorSpecular":[0.25,0.25,0.25],
         "visible":true,
         "depthTest":true,
         "shading":"phong",
@@ -21,7 +21,7 @@
         "blending":1,
         "colorEmissive":[0,0,0],
         "mapDiffuseAnisotropy":1,
-        "specularCoef":50
+        "specularCoef":16
     }],
     "normals":[0,1,-4.37114e-08],
     "metadata":{
