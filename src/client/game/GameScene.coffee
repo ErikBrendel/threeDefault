@@ -16,10 +16,10 @@ class GameScene
     # @scene.fog = new THREE.FogExp2 0x000000, 0.1
 
     ambiColor = '#ffffff'
-    ambientLight = new THREE.AmbientLight ambiColor, 0.3
+    ambientLight = new THREE.AmbientLight ambiColor, 0.2
     @scene.add ambientLight
     lightColor = '#fff0ca'
-    light = new THREE.PointLight lightColor, 1, 5, 2
+    light = new THREE.PointLight lightColor, 1, 10, 2
     light.position.set( 0, 1.05, 0 );
     light.castShadow = true;
     light.shadow.mapSize.width = 1024;
