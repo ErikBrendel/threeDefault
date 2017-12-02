@@ -5,6 +5,7 @@ Wall = require './Wall'
 class Room extends Group
   constructor: ({up, right, down, left}) ->
     super()
+    @description = 'Default Room'
     @addWalls up, right, down, left
     @addGround()
     @doors = {}
@@ -22,8 +23,8 @@ class Room extends Group
     @ground.userData.clickHandler = =>
       @onGroundClick? @
 
-    @ground.userData.hoverHandler = =>
-      @onRoomHover? @
+    @ground.userData.mouseEnterHandler = =>
+      @showDescription? @description
     @add @ground
 
   getSharedDoorWith: (otherRoom) ->

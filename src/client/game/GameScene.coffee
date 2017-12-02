@@ -54,6 +54,7 @@ class GameScene
     window.addEventListener 'click', ((event) => @onClick event), false
     @rayCaster = new THREE.Raycaster
     @hoveredObjects = []
+    @lastHoveredObject
 
     # uncomment to hide all shader compilation warnings
     @ignoreShaderLogs()
@@ -113,8 +114,10 @@ class GameScene
     @mouse.x = event.clientX / window.innerWidth * 2 - 1
     @mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
     hovered = @hoveredObjects[0]
-    return if not hovered?
-    hovered.userData.hoverHandler?()
+    if hovered isnt @lastHoveredObject
+      @lastHoveredObject?.userData.mouseLeaveHandler?()
+      hovered?.userData.mouseEnterHandler?()
+      @lastHoveredObject = hovered
 
   add: (newObject) ->
     @scene.add if newObject.mesh then newObject.mesh else newObject
@@ -123,11 +126,14 @@ class GameScene
     event.preventDefault()
     clicked = @hoveredObjects[0]
     return if not clicked?
-    clicked.userData.clickHandler?()
 
+    while not clicked.userData.clickHandler?
+      clicked = clicked.parent
+      return if not clicked?
+    clicked.userData.clickHandler()
 
-  onRoomHover: (room) ->
-    console.log(room.position)
+  showDescription: (description) ->
+    console.log(description)
 
   onGroundClicked: (room) ->
     if(@player.position.distanceTo(room.position) <= 4)
