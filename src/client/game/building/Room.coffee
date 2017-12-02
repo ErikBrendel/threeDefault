@@ -36,7 +36,6 @@ class Room extends Group
 
   canEnter: (newRoom) ->
     door = @getSharedDoorWith(newRoom)
-    console.dir(door)
     door?
 
   onDepart: (newRoom) ->

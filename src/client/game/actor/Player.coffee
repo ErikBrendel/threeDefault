@@ -27,7 +27,9 @@ class Player extends Person
 
   canWalkTo: (room) ->
     @position.distanceTo(room.position) <= 4 and
-    room isnt @currentRoom
+    not @moving and
+    room isnt @currentRoom and
+    @currentRoom.canEnter room
 
   walkWaitTime: ->
     1 #TODO: balancing here
