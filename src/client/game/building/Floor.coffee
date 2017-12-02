@@ -31,8 +31,8 @@ class Floor extends Group
         room.onGroundClick = (room) ->
           console.log('you clicked the floor')
           scene.onGroundClicked room
-        room.showDescription = (room) ->
-          scene.showDescription room
+        room.showDescription = (description) ->
+          scene.showDescription description
         @add room
         @rooms[x][y] = room
 

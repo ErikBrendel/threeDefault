@@ -126,7 +126,7 @@ class GameScene
     clicked.userData.clickHandler?()
 
   showDescription: (description) ->
-    console.log(description)
+    document.getElementById('info').innerText = description
 
   onGroundClicked: (room) ->
     if(@player.position.distanceTo(room.position) <= 4)
