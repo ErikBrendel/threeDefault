@@ -8,6 +8,7 @@ class ResourceCache
   loadModel: (name) ->
     unless @models[name]?
       @jsonLoader.load "assets/models/#{name}.json", (geom, mat) =>
+        mat[0].map.anisotropy = 4
         @models[name] =
           geometry: geom
           materials: mat
