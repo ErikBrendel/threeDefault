@@ -28,7 +28,7 @@ class Room extends Group
     @groundMaterial = @ground.material
 
     @ground.material = [new THREE.MeshPhongMaterial
-      color: 0x222222]
+      color: 0x111111]
 
     @userData.mouseEnterHandler = =>
       @showDescription? @description
@@ -69,7 +69,6 @@ class Room extends Group
     @seen = true
     @ground.material = @groundMaterial
     @addObjects? @objectClickHandler
-    @add new RoomLight
 
 
 module.exports = Room
