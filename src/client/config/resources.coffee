@@ -3,7 +3,9 @@ require '../util/ResourceCache'
 models = [
   'wall',
   'wall_open',
-  'floor'
+  'floor',
+  'player'
+
 ]
 
 module.exports = ->
