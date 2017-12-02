@@ -6,9 +6,9 @@ models = [
   'floor'
 ]
 
-loadResources = ->
+module.exports = ->
   #TODO: Set THREE.DefaultLoadingManager listeners for progress reports
   new Promise (resolve) ->
-    THREE.DefaultLoadingManager.onLoad = ->
-      resolve
     AssetCache.loadModel(name) for name in models
+    THREE.DefaultLoadingManager.onLoad = ->
+      resolve()

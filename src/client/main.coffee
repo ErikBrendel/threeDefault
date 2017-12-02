@@ -2,19 +2,21 @@
 
 GameScene = require './GameScene'
 RotatingIcoSphere = require './RotatingIcoSphere'
+LoadResources = require './config/resources'
 
 
-ico = new RotatingIcoSphere 5, 1, ICO_COLOR
+gameInit = ->
+  ico = new RotatingIcoSphere 5, 1, ICO_COLOR
+  gameScene = new GameScene ->
+    console.log 'update!'
+  window.gs = gameScene
 
-gameScene = new GameScene ->
-  console.log 'update!'
-
-gameScene.add ico
-gameScene.addAxisHelper 10
-
-# export to the browser console
-window.gs = gameScene
-
-window.onload = ->
+  gameScene.add ico
+  gameScene.addAxisHelper 10
   gameScene.appendChildFullscreen()
   gameScene.animation()
+
+# export to the browser console
+
+window.onload = ->
+  LoadResources().then -> gameInit()

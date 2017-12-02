@@ -1,5 +1,5 @@
 class ResourceCache
-  contructor: ->
+  constructor: ->
     @models = {}
     @sounds = {}
     @textures = {}
@@ -15,6 +15,6 @@ class ResourceCache
       console.warn "Model #{name} already loaded."
 
   getModel: (name) ->
-    new THREE.Mesh @models[name].geometry @models[name].materials
+    new THREE.Mesh @models[name].geometry, @models[name].materials
 
-window.AssetCache = new RessourceCache
+window.AssetCache = new ResourceCache
