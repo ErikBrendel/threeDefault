@@ -15,12 +15,12 @@ class ResourceCache
     else
       console.warn "Model #{name} already loaded."
 
-  getModel: (name) ->
+  getModel: (name, castShadow = true, receiveShadow = true) ->
     unless @models[name]?
       console.error "Cannot find model named #{name}. Have you added it to config/resources?"
     mesh = new THREE.Mesh @models[name].geometry, @models[name].materials
-    mesh.castShadow = true
-    mesh.receiveShadow = true
+    mesh.castShadow = castShadow
+    mesh.receiveShadow = receiveShadow
     mesh
 
 window.AssetCache = new ResourceCache
