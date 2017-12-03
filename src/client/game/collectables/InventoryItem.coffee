@@ -18,5 +18,12 @@ class InventoryItem
     @inventoryHolder.inventory?.onObjectTaken(@)
     @inventoryHolder = newOwner
     newOwner.inventory?.onReceiveObject(@)
+    @addToPlayerInventory() if newOwner.type is 'player'
+
+  addToPlayerInventory: ->
+    inf = document.getElementById('inventory')
+    img = document.createElement('img')
+    img.src = "assets/texture/item/#{@name}.png"
+    inf.appendChild(img)
 
 module.exports = InventoryItem
