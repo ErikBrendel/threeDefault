@@ -14,8 +14,6 @@
             top: 10px;
             width: 100%;
             text-align: center;
-            z-index: 100;
-            display:block;
             color: #04ff00;
         }
         #info {
@@ -29,6 +27,21 @@
             text-align: left;
             right: 0;
         }
+        #health0 {
+            width: 100px;
+            top: 40px;
+            left: 40px
+        }
+        #health1 {
+            width: 100px;
+            top: 40px;
+            left: 140px
+        }
+        #health2 {
+            width: 100px;
+            top: 40px;
+            left: 240px
+        }
     </style>
     <script src="three/three.js"></script>
     <script src="three/orbitControls.js"></script>
@@ -38,5 +51,8 @@
     <div id="info" class="overlay">Description</div>
     <div id="fps" class="overlay">all of them fps</div>
     <div id="prio" class="overlay">It's your turn</div>
+    <image id="health0" class="overlay" src="assets/texture/hearth.png"></image>
+    <image id="health1" class="overlay" src="assets/texture/hearth.png"></image>
+    <image id="health2" class="overlay" src="assets/texture/hearth.png"></image>
 </body>
 </html>

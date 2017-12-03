@@ -8,6 +8,23 @@ class Player extends Person
     super 'player', 'You'
     @inventory = new Inventory()
     @isDran = false
+    @health = Constants.basePlayerHealth
+    @updateHealthUI()
+
+  heal: (amount = 1) ->
+    @health = Math.min(@health + amount, Constants.basePlayerHealth)
+    @updateHealthUI()
+
+  damage: (amount = 1) ->
+    @health = @health - amount
+    @updateHealthUI()
+    @lost() if @health <= 0
+
+  updateHealthUI: () ->
+    document.getElementById('health' + i).hidden = i >= @health for i in [0..2]
+
+  lost: ->
+    console.log('you lost')
 
   setPosition: (position) ->
     super position
@@ -21,6 +38,7 @@ class Player extends Person
     return unless @isDran
     if @setRoom room
       @isDran = false
+      @damage()
       @waitTime = @walkWaitTime()
       setTimeout @doneHandler, Constants.msToMoveToRoom
 
