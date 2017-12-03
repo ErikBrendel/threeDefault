@@ -25,7 +25,7 @@ class Floor extends Group
   createRooms: (scene) ->
     @rooms = []
     @objectClickHandler = (clickedObject) ->
-      clickedObject.onInteract scene.player
+      scene.player.interactWith clickedObject
     for x in [0..@floorSize.x - 1]
       @rooms[x] = []
       for y in [0..@floorSize.y - 1]
