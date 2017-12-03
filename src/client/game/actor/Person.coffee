@@ -15,7 +15,7 @@ class Person extends THREE.Group
     @positionSmoother.addProgressListener (progress) =>
       unless @direction.length() < 0.001
         @setDirection(@direction)
-        @rotateX(0.3 * Math.sin(progress * Math.PI) * Math.sin(progress * Math.PI * 3))
+        @rotateZ(0.3 * Math.sin(progress * Math.PI) * Math.sin(progress * Math.PI * 3))
         @position.y = Math.abs(0.3 * Math.sin(progress * Math.PI * 3))
     @positionSmoother.addUpdateHandler (newPosition) =>
       @position.x = newPosition.x
@@ -38,7 +38,7 @@ class Person extends THREE.Group
     @positionSmoother.set position
 
   lookTo: (position) ->
-    @setDirection @position.clone().sub(position)
+    @setDirection position.clone().sub(@position) unless @moving
 
   setDirection: (direction) ->
     direction.y = 0

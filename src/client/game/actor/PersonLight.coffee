@@ -10,7 +10,7 @@ class PersonLight extends THREE.SpotLight
     @position.set(@person.position.x, 0.5, @person.position.z)
     @person.add @
     @person.add @target
-    @setDirection new THREE.Vector3 0, -0.3, 1
+    @setDirection new THREE.Vector3 0, 0.1, 1
 
   setDirection: (direction) ->
     @target.position.copy(@position.clone().add(direction).sub(new THREE.Vector3(0, 0.2, 0)))

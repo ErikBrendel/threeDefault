@@ -86,6 +86,8 @@ class GameScene
     # uncomment to use raycasting for mouse-object interaction
     @rayCaster.setFromCamera @mouse, @camera
     @hoveredObjects = (res.object for res in (@rayCaster.intersectObjects @scene.children, true))
+    worldPos = @rayCaster.ray.intersectPlane new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
+    @player.lookTo worldPos
 
     # update loop
     now = Date.now()
