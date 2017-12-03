@@ -1,5 +1,6 @@
 # the feared watching enemy who wants to find the Players
 Person = require './Person'
+Constants = require '../../config/Constants'
 
 GuardCounter = 0
 
@@ -17,8 +18,8 @@ class Guard extends Person
 
     @setRoom nextRoom
 
-    @waitTime = 4 #TODO: balancing here
-    setTimeout done, 50
+    @waitTime = Constants.baseMoveDelay
+    setTimeout done, Constants.msToMoveToRoom
 
 
 module.exports = Guard

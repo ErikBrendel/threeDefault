@@ -2,6 +2,7 @@
 
 SmoothVector3 = require '../../util/SmoothVector3'
 PersonLight = require './PersonLight'
+Constants = require '../../config/Constants'
 
 class Person extends THREE.Group
   constructor: (@type, @name, @waitTime = 0) ->
@@ -11,7 +12,7 @@ class Person extends THREE.Group
     @model = AssetCache.getModel @type
     @add @model
     @moving = false
-    @positionSmoother = new SmoothVector3 900
+    @positionSmoother = new SmoothVector3 Constants.msToMoveToRoom
     @positionSmoother.addProgressListener (progress) =>
       unless @direction.length() < 0.001
         @setDirection(@direction)

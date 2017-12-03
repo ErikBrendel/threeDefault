@@ -1,4 +1,5 @@
 Wall = require './Wall'
+Constants = require '../../config/Constants'
 loadHoverEffect = require '../actor/HoverEffect'
 { Group } = THREE
 
@@ -69,7 +70,7 @@ class Room extends Group
     return if @seen
     if person.type == 'player'
       @discover()
-      return 1
+      return Constants.basePeekDelay
 
   onArrive: (oldRoom) ->
     # Nothing so far

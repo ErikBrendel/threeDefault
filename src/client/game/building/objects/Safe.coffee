@@ -3,6 +3,7 @@ RoomObject = require './RoomObject'
 Inventory = require '../../collectables/Inventory'
 GoldIngot = require '../../collectables/GoldIngot'
 SmoothValue = require '../../../util/SmoothValue'
+Constants = require '../../../config/Constants'
 
 DOOR_X = 1.69044
 DOOR_Y = 0
@@ -53,7 +54,7 @@ class Safe extends RoomObject
     return unless person.currentRoom is @room
     if not @safeOpened
       @startOpeningMinigame()
-      return 4
+      return Constants.baseOpenSafeDelay
 
     return if @safeIsAnimating
 
@@ -64,9 +65,10 @@ class Safe extends RoomObject
       else
         @inventory.changeContentOwner(person)
         console.log 'you look into the safe... and find something'
+      return Constants.baseTakeItemDelay
     else
       @onSafeCloseAnimation()
-    return 1
+      return Constants.baseCloseSafeDelay
 
   startOpeningMinigame: ->
     @safeOpened = true
