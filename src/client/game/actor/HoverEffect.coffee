@@ -1,10 +1,17 @@
 
 SmoothValue = require '../../util/SmoothValue'
 
-loadHoverEffect = (mesh, clickable = (-> true), clickHandler = (->)) ->
+loadHoverEffect = (mesh, clickable = (-> true), clickHandler = (->), {
+  speed = 600,
+  r = 1
+  g = 1
+  b = 0
+  baseIntensity = 0.05
+  intensityIncrease = 0.05
+  } = {}) ->
   mesh.userData.hoverEffectActive = false
 
-  hoverPulse = new SmoothValue 600, 0
+  hoverPulse = new SmoothValue speed, 0
 
   oldEnterHandler = mesh.userData.mouseEnterHandler
   mesh.userData.mouseEnterHandler = ->
@@ -33,8 +40,8 @@ loadHoverEffect = (mesh, clickable = (-> true), clickHandler = (->)) ->
     mat = mesh.material
     mat = mat[0] if mat[0]?
     if mesh.userData.hoverEffectActive
-      hoverIntensity = 0.05 + hoverFade * 0.05
-      mat.emissive = (new THREE.Color 1, 1, 0).multiplyScalar hoverIntensity
+      hoverIntensity = baseIntensity + hoverFade * intensityIncrease
+      mat.emissive = (new THREE.Color r, g, b).multiplyScalar hoverIntensity
     else
       mat.emissive = new THREE.Color 0, 0, 0
 

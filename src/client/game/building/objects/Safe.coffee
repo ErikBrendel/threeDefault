@@ -6,6 +6,7 @@ GoldIngot = require '../../collectables/GoldIngot'
 Coins = require '../../collectables/Coins'
 SmoothValue = require '../../../util/SmoothValue'
 Constants = require '../../../config/Constants'
+loadHoverEffect = require '../../actor/HoverEffect'
 
 DOOR_X = 1.69044
 DOOR_Y = 0
@@ -99,6 +100,13 @@ class Safe extends RoomObject
   updateContent: ->
     placeIndex = 0
     for item in @inventory.contents
+      loadHoverEffect item.mesh, (-> true), (-> alert 'You took it!'),
+        speed: 200
+        r: 0
+        g: 1
+        b: 0
+        baseIntensity: 0.1
+        intensityIncrease: 0.1
       @addItemMesh item.mesh, placeIndex <= 1, placeIndex % 2 is 1
       placeIndex++
 
