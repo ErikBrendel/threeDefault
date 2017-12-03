@@ -26,7 +26,14 @@ class Floor extends Group
   createRooms: (scene) ->
     @rooms = []
     @objectClickHandler = (clickedObject) ->
-      scene.player.interactWith clickedObject
+      if clickedObject.hasFocus
+        scene.player.interactWith clickedObject
+      else
+        clickedObject.hasFocus = true
+        offset = clickedObject.room.position
+        scene.player.setPosition clickedObject.focusData.playerPosition.clone().add offset
+        scene.camera.focusObject clickedObject.room.position, clickedObject.focusData
+
     for x in [0..@floorSize.x - 1]
       @rooms[x] = []
       for y in [0..@floorSize.y - 1]

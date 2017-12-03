@@ -16,9 +16,14 @@ models = [
   'objects/camera',
 ]
 
+sounds = [
+  'move',
+]
+
 module.exports = ->
   #TODO: Set THREE.DefaultLoadingManager listeners for progress reports
   new Promise (resolve) ->
-    AssetCache.loadModel(name) for name in models
+    AssetCache.loadModel name for name in models
+    AssetCache.loadSound name for name in sounds
     THREE.DefaultLoadingManager.onLoad = ->
       resolve()

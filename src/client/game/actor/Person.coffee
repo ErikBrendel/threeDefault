@@ -34,6 +34,13 @@ class Person extends THREE.Group
       @moving = false
 
     @light = new PersonLight @
+    @addSound()
+
+  addSound: ->
+    @sound = AssetCache.getSound 'move'
+    @sound.setRefDistance 0.3
+    @add @sound
+    @sound.position.set 0, 0, 0
 
   setPosition: (position) ->
     @positionSmoother.set position
@@ -53,6 +60,7 @@ class Person extends THREE.Group
         @direction = @newRoom.position.clone().sub(@currentRoom.position).normalize()
         @currentRoom.onDepart(@newRoom)
         @setPosition(@newRoom.position.clone())
+        @sound.play()
         return true
       else if not @currentRoom?
         @moving = true

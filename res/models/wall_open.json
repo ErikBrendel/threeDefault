@@ -9,7 +9,7 @@
         "doubleSided":false,
         "shading":"phong",
         "mapDiffuse":"../texture/walls.jpg",
-        "specularCoef":50,
+        "specularCoef":1,
         "wireframe":false,
         "visible":true,
         "mapDiffuseRepeat":[1,1],
@@ -18,7 +18,7 @@
         "mapDiffuseAnisotropy":1,
         "opacity":1,
         "DbgIndex":0,
-        "colorSpecular":[0.5,0.5,0.5],
+        "colorSpecular":[0.25,0.25,0.25],
         "DbgColor":15658734
     }],
     "normals":[-1,-9.28767e-15,-1.70299e-07,-0.707107,0,0.707107,4.11067e-08,1,-8.22133e-08,-2.45015e-14,-1,4.37114e-08,1,8.66849e-15,1.58946e-07,5.96046e-07,-5.45374e-08,-1,-1,0,-8.51495e-08,-4.11067e-08,1,-8.22133e-08,-0.707107,0,-0.707107,0,-1,4.37114e-08,1,0,1.58946e-07,5.96047e-07,5.45374e-08,1],
