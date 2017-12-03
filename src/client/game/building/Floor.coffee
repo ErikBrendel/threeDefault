@@ -33,6 +33,12 @@ class Floor extends Group
         offset = clickedObject.room.position
         scene.player.setPosition clickedObject.focusData.playerPosition.clone().add offset
         scene.camera.focusObject clickedObject.room.position, clickedObject.focusData
+        scene.exitHandler = ->
+          scene.camera.resetFocus()
+          clickedObject.hasFocus = false
+          scene.player.moveToRoomCenter()
+          scene.exitHandler = undefined
+
 
     for x in [0..@floorSize.x - 1]
       @rooms[x] = []

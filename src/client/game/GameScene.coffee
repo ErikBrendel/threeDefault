@@ -59,6 +59,10 @@ class GameScene
 
     @lastUpdate = undefined
 
+    # called on "user want to exit the current view",
+    # returning true when event was handled
+    @exitHandler = undefined
+
   ignoreShaderLogs: ->
     @renderer.context.getShaderInfoLog = () -> ''
 

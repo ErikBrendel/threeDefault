@@ -44,12 +44,29 @@ class SmoothValue
     @target = newTarget
     @updateLoop()
 
-  #aborts the current animation, lets the value rest where it currently is
+#aborts the current animation, lets the value rest where it currently is
   halt: ->
     currentValue = @get()
     @oldTarget = currentValue
     @target = undefined
     @oldTime = Date.now() - 2 * @lerpTime
+
+  #aborts everything
+  destroy: ->
+    @updateHandlers = []
+    @progressListener = []
+    @finishHandlers = []
+    @target = undefined
+    @value = undefined
+    @halt()
+
+  # change the data without interfering the smooth progress
+  inject: (objectChanger) ->
+    @get()
+    @target = objectChanger @target
+    @oldTarget = objectChanger @oldTarget
+    @value = objectChanger @value
+    handler @value for handler in @updateHandlers
 
 # return true, if the new value is the 'same' as the old one (so that no one would notice the difference)
   isSameTarget: (newTarget) ->
@@ -64,7 +81,7 @@ class SmoothValue
   updateLoop: ->
     return if not @target?
     return if @updateLoopRunning
-    return if @updateHandlers.length is 0
+    return if (@updateHandlers.length + @finishHandlers.length + @progressListener.length) is 0
     return if not @isAnimating()
     @updateLoopRunning = true
     loopFunc = =>

@@ -9,6 +9,23 @@ class Player extends Person
     @addEars(audioListener)
     @inventory = new Inventory()
     @isDran = false
+    @health = Constants.basePlayerHealth
+    @updateHealthUI()
+
+  heal: (amount = 1) ->
+    @health = Math.min(@health + amount, Constants.basePlayerHealth)
+    @updateHealthUI()
+
+  damage: (amount = 1) ->
+    @health = @health - amount
+    @updateHealthUI()
+    @lost() if @health <= 0
+
+  updateHealthUI: () ->
+    document.getElementById('health' + i).hidden = i >= @health for i in [0..2]
+
+  lost: ->
+    console.log('you lost')
 
   addEars: (audioListener) ->
     @listener = audioListener
