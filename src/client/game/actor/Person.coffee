@@ -57,6 +57,7 @@ class Person extends THREE.Group
       else if not @currentRoom?
         @moving = true
         @currentRoom = newRoom
+        @currentRoom.onEnter @
         @setPosition(@currentRoom.position.clone())
         return true
     false

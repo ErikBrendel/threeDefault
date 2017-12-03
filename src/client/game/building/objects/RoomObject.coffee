@@ -1,39 +1,26 @@
 # every geometry inside a room is a RoomObject
 
-SmoothValue = require '../../../util/SmoothValue'
+loadHoverEffect = require '../../actor/HoverEffect'
 
 class RoomObject
   constructor: (@type, @room, clickHandler) ->
+    @visible = false
     @mesh = AssetCache.getModel "objects/#{@type}"
     @mesh.userData.clickHandler = => clickHandler @
-    @loadHoverEffect()
+    loadHoverEffect @mesh, @isVisible
     @room.add @mesh
 
-  loadHoverEffect: ->
-    @hoverEffectActive = false
-    @mesh.userData.mouseEnterHandler = => @onMouseEnter()
-    @mesh.userData.mouseLeaveHandler = => @onMouseLeave()
-    @hoverPulse = new SmoothValue 600, 0
-    @hoverPulse.addFinishHandler =>
-      @hoverPulse.set 1 - @hoverPulse.get()
-    @hoverPulse.addUpdateHandler (hoverFade) =>
-      if @hoverEffectActive
-        hoverIntensity = 0.05 + hoverFade * 0.05
-        @mesh.material[0].emissive = (new THREE.Color 1, 1, 0).multiplyScalar hoverIntensity
-      else
-        @mesh.material[0].emissive = new THREE.Color 0, 0, 0
-
-  onMouseEnter: ->
-    @hoverEffectActive = true
-    @hoverPulse.set 1
-
-  onMouseLeave: ->
-    @hoverEffectActive = false
-    @hoverPulse.set 0
+  isVisible: =>
+    @visible
 
   onInteract: (person) ->
+
   onEnter: (person, oldRoom) ->
+    @visible = true if person.type == 'player'
+
   onLeave: (person, newRoom) ->
+    @visible = false if person.type == 'player'
+
 
 
 module.exports = RoomObject

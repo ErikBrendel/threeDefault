@@ -40,7 +40,6 @@ class PlayerCamera extends THREE.PerspectiveCamera
   mouseWheel: (event) =>
     event.preventDefault()
     event.stopPropagation()
-    console.log(event.deltaY)
     @applyZoom event.deltaY * -0.25
 
 module.exports = PlayerCamera

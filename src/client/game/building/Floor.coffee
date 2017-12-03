@@ -51,7 +51,6 @@ class Floor extends Group
         @rooms[x - 1]?[y].neighbourRooms.right = room
 
         room.onGroundClick = (room) ->
-          console.log('you clicked the floor')
           scene.onRoomClicked room
         room.showDescription = (description) ->
           scene.showDescription description

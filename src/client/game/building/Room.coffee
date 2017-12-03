@@ -51,15 +51,15 @@ class Room extends Group
 
   onLeave: (person, newRoom) ->
     object.onLeave person, newRoom for object in @objects
-    console.log 'LEAVE'
+    #console.log 'LEAVE'
 
   onEnter: (person, oldRoom) ->
-    @discover()
+    @discover() if person.type == 'player'
     object.onEnter person, oldRoom for object in @objects
-    console.log 'ENTER'
+    #console.log 'ENTER'
 
   onPeek: (person) ->
-    @discover()
+    @discover() if person.type == 'player'
 
   onArrive: (oldRoom) ->
     # Nothing so far
