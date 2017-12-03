@@ -30,9 +30,9 @@ class Floor extends Group
         scene.player.interactWith clickedObject
       else
         clickedObject.hasFocus = true
-        offset = clickedObject.room.position
-        scene.player.setPosition clickedObject.focusData.playerPosition.clone().add offset
-        scene.camera.focusObject clickedObject.room.position, clickedObject.focusData
+        focus = clickedObject.getFocusData()
+        scene.player.setPosition focus.playerPosition.clone().add focus.offset
+        scene.camera.focusObject focus
         scene.exitHandler = ->
           scene.camera.resetFocus()
           clickedObject.hasFocus = false
@@ -87,15 +87,19 @@ class Floor extends Group
           @createDoor x, y, true
 
   createDoor: (x, y, rightAndNotDown) ->
-    door = new Door not rightAndNotDown, @objectClickHandler
+    firstRoom = @rooms[x][y]
+    secondRoom = if rightAndNotDown then @rooms[x + 1][y] else @rooms[x][y + 1]
+
+    door = new Door not rightAndNotDown, @objectClickHandler, firstRoom, secondRoom
     offsetX = if rightAndNotDown then 2 else -0.5
     offsetZ = if rightAndNotDown then -0.5 else 2
     door.mesh.position.set 4 * x + offsetX, 0.1, 4 * y + offsetZ
+
     firstKey = if rightAndNotDown then 'right' else 'down'
+    firstRoom.doors[firstKey] = door
     secondKey = if rightAndNotDown then 'left' else 'up'
-    @rooms[x][y].doors[firstKey] = door
-    secondRoom = if rightAndNotDown then @rooms[x + 1][y] else @rooms[x][y + 1]
     secondRoom.doors[secondKey] = door
+
     @add door.mesh
 
   isUp: (x, y) ->
