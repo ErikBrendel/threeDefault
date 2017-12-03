@@ -23,7 +23,7 @@ class GameScene
     @player.setRoom @floor.rooms[0][0]
     @add @player
 
-    @guard = new Guard
+    @guard = new Guard @floor
     @add @guard
     @guard.setRoom @floor.rooms[1][1]
 

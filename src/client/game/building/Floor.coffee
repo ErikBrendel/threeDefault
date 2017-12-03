@@ -62,6 +62,7 @@ class Floor extends Group
       down: @isDown x, y
       left: @isLeft x, y
       objectClickHandler: @objectClickHandler
+      position: {x,y}
 
   classFromRoomType: (type) ->
     {
