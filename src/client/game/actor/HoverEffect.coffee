@@ -6,22 +6,33 @@ loadHoverEffect = (mesh, showHover = -> true) ->
 
   hoverPulse = new SmoothValue 600, 0
 
+  oldEnterHandler = mesh.userData.mouseEnterHandler
   mesh.userData.mouseEnterHandler = ->
+    oldEnterHandler?()
     return unless showHover()
     mesh.userData.hoverEffectActive = true
     hoverPulse.set 1
 
-  mesh.userData.mouseLeaveHandler = ->
+  resetHover = ->
     mesh.userData.hoverEffectActive = false
     hoverPulse.set 0
+  mesh.userData.resetHover = resetHover
+
+  oldLeaveHandler = mesh.userData.mouseLeaveHandler
+  mesh.userData.mouseLeaveHandler = ->
+    oldLeaveHandler?()
+    resetHover()
+
 
   hoverPulse.addFinishHandler =>
     hoverPulse.set 1 - hoverPulse.get()
   hoverPulse.addUpdateHandler (hoverFade) =>
+    mat = mesh.material
+    mat = mat[0] if mat[0]?
     if mesh.userData.hoverEffectActive
       hoverIntensity = 0.05 + hoverFade * 0.05
-      mesh.material[0].emissive = (new THREE.Color 1, 1, 0).multiplyScalar hoverIntensity
+      mat.emissive = (new THREE.Color 1, 1, 0).multiplyScalar hoverIntensity
     else
-      mesh.material[0].emissive = new THREE.Color 0, 0, 0
+      mat.emissive = new THREE.Color 0, 0, 0
 
 module.exports = loadHoverEffect

@@ -1,5 +1,5 @@
 Wall = require './Wall'
-RoomLight = require './RoomLight'
+loadHoverEffect = require '../actor/HoverEffect'
 { Group } = THREE
 
 class Room extends Group
@@ -21,17 +21,21 @@ class Room extends Group
     @add wall for wall in [@wallUp, @wallRight, @wallDown, @wallLeft]
 
   addGround: ->
-    @ground = AssetCache.getModel 'ground'
+    @ground = AssetCache.getModel 'ground',
+      copyMaterials: true
     @userData.clickHandler = =>
       @onGroundClick? @
 
     @groundMaterial = @ground.material
-    @ground.material = @groundMaterial[0].clone()
-    @ground.material.fog = true
+    @ground.material = new THREE.MeshPhongMaterial
+      color: 0
 
     @userData.mouseEnterHandler = =>
       @showDescription? @description
     @add @ground
+
+    loadHoverEffect @ground, =>
+      @getSharedDoorWith(gs.player.currentRoom)?
 
   getSharedDoorWith: (otherRoom) ->
     for direction, neighbourRoom of @neighbourRooms
@@ -54,6 +58,7 @@ class Room extends Group
     #console.log 'LEAVE'
 
   onEnter: (person, oldRoom) ->
+    @ground.userData.resetHover()
     @discover() if person.type == 'player'
     object.onEnter person, oldRoom for object in @objects
     @doors[direction]?.onPersonEntersAdjacentRoom person for direction, neighbourRoom of @neighbourRooms
