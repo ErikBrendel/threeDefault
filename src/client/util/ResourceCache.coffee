@@ -53,6 +53,7 @@ class ResourceCache
     audio
 
   applyTextureOptions: (texture) ->
+    return unless texture?
     texture.anisotropy = 4
 
   applyGeometryOptions: (geometry) ->
