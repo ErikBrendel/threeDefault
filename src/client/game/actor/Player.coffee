@@ -17,6 +17,7 @@ class Player extends Person
     @updateHealthUI()
 
   damage: (amount = 1) ->
+    return unless amount > 0
     @health = @health - amount
     @updateHealthUI()
     @lost() if @health <= 0

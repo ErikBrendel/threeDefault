@@ -3,11 +3,11 @@
 loadHoverEffect = require '../../actor/HoverEffect'
 
 class RoomObject
-  constructor: (@type, @room, clickHandler, @focusData) ->
+  constructor: (@type, @room, @clickHandler, @focusData) ->
     @visible = false
     @mesh = AssetCache.getModel "objects/#{@type}",
       copyMaterials: true
-    loadHoverEffect @mesh, @isVisible, (=> clickHandler @)
+    loadHoverEffect @mesh, @isVisible, (=> @clickHandler @)
     @room.add @mesh
     @hasFocus = false
 

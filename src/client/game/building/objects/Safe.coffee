@@ -74,10 +74,10 @@ class Safe extends RoomObject
 
     if not @doorOpened
       @onSafeOpenAnimation()
-      if @inventory.size() == 0
+      return
+      if @inventory.size() is 0
         console.log 'you look into the safe... and it is empty'
       else
-        @inventory.changeContentOwner(person)
         console.log 'you look into the safe... and find something'
       return Constants.baseTakeItemDelay
     else
@@ -100,7 +100,7 @@ class Safe extends RoomObject
   updateContent: ->
     placeIndex = 0
     for item in @inventory.contents
-      loadHoverEffect item.mesh, (-> true), (-> alert 'You took it!'),
+      loadHoverEffect item.mesh, (-> true), (do (item) => => @clickHandler item; @mesh.remove item.mesh),
         speed: 200
         r: 0
         g: 1
