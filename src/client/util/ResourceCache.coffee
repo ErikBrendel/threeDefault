@@ -7,21 +7,35 @@ class ResourceCache
 
   loadModel: (name) ->
     unless @models[name]?
-      @jsonLoader.load "assets/models/#{name}.json", (geom, mat) =>
-        mat[0].map.anisotropy = 4
-        m.fog = false for m in mat
+      @jsonLoader.load "assets/models/#{name}.json", (geom, mats) =>
+        @applyGeometryOptions geom
+        @applyMaterialOptions m for m in mats
         @models[name] =
           geometry: geom
-          materials: mat
+          materials: mats
     else
       console.warn "Model #{name} already loaded."
 
-  getModel: (name) ->
+  getModel: (name, {copyGeometry = false, copyMaterials = false} = {}) ->
     unless @models[name]?
       console.error "Cannot find model named #{name}. Have you added it to config/resources?"
-    mesh = new THREE.Mesh @models[name].geometry, @models[name].materials
+    geometry = @models[name].geometry
+    geometry = geometry.clone() if copyGeometry
+    materials = @models[name].materials
+    materials = (m.clone() for m in materials) if copyMaterials
+    mesh = new THREE.Mesh geometry, materials
+    @applyMeshOptions mesh
+    mesh
+
+  applyGeometryOptions: (geometry) ->
+    #Nothing yet
+
+  applyMaterialOptions: (material) ->
+    material.map.anisotropy = 4
+    material.fog = false
+
+  applyMeshOptions: (mesh) ->
     mesh.castShadow = true
     mesh.receiveShadow = true
-    mesh
 
 window.AssetCache = new ResourceCache
