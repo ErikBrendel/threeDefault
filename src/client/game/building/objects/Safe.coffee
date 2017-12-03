@@ -52,7 +52,10 @@ class Safe extends RoomObject
   onInteract: (person) ->
     return unless person.currentRoom is @room
     if not @safeOpened
-      return @startOpeningMinigame()
+      @startOpeningMinigame()
+      return 4
+
+    return if @safeIsAnimating
 
     if not @doorOpened
       @onSafeOpenAnimation()
@@ -63,12 +66,12 @@ class Safe extends RoomObject
         console.log 'you look into the safe... and find something'
     else
       @onSafeCloseAnimation()
+    return 1
 
   startOpeningMinigame: ->
     @safeOpened = true
 
   onSafeOpenAnimation: ->
-    return if @safeIsAnimating
     @safeIsAnimating = true
     @doorOpened = true
     @doorHandleAnimator.set 1

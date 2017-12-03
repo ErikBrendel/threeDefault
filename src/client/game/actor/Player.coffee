@@ -28,4 +28,14 @@ class Player extends Person
     3 + @inventory.findObjects((item) -> item.name is 'GoldIngot').length
     #TODO: balancing here
 
+  onReceiveObject: (newObject) ->
+    @inventory.push newObject
+
+  interactWith: (roomObject) ->
+    return unless @isDran
+    newWaitTime = roomObject.onInteract @
+    if newWaitTime?
+      @waitTime = newWaitTime
+      setTimeout @doneHandler, 100
+
 module.exports = Player
