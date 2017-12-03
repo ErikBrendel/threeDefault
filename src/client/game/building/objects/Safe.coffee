@@ -5,17 +5,38 @@ GoldIngot = require '../../collectables/GoldIngot'
 class Safe extends RoomObject
   constructor: (room, clickHandler) ->
     super 'safe', room, clickHandler
-    @inventory = [new GoldIngot]
+    @inventory = [new GoldIngot @]
+    @safeOpened = false
+    @doorOpened = false
 
   onInteract: (person) ->
     return unless person.currentRoom is @room
-    if @inventory.length == 0
-      console.log 'you look into the safe... it is empty'
+    if not @safeOpened
+      return @startOpeningMinigame()
+
+    if not @doorOpened
+      @onSafeOpenAnimation()
+      if @inventory.length == 0
+        console.log 'you look into the safe... and it is empty'
+      else
+        @inventory.forEach((item) -> item.changeOwner person)
+        console.log 'you look into the safe... and find something'
     else
-      console.log (person.inventory.length)
-      person.inventory = person.inventory.concat(@inventory)
-      console.log (person.inventory.length)
-      console.log 'you look into the safe... and found something'
-      @inventory = []
+      @onSafeCloseAnimation()
+
+  startOpeningMinigame: ->
+    @safeOpened = true
+
+  onSafeOpenAnimation: ->
+    @doorOpened = true
+
+  onSafeCloseAnimation: ->
+    @doorOpened = false
+
+  onObjectTaken: (object) ->
+    objectIndex = @inventory.indexOf object
+    console.log objectIndex
+    if objectIndex > -1
+      @inventory.splice objectIndex, 1
 
 module.exports = Safe
