@@ -23,7 +23,7 @@ class Player extends Person
     @lost() if @health <= 0
 
   updateHealthUI: () ->
-    document.getElementById('health' + i).hidden = i >= @health for i in [0..2]
+    document.getElementById('health' + i).classList.toggle('dead',  i >= @health) for i in [0..2]
 
   lost: ->
     console.log('you lost')

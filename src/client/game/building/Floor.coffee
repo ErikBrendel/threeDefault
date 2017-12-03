@@ -32,10 +32,9 @@ class Floor extends Group
         clickedObject.hasFocus = true
         focus = clickedObject.getFocusData()
         scene.player.setPosition focus.playerPosition.clone().add focus.offset
-        scene.camera.focusObject focus
+        scene.camera.focusObject focus, clickedObject
         scene.exitHandler = ->
           scene.camera.resetFocus()
-          clickedObject.hasFocus = false
           scene.player.moveToRoomCenter()
           scene.exitHandler = undefined
         return true
@@ -54,8 +53,8 @@ class Floor extends Group
 
         room.onGroundClick = (room) ->
           scene.onRoomClicked room
-        room.showDescription = (description) ->
-          scene.showDescription description
+        room.showDescription = (description, details) ->
+          scene.showDescription description, details
         @add room
         @rooms[x][y] = room
 
