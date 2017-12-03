@@ -15,7 +15,7 @@ class Scheduler
 
   wait: (amount, waitingDone) ->
     @updateUI()
-    return waitingDone() if amount is 0
+    return waitingDone() if amount <= 0
     person.waitTime -= 1 for person in @persons
     setTimeout (=> @wait amount - 1, waitingDone), 200
 
