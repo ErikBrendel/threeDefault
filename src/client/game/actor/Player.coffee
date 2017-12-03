@@ -4,10 +4,17 @@ Inventory = require '../collectables/Inventory'
 Constants = require '../../config/Constants'
 
 class Player extends Person
-  constructor: ->
+  constructor: (audioListener) ->
     super 'player', 'You'
+    @addEars(audioListener)
     @inventory = new Inventory()
     @isDran = false
+
+  addEars: (audioListener) ->
+    @listener = audioListener
+    @add @listener
+    @listener.position.set 0, 0.6, 0
+    @listener.rotateY Math.PI
 
   setPosition: (position) ->
     super position
