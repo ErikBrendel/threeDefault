@@ -1,6 +1,7 @@
 
 RoomObject = require './RoomObject'
 GoldIngot = require '../../collectables/GoldIngot'
+SmoothValue = require '../../../util/SmoothValue'
 
 DOOR_X = 1.69044
 DOOR_Z = -1.50253
@@ -17,7 +18,9 @@ class Safe extends RoomObject
     @doorMesh = AssetCache.getModel 'objects/safe_door'
     @doorMesh.position.set DOOR_X, 0, DOOR_Z
     @mesh.add @doorMesh
-
+    @doorAnimator = new SmoothValue 300, 0
+    @doorAnimator.addUpdateHandler (doorOpenProgress) =>
+      @doorMesh.rotation.y = doorOpenProgress * Math.PI / 2
 
   onInteract: (person) ->
     return unless person.currentRoom is @room
@@ -38,9 +41,11 @@ class Safe extends RoomObject
     @safeOpened = true
 
   onSafeOpenAnimation: ->
+    @doorAnimator.set 1
     @doorOpened = true
 
   onSafeCloseAnimation: ->
+    @doorAnimator.set 0
     @doorOpened = false
 
   onObjectTaken: (object) ->
