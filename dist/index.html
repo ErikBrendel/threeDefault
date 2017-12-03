@@ -67,6 +67,16 @@
             grid-auto-rows: 64px;
             grid-gap: 5px;
         }
+        .noSelect {
+            /* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css */
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+        }
         .inventory-container > div,img {
             -webkit-transition: background-color .25s;
             -moz-transition: background-color .25s;
@@ -106,7 +116,7 @@
     <script src="bundle/main.js"></script>
 </head>
 <body>
-    <div class="hud">
+    <div class="hud noSelect">
         <div id="health-bar" class="health-bar top left container">
             <img src="assets/texture/hearth.png"/>
             <img src="assets/texture/hearth.png"/>
