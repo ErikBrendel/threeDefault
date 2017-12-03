@@ -16,6 +16,10 @@ HANDLE_X = 1.00324 - DOOR_X
 HANDLE_Y = 0.34733 - DOOR_Y
 HANDLE_Z = 0
 
+LOCK_X = HANDLE_X
+LOCK_Y = 0.73733 - DOOR_Y
+LOCK_Z = 0
+
 class Safe extends RoomObject
   constructor: (room, clickHandler) ->
     super 'safe', room, clickHandler,
@@ -24,6 +28,8 @@ class Safe extends RoomObject
       playerPosition: new THREE.Vector3 1.3, 0, -0.5
     @loadDoor()
     @loadHandle()
+    @loadLock()
+
     @safeIsAnimating = false
     @inventory = new Inventory()
     count = 1 + Math.floor Math.random() * 4
@@ -38,12 +44,12 @@ class Safe extends RoomObject
     @doorOpened = false
 
   loadDoor: ->
-    @cameraMesh = AssetCache.getModel 'objects/safe_door'
-    @cameraMesh.position.set DOOR_X, DOOR_Y, DOOR_Z
-    @mesh.add @cameraMesh
+    @doorMesh = AssetCache.getModel 'objects/safe_door'
+    @doorMesh.position.set DOOR_X, DOOR_Y, DOOR_Z
+    @mesh.add @doorMesh
     @doorAnimator = new SmoothValue 700, 0
     @doorAnimator.addUpdateHandler (doorOpenProgress) =>
-      @cameraMesh.rotation.y = doorOpenProgress * Math.PI / 2
+      @doorMesh.rotation.y = doorOpenProgress * Math.PI / 2
     @doorAnimator.addFinishHandler =>
       if not @doorOpened
         @doorHandleAnimator.set 0
@@ -53,7 +59,7 @@ class Safe extends RoomObject
   loadHandle: ->
     @doorHandle = AssetCache.getModel 'objects/safe_handle'
     @doorHandle.position.set HANDLE_X, HANDLE_Y, HANDLE_Z
-    @cameraMesh.add @doorHandle
+    @doorMesh.add @doorHandle
     @doorHandleAnimator = new SmoothValue 600, 0
     @doorHandleAnimator.addUpdateHandler (handleRotateProgress) =>
       @doorHandle.rotation.z = handleRotateProgress * Math.PI * -2
@@ -63,6 +69,16 @@ class Safe extends RoomObject
       else
         @safeIsAnimating = false
 
+  loadLock: ->
+    @doorLock = AssetCache.getModel 'objects/safe_lock',
+      copyMaterials: true
+    @doorLock.position.set LOCK_X, LOCK_Y, LOCK_Z
+    @doorMesh.add @doorLock
+    loadHoverEffect @doorLock, (-> true), (-> alert 'now cracking safe...'),
+      baseIntensity: 0.1
+      r: 1
+      g: 0.3
+      b: 0
 
   onInteract: (person) ->
     return unless person.currentRoom is @room
