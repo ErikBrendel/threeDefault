@@ -66,7 +66,10 @@ class Room extends Group
     #console.log 'ENTER'
 
   onPeek: (person) ->
-    @discover() if person.type == 'player'
+    return if @seen
+    if person.type == 'player'
+      @discover()
+      return 1
 
   onArrive: (oldRoom) ->
     # Nothing so far
