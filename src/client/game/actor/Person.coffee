@@ -70,6 +70,14 @@ class Person extends THREE.Group
         return true
     false
 
+  moveToRoomCenter: ->
+    @moving = true
+    @direction = @currentRoom.position.clone().sub(@position).normalize()
+    @newRoom = @currentRoom
+    @oldRoom = @currentRoom
+    @setPosition(@currentRoom.position.clone())
+
+
   onAction: (done) ->
 
 module.exports = Person

@@ -23,3 +23,6 @@ gameInit = ->
 window.onload = ->
   await LoadResources()
   gameInit()
+
+window.addEventListener 'keydown', ->
+  gs.exitHandler?()
