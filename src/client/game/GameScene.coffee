@@ -34,7 +34,7 @@ class GameScene
     @scene.fog = new THREE.FogExp2 0x000000, 0.2
 
     ambiColor = '#ffffff'
-    ambientLight = new THREE.AmbientLight ambiColor, 0.4
+    ambientLight = new THREE.AmbientLight ambiColor, 0.4 #TODO: Discuss about this in the end, not now!
     @scene.add ambientLight
 
     @renderer = new THREE.WebGLRenderer
