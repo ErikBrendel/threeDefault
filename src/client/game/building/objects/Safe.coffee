@@ -1,5 +1,6 @@
-
+# the un(penetrable) vault that stores all kinds of treasures
 RoomObject = require './RoomObject'
+Inventory = require '../../collectables/Inventory'
 GoldIngot = require '../../collectables/GoldIngot'
 SmoothValue = require '../../../util/SmoothValue'
 
@@ -17,7 +18,7 @@ class Safe extends RoomObject
     @loadDoor()
     @loadHandle()
     @safeIsAnimating = false
-    @inventory = [new GoldIngot @]
+    @inventory = new Inventory(new GoldIngot @)
     @safeOpened = false
     @doorOpened = false
 
@@ -55,10 +56,10 @@ class Safe extends RoomObject
 
     if not @doorOpened
       @onSafeOpenAnimation()
-      if @inventory.length == 0
+      if @inventory.size() == 0
         console.log 'you look into the safe... and it is empty'
       else
-        @inventory.forEach((item) -> item.changeOwner person)
+        @inventory.changeContentOwner(person)
         console.log 'you look into the safe... and find something'
     else
       @onSafeCloseAnimation()
@@ -77,11 +78,5 @@ class Safe extends RoomObject
     @safeIsAnimating = true
     @doorOpened = false
     @doorAnimator.set 0
-
-  onObjectTaken: (object) ->
-    objectIndex = @inventory.indexOf object
-    console.log objectIndex
-    if objectIndex > -1
-      @inventory.splice objectIndex, 1
 
 module.exports = Safe
