@@ -6,4 +6,7 @@ module.exports =   {
     baseOpenSafeDelay: 10
     baseCloseSafeDelay: 1
     msToMoveToRoom: 900
+    GoldIngotValue: 100
+    GoldIngotMoveDelay: 1
+    CoinsValue: 70
   }

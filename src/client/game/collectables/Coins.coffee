@@ -2,6 +2,7 @@
 
 Treasure = require './Treasure'
 Constants = require '../../config/Constants'
+
 class Coins extends Treasure
   constructor: (inventoryHolder) ->
     super 'Coins', Constants.CoinsValue, inventoryHolder

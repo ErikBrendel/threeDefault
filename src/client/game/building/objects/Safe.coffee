@@ -1,7 +1,9 @@
-# the un(penetrable) vault that stores all kinds of treasures
+# the (un)penetrable vault that stores all kinds of treasures
+
 RoomObject = require './RoomObject'
 Inventory = require '../../collectables/Inventory'
 GoldIngot = require '../../collectables/GoldIngot'
+Coins = require '../../collectables/Coins'
 SmoothValue = require '../../../util/SmoothValue'
 Constants = require '../../../config/Constants'
 
@@ -22,7 +24,11 @@ class Safe extends RoomObject
     @inventory = new Inventory()
     count = 1 + Math.floor Math.random() * 4
     for [1 .. count]
-      @inventory.addContents new GoldIngot @
+      lootType = Math.floor Math.random() * 2
+      if lootType == 1
+        @inventory.addContents new GoldIngot @
+      else
+        @inventory.addContents new Coins @
     @updateContent()
     @safeOpened = false
     @doorOpened = false

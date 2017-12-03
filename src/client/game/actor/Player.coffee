@@ -25,14 +25,14 @@ class Player extends Person
       setTimeout @doneHandler, Constants.msToMoveToRoom
 
   walkWaitTime: ->
-    Constants.baseMoveDelay + @inventory.findObjects((item) -> item.name is 'GoldIngot').length
+    Constants.baseMoveDelay + @inventory.findObjects((item) -> item.name is 'GoldIngot').length * Constants.GoldIngotMoveDelay
     #TODO: balancing here
 
   interactWith: (roomObject) ->
     return unless @isDran
     newWaitTime = roomObject.onInteract @
-    if newWaitTime?
+    if not isNaN newWaitTime
       @waitTime = newWaitTime
-    setTimeout @doneHandler, Constants.msToMoveToRoom
+      setTimeout @doneHandler, Constants.msToMoveToRoom
 
 module.exports = Player

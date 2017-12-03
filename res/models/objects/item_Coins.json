@@ -22,7 +22,7 @@
         "depthTest":true,
         "wireframe":false,
         "visible":true,
-        "colorSpecular":[0.5,0.5,0.5]
+        "colorSpecular":[0,0,0]
     }],
     "metadata":{
         "version":3,
