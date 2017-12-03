@@ -1,6 +1,7 @@
 Room = require './Room'
 StairsRoom = require './StairsRoom'
 SafeRoom = require './SafeRoom'
+CameraRoom = require './CameraRoom'
 Door = require './Door'
 shuffle = require '../../util/ArrayShuffle'
 
@@ -59,6 +60,7 @@ class Floor extends Group
     {
       stairs: StairsRoom
       safe: SafeRoom
+      camera: CameraRoom
       default: Room
     }[type]
 

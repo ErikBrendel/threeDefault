@@ -28,12 +28,12 @@ class Safe extends RoomObject
     @doorOpened = false
 
   loadDoor: ->
-    @doorMesh = AssetCache.getModel 'objects/safe_door'
-    @doorMesh.position.set DOOR_X, DOOR_Y, DOOR_Z
-    @mesh.add @doorMesh
+    @cameraMesh = AssetCache.getModel 'objects/safe_door'
+    @cameraMesh.position.set DOOR_X, DOOR_Y, DOOR_Z
+    @mesh.add @cameraMesh
     @doorAnimator = new SmoothValue 700, 0
     @doorAnimator.addUpdateHandler (doorOpenProgress) =>
-      @doorMesh.rotation.y = doorOpenProgress * Math.PI / 2
+      @cameraMesh.rotation.y = doorOpenProgress * Math.PI / 2
     @doorAnimator.addFinishHandler =>
       if not @doorOpened
         @doorHandleAnimator.set 0
@@ -43,7 +43,7 @@ class Safe extends RoomObject
   loadHandle: ->
     @doorHandle = AssetCache.getModel 'objects/safe_handle'
     @doorHandle.position.set HANDLE_X, HANDLE_Y, HANDLE_Z
-    @doorMesh.add @doorHandle
+    @cameraMesh.add @doorHandle
     @doorHandleAnimator = new SmoothValue 600, 0
     @doorHandleAnimator.addUpdateHandler (handleRotateProgress) =>
       @doorHandle.rotation.z = handleRotateProgress * Math.PI * -2

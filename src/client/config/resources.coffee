@@ -13,6 +13,7 @@ models = [
   'objects/safe_handle',
   'objects/item_Coins',
   'objects/item_GoldIngot',
+  'objects/camera',
 ]
 
 module.exports = ->
