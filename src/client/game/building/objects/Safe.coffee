@@ -101,7 +101,7 @@ class Safe extends RoomObject
     placeIndex = 0
     for item in @inventory.contents
       loadHoverEffect item.mesh, (-> true), (-> alert 'You took it!'),
-        speed: 200
+        speed: 400
         r: 0
         g: 1
         b: 0
