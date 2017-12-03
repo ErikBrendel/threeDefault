@@ -5,13 +5,15 @@ SmoothValue = require '../../util/SmoothValue'
 loadHoverEffect = require '../actor/HoverEffect'
 
 class Door
-  constructor: (rotated) ->
+  constructor: (rotated, clickHandler) ->
+    @visible = false
     @mesh = AssetCache.getModel 'door',
       copyMaterials: true
     @rotationOffset = if rotated then Math.PI / 2 else 0
     @mesh.rotation.y = @rotationOffset
 
-    loadHoverEffect @mesh
+    @mesh.userData.clickHandler = => clickHandler @
+    loadHoverEffect @mesh, @isVisible
 
     @openCloseAnimationProgress = new SmoothValue 400, 0
     @openCloseAnimationProgress.addUpdateHandler (progress) =>
@@ -30,5 +32,19 @@ class Door
 
   playCloseAnimation: ->
     @openCloseAnimationProgress.set 0
+
+
+  isVisible: =>
+    @visible
+
+  onInteract: (person) ->
+
+  onPersonEntersAdjacentRoom: (person) ->
+    @visible = true if person.type == 'player'
+
+
+  onPersonLeavesAdjacentRoom: (person) ->
+    @visible = false if person.type == 'player'
+
 
 module.exports = Door

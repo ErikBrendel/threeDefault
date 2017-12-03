@@ -71,7 +71,7 @@ class Floor extends Group
           @createDoor x, y, true
 
   createDoor: (x, y, rightAndNotDown) ->
-    door = new Door not rightAndNotDown
+    door = new Door not rightAndNotDown, @objectClickHandler
     offsetX = if rightAndNotDown then 2 else -0.5
     offsetZ = if rightAndNotDown then -0.5 else 2
     door.mesh.position.set 4 * x + offsetX, 0.1, 4 * y + offsetZ

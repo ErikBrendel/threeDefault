@@ -50,11 +50,14 @@ class Room extends Group
 
   onLeave: (person, newRoom) ->
     object.onLeave person, newRoom for object in @objects
+    @doors[direction]?.onPersonLeavesAdjacentRoom person for direction, neighbourRoom of @neighbourRooms
     #console.log 'LEAVE'
 
   onEnter: (person, oldRoom) ->
     @discover() if person.type == 'player'
     object.onEnter person, oldRoom for object in @objects
+    @doors[direction]?.onPersonEntersAdjacentRoom person for direction, neighbourRoom of @neighbourRooms
+
     #console.log 'ENTER'
 
   onPeek: (person) ->
