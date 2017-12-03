@@ -27,7 +27,7 @@ class Floor extends Group
             down: @isDown x, y
             left: @isLeft x, y
             objectClickHandler: objectClickHandler
-        else if x is 2 and y is 0
+        else if x is 1 and y is 0
           room = new SafeRoom
             up: @isUp x, y
             right: @isRight x, y

@@ -2,12 +2,22 @@
 RoomObject = require './RoomObject'
 GoldIngot = require '../../collectables/GoldIngot'
 
+DOOR_X = 1.69044
+DOOR_Z = -1.50253
+
 class Safe extends RoomObject
   constructor: (room, clickHandler) ->
     super 'safe', room, clickHandler
+    @loadDoor()
     @inventory = [new GoldIngot @]
     @safeOpened = false
     @doorOpened = false
+
+  loadDoor: ->
+    @doorMesh = AssetCache.getModel 'objects/safe_door'
+    @doorMesh.position.set DOOR_X, 0, DOOR_Z
+    @mesh.add @doorMesh
+
 
   onInteract: (person) ->
     return unless person.currentRoom is @room
