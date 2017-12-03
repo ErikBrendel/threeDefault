@@ -45,7 +45,6 @@ class Player extends Person
     return unless @isDran
     if @setRoom room
       @isDran = false
-      @damage()
       @waitTime = @walkWaitTime()
       setTimeout @doneHandler, Constants.msToMoveToRoom
 

@@ -13,6 +13,7 @@ class Room extends Group
     @doors = {}
     @neighbourRooms = {}
     @objects = []
+    @currentPersons = new Set
 
   addWalls: (up, right, down, left) ->
     @wallUp = new Wall Math.PI * 0.5, up
@@ -53,11 +54,14 @@ class Room extends Group
     usedDoor?.playOpenCloseAnimation(goesUpOrRight)
 
   onLeave: (person, newRoom) ->
+    @currentPersons.delete(person)
     object.onLeave person, newRoom for object in @objects
     @doors[direction]?.onPersonLeavesAdjacentRoom person for direction, neighbourRoom of @neighbourRooms
     #console.log 'LEAVE'
 
-  onEnter: (person, oldRoom) ->
+  onEnter: (person, oldRoom) =>
+    @currentPersons.add(person)
+    @getPlayerInRoom()?.damage(@currentPersons.size - 1)
     @ground.userData.resetHover()
     @discover() if person.type == 'player'
     object.onEnter person, oldRoom for object in @objects
@@ -65,9 +69,13 @@ class Room extends Group
 
     #console.log 'ENTER'
 
+  getPlayerInRoom: =>
+    (Array.from(@currentPersons).filter (person) ->
+      person.type is 'player')[0]
+
   onPeek: (person) ->
     return if @seen
-    if person.type == 'player'
+    if person.type is 'player'
       @discover()
       return Constants.basePeekDelay
 
