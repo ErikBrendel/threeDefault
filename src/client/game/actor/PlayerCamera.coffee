@@ -25,7 +25,7 @@ class PlayerCamera extends THREE.PerspectiveCamera
     @position.copy pos
     @setLookAt @lookAtTarget()
 
-  focusObject: (offset, {cameraPosition, cameraLookAt}) ->
+  focusObject: ({offset, cameraPosition, cameraLookAt}) ->
     @focusMode = true
 
     @focusLookAtTarget = new SmoothVector 500, @lookVector.clone()

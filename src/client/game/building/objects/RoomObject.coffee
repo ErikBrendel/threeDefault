@@ -11,6 +11,10 @@ class RoomObject
     @room.add @mesh
     @hasFocus = false
 
+  getFocusData: ->
+    @focusData.offset = @room.position
+    return @focusData
+
   isVisible: => @visible
 
   onInteract: (person) ->

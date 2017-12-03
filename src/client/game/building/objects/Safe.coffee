@@ -100,8 +100,8 @@ class Safe extends RoomObject
   updateContent: ->
     placeIndex = 0
     for item in @inventory.contents
-      loadHoverEffect item.mesh, (-> true), (do (item) => => @clickHandler item; @mesh.remove item.mesh),
-        speed: 200
+      loadHoverEffect item.mesh, (-> true), (do (item) => => (@clickHandler item) and @mesh.remove item.mesh),
+        speed: 400
         r: 0
         g: 1
         b: 0

@@ -1,14 +1,18 @@
 # an abstract collectable item
 
+Constants = require '../../config/Constants'
+
 class InventoryItem
   constructor: (@type, @name, @inventoryHolder) ->
+    @hasFocus = true
     @mesh = AssetCache.getModel "objects/item_#{@name}",
       copyMaterials: true
 
 
   onInteract: (person)  ->
-    console.log 'You got: ' + item.name
-    item.changeOwner(person)
+    console.log 'You got: ' + @name
+    @changeOwner(person)
+    return Constants.baseTakeItemDelay
 
   changeOwner: (newOwner) ->
     @inventoryHolder.inventory?.onObjectTaken(@)

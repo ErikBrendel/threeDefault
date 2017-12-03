@@ -57,7 +57,10 @@ class Player extends Person
     return unless @isDran
     newWaitTime = roomObject.onInteract @
     if not isNaN newWaitTime
+      @isDran = false
       @waitTime = newWaitTime
       setTimeout @doneHandler, Constants.msToMoveToRoom
+      return true
+    return false
 
 module.exports = Player
