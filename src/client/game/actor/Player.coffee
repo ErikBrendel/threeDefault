@@ -26,5 +26,7 @@ class Player extends Person
     3 + @inventory.filter((item) -> item.name is 'GoldIngot').length
     #TODO: balancing here
 
+  onReceiveObject: (newObject) ->
+    @inventory.push newObject
 
 module.exports = Player

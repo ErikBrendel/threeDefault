@@ -3,7 +3,7 @@
 InventoryItem = require './InventoryItem'
 
 class Treasure extends InventoryItem
-  constructor: (name, @value) ->
-    super 'treasure', name
+  constructor: (name, @value, inventoryHolder) ->
+    super 'treasure', name, inventoryHolder
 
 module.exports = Treasure
