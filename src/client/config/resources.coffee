@@ -11,6 +11,8 @@ models = [
   'objects/safe',
   'objects/safe_door',
   'objects/safe_handle',
+  'objects/item_Coins',
+  'objects/item_GoldIngot',
 ]
 
 module.exports = ->
