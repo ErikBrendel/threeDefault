@@ -5,6 +5,7 @@ class ResourceCache
     @textures = {}
     @jsonLoader = new THREE.JSONLoader
     @audioLoader = new THREE.AudioLoader
+    @textureLoader = new THREE.TextureLoader
 
   loadModel: (name) ->
     unless @models[name]?
@@ -20,7 +21,6 @@ class ResourceCache
 
   loadSound: (name) ->
     unless @sounds[name]?
-      console.debug "Loading sound #{name}."
       @audioLoader.load "assets/sounds/#{name}.mp3", (buffer) =>
         console.debug "Loaded sound #{name}."
         @sounds[name] = buffer
@@ -49,11 +49,14 @@ class ResourceCache
     @applyPositionalAudioOptions audio
     audio
 
+  applyTextureOptions: (texture) ->
+    texture.anisotropy = 4
+
   applyGeometryOptions: (geometry) ->
     #Nothing yet
 
   applyMaterialOptions: (material) ->
-    material.map.anisotropy = 4
+    @applyTextureOptions material.map
     material.fog = false
 
   applyMeshOptions: (mesh) ->
