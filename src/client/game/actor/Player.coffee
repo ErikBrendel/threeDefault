@@ -17,17 +17,10 @@ class Player extends Person
 
   onRoomClicked: (room) ->
     return unless @isDran
-    if @canWalkTo room
-      @setRoom room
+    if @setRoom room
       @isDran = false
       @waitTime = @walkWaitTime()
       setTimeout @doneHandler, 500
-
-  canWalkTo: (room) ->
-    @position.distanceTo(room.position) <= 4 and
-    not @moving and
-    room isnt @currentRoom and
-    @currentRoom.canEnter room
 
   walkWaitTime: ->
     3 + @inventory.filter((item) -> item.name is 'GoldIngot').length

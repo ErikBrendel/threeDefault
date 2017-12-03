@@ -1,26 +1,27 @@
 # abstract parent of guards and players
 
 SmoothVector3 = require '../../util/SmoothVector3'
+PersonLight = require './PersonLight'
 
-class Person
+class Person extends THREE.Group
   constructor: (@type, @name, @waitTime = 0) ->
-    @direction =
-      new THREE.Vector3 0, 0, 0
-    @position =
-      new THREE.Vector3 0, 0, 0
-    @mesh = AssetCache.getModel @type
+    super()
+    @direction = new THREE.Vector3 0, 0, 0
+    @position.set 0, 0, 0
+    @model = AssetCache.getModel @type
+    @add @model
     @moving = false
     @positionSmoother = new SmoothVector3 900
     @positionSmoother.addProgressListener (progress) =>
-      @mesh.rotation.setFromVector3(@direction.clone().multiplyScalar(0.3 * Math.sin(progress * Math.PI) * Math.sin(progress * Math.PI * 3)))
-      @mesh.position.y = Math.abs(0.3 * Math.sin(progress * Math.PI * 3)) unless @direction.length() < 0.001
-      @moveLight? @mesh.position, @direction
-
+      unless @direction.length() < 0.001
+        @setDirection(@direction)
+        @rotateZ(0.3 * Math.sin(progress * Math.PI) * Math.sin(progress * Math.PI * 3))
+        @position.y = Math.abs(0.3 * Math.sin(progress * Math.PI * 3))
     @positionSmoother.addUpdateHandler (newPosition) =>
-      @mesh.position.x = newPosition.x
-      @mesh.position.z = newPosition.z
+      @position.x = newPosition.x
+      @position.z = newPosition.z
       if @moving
-        if @newRoom? and @mesh.position.distanceTo(@newRoom.position) < @mesh.position.distanceTo(@currentRoom.position)
+        if @newRoom? and @position.distanceTo(@newRoom.position) < @position.distanceTo(@currentRoom.position)
           @currentRoom.onLeave @, @newRoom
           @oldRoom = @currentRoom
           @currentRoom = @newRoom
@@ -31,8 +32,17 @@ class Person
       @oldRoom = null
       @moving = false
 
-  setPosition: (@position) ->
-    @positionSmoother.set @position
+    @light = new PersonLight @
+
+  setPosition: (position) ->
+    @positionSmoother.set position
+
+  lookTo: (position) ->
+    @setDirection position.clone().sub(@position) unless @moving
+
+  setDirection: (direction) ->
+    direction.y = 0
+    @lookAt @position.clone().add(direction)
 
 
   setRoom: (newRoom) ->
@@ -43,10 +53,13 @@ class Person
         @direction = @newRoom.position.clone().sub(@currentRoom.position).normalize()
         @currentRoom.onDepart(@newRoom)
         @setPosition(@newRoom.position.clone())
+        return true
       else if not @currentRoom?
         @moving = true
         @currentRoom = newRoom
         @setPosition(@currentRoom.position.clone())
+        return true
+    false
 
   onAction: (done) ->
 

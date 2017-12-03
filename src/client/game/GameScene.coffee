@@ -6,7 +6,7 @@ Player = require './actor/Player'
 Guard = require './actor/Guard'
 layouts = require './building/floors/Layouts'
 PlayerCamera = require './actor/PlayerCamera'
-PlayerLight = require './actor/PlayerLight'
+PlayerLight = require './actor/PersonLight'
 Scheduler = require './Scheduler'
 
 class GameScene
@@ -36,10 +36,6 @@ class GameScene
     ambiColor = '#ffffff'
     ambientLight = new THREE.AmbientLight ambiColor, 0.4
     @scene.add ambientLight
-    @playerLight = new PlayerLight @player
-
-    @scene.add @playerLight
-    @scene.add @playerLight.target
 
     @renderer = new THREE.WebGLRenderer
       antialias: true
@@ -90,6 +86,8 @@ class GameScene
     # uncomment to use raycasting for mouse-object interaction
     @rayCaster.setFromCamera @mouse, @camera
     @hoveredObjects = (res.object for res in (@rayCaster.intersectObjects @scene.children, true))
+    worldPos = @rayCaster.ray.intersectPlane new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
+    @player.lookTo worldPos
 
     # update loop
     now = Date.now()
