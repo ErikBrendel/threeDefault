@@ -6,7 +6,6 @@ Constants = require '../../config/Constants'
 class Player extends Person
   constructor: ->
     super 'player', 'You'
-    console.dir(@)
     @inventory = new Inventory()
     @isDran = false
 

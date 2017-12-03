@@ -19,7 +19,11 @@ class Safe extends RoomObject
     @loadDoor()
     @loadHandle()
     @safeIsAnimating = false
-    @inventory = new Inventory(new GoldIngot @)
+    @inventory = new Inventory()
+    count = 1 + Math.floor Math.random() * 4
+    for [1 .. count]
+      @inventory.addContents new GoldIngot @
+    @updateContent()
     @safeOpened = false
     @doorOpened = false
 
@@ -79,9 +83,21 @@ class Safe extends RoomObject
     @doorHandleAnimator.set 1
 
   onSafeCloseAnimation: ->
-    return if @safeIsAnimating
     @safeIsAnimating = true
     @doorOpened = false
     @doorAnimator.set 0
+
+  updateContent: ->
+    placeIndex = 0
+    for item in @inventory.contents
+      @addItemMesh item.mesh, placeIndex <= 1, placeIndex % 2 is 1
+      placeIndex++
+
+  addItemMesh: (itemMesh, isTop, isRight) ->
+    position = new THREE.Vector3 0.92535, 0.5053, -1.69785
+    if isRight then position.x += 0.5329
+    if not isTop then position.y -= 0.44
+    itemMesh.position.copy position
+    @mesh.add itemMesh
 
 module.exports = Safe

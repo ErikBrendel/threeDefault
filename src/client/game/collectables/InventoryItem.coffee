@@ -2,6 +2,7 @@
 
 class InventoryItem
   constructor: (@type, @name, @inventoryHolder) ->
+    @mesh = AssetCache.getModel "objects/item_#{@name}"
 
   changeOwner: (newOwner) ->
     @inventoryHolder.inventory?.onObjectTaken(@)
