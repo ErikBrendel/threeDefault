@@ -57,6 +57,36 @@
             padding: 5px 5px 10px 10px;
             text-align: right;
         }
+        .inventory-container {
+            pointer-events: all;
+            max-height: 235px;
+            overflow: scroll;
+            border-top-left-radius: 7px;
+            padding: 10px 20px 5px 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 64px);
+            grid-auto-flow: row;
+            grid-auto-rows: 64px;
+            grid-gap: 5px;
+        }
+        .inventory-container > div,img {
+            -webkit-transition: background-color .25s;
+            -moz-transition: background-color .25s;
+            -ms-transition: background-color .25s;
+            -o-transition: background-color .25s;
+            transition: background-color .25s;
+            cursor: pointer;
+        }
+        .inventory-container > img {
+            width: 64px;
+            height: 64px;
+        }
+        .inventory-container > :not(:hover) {
+            background: rgba(25,25,25,0.25);
+        }
+        .inventory-container > :hover {
+            background: rgba(66, 104, 104, 0.75);
+        }
         #fps {
             padding: 5px;
             border-top-right-radius: 7px;
@@ -66,10 +96,10 @@
             padding: 5px;
             border-bottom-right-radius: 10px;
         }
-        .health {
-            width: 50px;
+        .health-bar > img {
+            width: 64px;
         }
-        .health.dead {
+        .health-bar > img.dead {
             opacity: 0;
         }
     </style>
@@ -79,23 +109,33 @@
 </head>
 <body>
     <div class="hud">
-        <div class="health-bar top left container">
-            <image id="health0" class="health" src="assets/texture/hearth.png"></image>
-            <image id="health1" class="health" src="assets/texture/hearth.png"></image>
-            <image id="health2" class="health" src="assets/texture/hearth.png"></image>
+        <div id="health-bar" class="health-bar top left container">
+            <img src="assets/texture/hearth.png"/>
+            <img src="assets/texture/hearth.png"/>
+            <img src="assets/texture/hearth.png"/>
         </div>
         <div class="info-box top">
             <div class="info-container container">
-                <div id="info-header" class="info-header">Some title</div>
-                <div id="info-text" class="info-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet efficitur tortor,
-                    a pulvinar ex. Ut vel mattis purus, a fringilla velit. Integer ac elit nulla. Vivamus quis ipsum velit.
-                    Nullam in odio vel metus tristique condimentum et vitae turpis. Donec nec lorem eu augue pulvinar pretium.
-                </div>
+                <div id="info-header" class="info-header"></div>
+                <div id="info-text" class="info-text"></div>
             </div>
         </div>
         <div id="prio" class="prio-container container top right">It's your turn</div>
         <div id="fps" class="container bottom left">all of them fps</div>
+        <div id="inventory" class="container inventory-container bottom right">
+            <img src="assets/texture/item/coins.png"/>
+            <img src="assets/texture/item/coins.png"/>
+            <img src="assets/texture/item/coins.png"/>
+            <img src="assets/texture/item/coins.png"/>
+            <img src="assets/texture/item/coins.png"/>
+            <img src="assets/texture/item/coins.png"/>
+            <img src="assets/texture/item/goldIngot.png"/>
+            <img src="assets/texture/item/goldIngot.png"/>
+            <img src="assets/texture/item/goldIngot.png"/>
+            <img src="assets/texture/item/goldIngot.png"/>
+            <img src="assets/texture/item/goldIngot.png"/>
+            <img src="assets/texture/item/goldIngot.png"/>
+        </div>
     </div>
 </body>
 </html>
