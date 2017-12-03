@@ -6,7 +6,7 @@ Player = require './actor/Player'
 Guard = require './actor/Guard'
 layouts = require './building/floors/Layouts'
 PlayerCamera = require './actor/PlayerCamera'
-PlayerLight = require './actor/PlayerLight'
+PlayerLight = require './actor/PersonLight'
 Scheduler = require './Scheduler'
 
 class GameScene
@@ -36,10 +36,6 @@ class GameScene
     ambiColor = '#ffffff'
     ambientLight = new THREE.AmbientLight ambiColor, 0.4
     @scene.add ambientLight
-    @playerLight = new PlayerLight @player
-
-    @scene.add @playerLight
-    @scene.add @playerLight.target
 
     @renderer = new THREE.WebGLRenderer
       antialias: true
