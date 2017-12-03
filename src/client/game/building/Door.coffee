@@ -41,7 +41,8 @@ class Door
     console.log(person)
     return unless @isVisible() and person.type == 'player'
     for direction, neighbourRoom of person.currentRoom.neighbourRooms
-      neighbourRoom.onPeek person if neighbourRoom?.getSharedDoorWith(person.currentRoom) == @
+      return neighbourRoom.onPeek person if neighbourRoom?.getSharedDoorWith(person.currentRoom) == @
+
 
   onPersonEntersAdjacentRoom: (person) ->
     @visible = true if person.type == 'player'
