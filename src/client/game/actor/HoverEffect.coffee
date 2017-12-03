@@ -19,7 +19,7 @@ loadHoverEffect = (mesh, showHover = -> true) ->
     hoverPulse.set 1 - hoverPulse.get()
   hoverPulse.addUpdateHandler (hoverFade) =>
     if mesh.userData.hoverEffectActive
-      hoverIntensity = 0.05 + hoverFade * 0.05
+      hoverIntensity = 0.5 + hoverFade * 0.5
       mesh.material[0].emissive = (new THREE.Color 1, 1, 0).multiplyScalar hoverIntensity
     else
       mesh.material[0].emissive = new THREE.Color 0, 0, 0

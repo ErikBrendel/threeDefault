@@ -2,12 +2,15 @@
 # including mesh, type and logic
 
 SmoothValue = require '../../util/SmoothValue'
+loadHoverEffect = require '../actor/HoverEffect'
 
 class Door
   constructor: (rotated) ->
     @mesh = AssetCache.getModel 'door'
     @rotationOffset = if rotated then Math.PI / 2 else 0
     @mesh.rotation.y = @rotationOffset
+
+    loadHoverEffect @mesh
 
     @openCloseAnimationProgress = new SmoothValue 400, 0
     @openCloseAnimationProgress.addUpdateHandler (progress) =>
