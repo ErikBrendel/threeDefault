@@ -12,7 +12,7 @@
         "blending":1,
         "colorEmissive":[0,0,0],
         "mapDiffuseRepeat":[1,1],
-        "mapDiffuse":"coins.jpg",
+        "mapDiffuse":"../../texture/coins.jpg",
         "DbgColor":15658734,
         "DbgName":"Material.009",
         "specularCoef":50,

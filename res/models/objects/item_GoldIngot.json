@@ -12,7 +12,7 @@
         "blending":1,
         "colorEmissive":[0,0,0],
         "mapDiffuseRepeat":[1,1],
-        "mapDiffuse":"gold-texture.jpg",
+        "mapDiffuse":"../../texture/gold-texture.jpg",
         "DbgColor":15658734,
         "DbgName":"Material.007",
         "specularCoef":50,
