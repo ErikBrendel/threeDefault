@@ -10,6 +10,7 @@ models = [
   'objects/stairs',
   'objects/safe',
   'objects/safe_door',
+  'objects/safe_handle',
 ]
 
 module.exports = ->

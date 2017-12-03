@@ -4,8 +4,8 @@ class InventoryItem
   constructor: (@type, @name, @inventoryHolder) ->
 
   changeOwner: (newOwner) ->
-    @inventoryHolder.onObjectTaken?(@)
+    @inventoryHolder.inventory?.onObjectTaken(@)
     @inventoryHolder = newOwner
-    newOwner.onReceiveObject(@)
+    newOwner.inventory?.onReceiveObject(@)
 
 module.exports = InventoryItem

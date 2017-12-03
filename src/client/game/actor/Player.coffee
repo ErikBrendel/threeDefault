@@ -1,10 +1,12 @@
 # the controllable player object
 Person = require './Person'
+Inventory = require '../collectables/Inventory'
 
 class Player extends Person
   constructor: ->
     super 'player', 'You'
-    @inventory = []
+    console.dir(@)
+    @inventory = new Inventory()
     @isDran = false
 
   setPosition: (position) ->
@@ -23,10 +25,7 @@ class Player extends Person
       setTimeout @doneHandler, 500
 
   walkWaitTime: ->
-    3 + @inventory.filter((item) -> item.name is 'GoldIngot').length
+    3 + @inventory.findObjects((item) -> item.name is 'GoldIngot').length
     #TODO: balancing here
-
-  onReceiveObject: (newObject) ->
-    @inventory.push newObject
 
 module.exports = Player
