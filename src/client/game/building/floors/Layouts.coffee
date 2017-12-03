@@ -4,7 +4,8 @@ module.exports = [
     rooms: {
       stairs: 1,
       safe: 4,
-      camera: 10,
+      camera: 2,
+      laser: 8,
       default: 1
     }
     layout:
