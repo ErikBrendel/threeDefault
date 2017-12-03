@@ -6,7 +6,8 @@ loadHoverEffect = require '../actor/HoverEffect'
 
 class Door
   constructor: (rotated) ->
-    @mesh = AssetCache.getModel 'door'
+    @mesh = AssetCache.getModel 'door',
+      copyMaterials: true
     @rotationOffset = if rotated then Math.PI / 2 else 0
     @mesh.rotation.y = @rotationOffset
 
