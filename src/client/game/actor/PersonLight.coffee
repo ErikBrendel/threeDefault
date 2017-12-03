@@ -2,7 +2,7 @@ SmoothVector = require '../../util/SmoothVector3'
 
 class PersonLight extends THREE.SpotLight
   constructor: (@person) ->
-    super '#fff0ca', 2, 10, Math.PI / 8, 0, 2
+    super '#fff0ca', 2, 10, Math.PI / 8, 0.3, 2
 
     @castShadow = true
     @shadow.mapSize.width = 1024
