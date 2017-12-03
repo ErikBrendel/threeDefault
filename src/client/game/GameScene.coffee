@@ -144,5 +144,7 @@ class GameScene
 
   onRoomClicked: (room) ->
     @player.onRoomClicked room
+    @camera.resetFocus()
+    @exitHandler = undefined
 
 module.exports = GameScene

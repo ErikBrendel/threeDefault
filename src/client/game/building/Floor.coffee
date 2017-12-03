@@ -32,10 +32,9 @@ class Floor extends Group
         clickedObject.hasFocus = true
         focus = clickedObject.getFocusData()
         scene.player.setPosition focus.playerPosition.clone().add focus.offset
-        scene.camera.focusObject focus
+        scene.camera.focusObject focus, clickedObject
         scene.exitHandler = ->
           scene.camera.resetFocus()
-          clickedObject.hasFocus = false
           scene.player.moveToRoomCenter()
           scene.exitHandler = undefined
         return true

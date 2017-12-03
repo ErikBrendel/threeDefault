@@ -34,6 +34,7 @@ CenterOffset = [
 class Door
   # rotated=false === RL-DOOR
   constructor: (@rotated, clickHandler, @firstRoom, @secondRoom) ->
+    @allowRoomMovement = true
     @hasFocus = false
     #TODO focus animation here maybe
     @visible = false
