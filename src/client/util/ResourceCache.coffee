@@ -9,6 +9,7 @@ class ResourceCache
     unless @models[name]?
       @jsonLoader.load "assets/models/#{name}.json", (geom, mat) =>
         mat[0].map.anisotropy = 4
+        m.fog = false for m in mat
         @models[name] =
           geometry: geom
           materials: mat

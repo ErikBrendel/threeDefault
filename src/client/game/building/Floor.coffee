@@ -69,7 +69,7 @@ class Floor extends Group
     door = new Door not rightAndNotDown
     offsetX = if rightAndNotDown then 2 else -0.5
     offsetZ = if rightAndNotDown then -0.5 else 2
-    door.mesh.position.set 4 * x + offsetX, 0, 4 * y + offsetZ
+    door.mesh.position.set 4 * x + offsetX, 0.1, 4 * y + offsetZ
     firstKey = if rightAndNotDown then 'right' else 'down'
     secondKey = if rightAndNotDown then 'left' else 'up'
     @rooms[x][y].doors[firstKey] = door

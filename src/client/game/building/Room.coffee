@@ -26,9 +26,8 @@ class Room extends Group
       @onGroundClick? @
 
     @groundMaterial = @ground.material
-
-    @ground.material = [new THREE.MeshPhongMaterial
-      color: 0x111111]
+    @ground.material = @groundMaterial[0].clone()
+    @ground.material.fog = true
 
     @userData.mouseEnterHandler = =>
       @showDescription? @description

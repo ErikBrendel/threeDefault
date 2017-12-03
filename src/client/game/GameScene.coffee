@@ -31,10 +31,10 @@ class GameScene
 
 
     # uncomment for nice fog
-    # @scene.fog = new THREE.FogExp2 0x000000, 0.1
+    @scene.fog = new THREE.FogExp2 0x000000, 0.2
 
     ambiColor = '#ffffff'
-    ambientLight = new THREE.AmbientLight ambiColor, 0.4
+    ambientLight = new THREE.AmbientLight ambiColor, 0.2
     @scene.add ambientLight
 
     @renderer = new THREE.WebGLRenderer
