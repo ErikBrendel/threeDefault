@@ -8,6 +8,7 @@ class Room extends Group
     super()
     @seen = false
     @description = 'Default Room'
+    @details = 'Some boring room'
     @addWalls up, right, down, left
     @addGround()
     @doors = {}
@@ -31,7 +32,7 @@ class Room extends Group
       color: 0
 
     @userData.mouseEnterHandler = =>
-      @showDescription? @description
+      @showDescription? @description, @details
     @add @ground
 
     loadHoverEffect @ground,

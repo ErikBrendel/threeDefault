@@ -8,39 +8,69 @@
             /* enable render surface to go fullscreen */
             margin: 0;
             overflow: hidden;
+            background: #515151;
         }
-        .overlay {
+        div.hud {
+            pointer-events: none;
+        }
+        div.hud > div {
             position: absolute;
-            top: 10px;
+            color: #f3ffe6;
+        }
+        .info-box {
             width: 100%;
-            text-align: center;
-            color: #04ff00;
         }
-        #info {
-            text-align: center;
+        .top {
+            top: 0;
         }
-        #fps {
-            text-align: left;
+        .left {
+            left: 0;
         }
-        #prio {
-            width: 200px;
-            text-align: left;
+        .right {
             right: 0;
         }
-        #health0 {
-            width: 100px;
-            top: 40px;
-            left: 40px
+        .bottom {
+            bottom: 0;
         }
-        #health1 {
-            width: 100px;
-            top: 40px;
-            left: 140px
+        .container {
+            -webkit-box-shadow: 0 0 10px rgba(25,25,25,0.75);
+            -moz-box-shadow: 0 0 10px rgba(25,25,25,0.75);
+            box-shadow: 0 0 10px rgba(25,25,25,0.75);
+            background: rgba(25,25,25,0.5);
         }
-        #health2 {
-            width: 100px;
-            top: 40px;
-            left: 240px
+        .info-container{
+            width: 20%;
+            min-width: 200px;
+            margin: auto auto;
+            padding: 5px 10px 10px;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+        }
+        .info-header{
+            padding-bottom: .5em;
+            font-size: 1.25em;
+            font-weight: bold;
+        }
+        .prio-container {
+            width: 200px;
+            border-bottom-left-radius: 7px;
+            padding: 5px 5px 10px 10px;
+            text-align: right;
+        }
+        #fps {
+            padding: 5px;
+            border-top-right-radius: 7px;
+            color: lime;
+        }
+        .health-bar {
+            padding: 5px;
+            border-bottom-right-radius: 10px;
+        }
+        .health {
+            width: 50px;
+        }
+        .health.dead {
+            opacity: 0;
         }
     </style>
     <script src="three/three.js"></script>
@@ -48,11 +78,24 @@
     <script src="bundle/main.js"></script>
 </head>
 <body>
-    <div id="info" class="overlay">Description</div>
-    <div id="fps" class="overlay">all of them fps</div>
-    <div id="prio" class="overlay">It's your turn</div>
-    <image id="health0" class="overlay" src="assets/texture/hearth.png"></image>
-    <image id="health1" class="overlay" src="assets/texture/hearth.png"></image>
-    <image id="health2" class="overlay" src="assets/texture/hearth.png"></image>
+    <div class="hud">
+        <div class="health-bar top left container">
+            <image id="health0" class="health" src="assets/texture/hearth.png"></image>
+            <image id="health1" class="health" src="assets/texture/hearth.png"></image>
+            <image id="health2" class="health" src="assets/texture/hearth.png"></image>
+        </div>
+        <div class="info-box top">
+            <div class="info-container container">
+                <div id="info-header" class="info-header">Some title</div>
+                <div id="info-text" class="info-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet efficitur tortor,
+                    a pulvinar ex. Ut vel mattis purus, a fringilla velit. Integer ac elit nulla. Vivamus quis ipsum velit.
+                    Nullam in odio vel metus tristique condimentum et vitae turpis. Donec nec lorem eu augue pulvinar pretium.
+                </div>
+            </div>
+        </div>
+        <div id="prio" class="prio-container container top right">It's your turn</div>
+        <div id="fps" class="container bottom left">all of them fps</div>
+    </div>
 </body>
 </html>

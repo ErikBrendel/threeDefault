@@ -138,8 +138,9 @@ class GameScene
 
     clicked?.userData.clickHandler?()
 
-  showDescription: (description) ->
-    document.getElementById('info').innerText = description
+  showDescription: (description, details) ->
+    document.getElementById('info-header').innerText = description
+    document.getElementById('info-text').innerText = details
 
   onRoomClicked: (room) ->
     @player.onRoomClicked room
