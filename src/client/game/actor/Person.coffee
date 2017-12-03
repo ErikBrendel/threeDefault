@@ -44,7 +44,6 @@ class Person extends THREE.Group
     direction.y = 0
     @lookAt @position.clone().add(direction)
 
-
   setRoom: (newRoom) ->
     unless @moving
       if @currentRoom? and @currentRoom.canEnter(newRoom)
