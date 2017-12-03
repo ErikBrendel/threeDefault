@@ -8,11 +8,15 @@ class Guard extends Person
     super 'guard', "Guard #{GuardCounter++}", 1
 
   onAction: (done) ->
-    x = Math.floor(Math.random() * 4)
-    y = Math.floor(Math.random() * 4)
-    newPos = new THREE.Vector3(x * 4, 0, y * 4)
-    @direction = newPos.clone().sub(@position).normalize()
-    @setPosition newPos
+    movementOptions = []
+
+    for direction, neighbourRoom of @currentRoom.neighbourRooms
+      movementOptions.push neighbourRoom if @currentRoom.canEnter(neighbourRoom)
+
+    nextRoom = movementOptions[Math.floor(Math.random() * movementOptions.length)]
+
+    @setRoom nextRoom
+
     @waitTime = 4 #TODO: balancing here
     setTimeout done, 50
 

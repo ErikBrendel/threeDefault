@@ -22,7 +22,7 @@ class GameScene
 
     @guard = new Guard
     @add @guard
-    @guard.setPosition new THREE.Vector3 4, 0, 4
+    @guard.setRoom @floor.rooms[1][1]
 
     @scheduler = new Scheduler @player, @guard
 
