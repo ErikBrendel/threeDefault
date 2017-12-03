@@ -2,6 +2,7 @@ Room = require './Room'
 StairsRoom = require './StairsRoom'
 SafeRoom = require './SafeRoom'
 Door = require './Door'
+shuffle = require '../../util/ArrayShuffle'
 
 { Group } = THREE
 
@@ -10,38 +11,25 @@ class Floor extends Group
     super()
     @lines = layout.layout.split('\n')
     @floorSize = layout.floorSize
+    @roomTypes = []
+
+    for type, amount of layout.rooms
+      for i in [1..amount]
+        @roomTypes.push type
+
+    shuffle @roomTypes
+
     @createRooms scene
     @createDoors()
 
   createRooms: (scene) ->
     @rooms = []
-    objectClickHandler = (clickedObject) ->
+    @objectClickHandler = (clickedObject) ->
       clickedObject.onInteract scene.player
     for x in [0..@floorSize.x - 1]
       @rooms[x] = []
       for y in [0..@floorSize.y - 1]
-        if x is 0 and y is 3
-          room = new StairsRoom
-            up: @isUp x, y
-            right: @isRight x, y
-            down: @isDown x, y
-            left: @isLeft x, y
-            objectClickHandler: objectClickHandler
-        else if x is 1 and y is 0
-          room = new SafeRoom
-            up: @isUp x, y
-            right: @isRight x, y
-            down: @isDown x, y
-            left: @isLeft x, y
-            objectClickHandler: objectClickHandler
-        else
-          room = new Room
-            up: @isUp x, y
-            right: @isRight x, y
-            down: @isDown x, y
-            left: @isLeft x, y
-            objectClickHandler: objectClickHandler
-
+        room = @createRoom x, y
 
         room.position.set x * 4, 0, y * 4
 
@@ -56,6 +44,23 @@ class Floor extends Group
           scene.showDescription description
         @add room
         @rooms[x][y] = room
+
+  createRoom: (x, y) ->
+    roomType = @roomTypes[x + y * @floorSize.x]
+    roomClass = @classFromRoomType roomType
+    new roomClass
+      up: @isUp x, y
+      right: @isRight x, y
+      down: @isDown x, y
+      left: @isLeft x, y
+      objectClickHandler: @objectClickHandler
+
+  classFromRoomType: (type) ->
+    {
+      stairs: StairsRoom
+      safe: SafeRoom
+      default: Room
+    }[type]
 
   createDoors: ->
     for x in [0..@floorSize.x - 1]
