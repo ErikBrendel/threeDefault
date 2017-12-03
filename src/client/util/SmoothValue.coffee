@@ -44,6 +44,13 @@ class SmoothValue
     @target = newTarget
     @updateLoop()
 
+  #aborts the current animation, lets the value rest where it currently is
+  halt: ->
+    currentValue = @get()
+    @oldTarget = currentValue
+    @target = undefined
+    @oldTime = Date.now() - 2 * @lerpTime
+
 # return true, if the new value is the 'same' as the old one (so that no one would notice the difference)
   isSameTarget: (newTarget) ->
     return Math.abs(@target - newTarget) < 0.001

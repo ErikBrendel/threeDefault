@@ -87,7 +87,10 @@ class GameScene
     @rayCaster.setFromCamera @mouse, @camera
     @hoveredObjects = (res.object for res in (@rayCaster.intersectObjects @scene.children, true))
     worldPos = @rayCaster.ray.intersectPlane new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
-    @player.lookTo worldPos
+    if @camera.focusMode
+      worldPos = @rayCaster.ray.intersectPlane new THREE.Plane(new THREE.Vector3(0, 0, 1), 2 - @player.currentRoom.position.z)
+    if worldPos?
+      @player.lookTo worldPos
 
     # update loop
     now = Date.now()

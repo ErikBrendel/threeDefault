@@ -24,8 +24,6 @@ class Room extends Group
   addGround: ->
     @ground = AssetCache.getModel 'ground',
       copyMaterials: true
-    @userData.clickHandler = =>
-      @onGroundClick? @
 
     @groundMaterial = @ground.material
     @ground.material = new THREE.MeshPhongMaterial
@@ -35,8 +33,9 @@ class Room extends Group
       @showDescription? @description
     @add @ground
 
-    loadHoverEffect @ground, =>
-      @getSharedDoorWith(gs.player.currentRoom)?
+    loadHoverEffect @ground,
+      => @getSharedDoorWith(gs.player.currentRoom)? and not gs.camera.focusMode
+      => @onGroundClick? @
 
   getSharedDoorWith: (otherRoom) ->
     for direction, neighbourRoom of @neighbourRooms

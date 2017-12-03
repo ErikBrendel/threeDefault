@@ -1,7 +1,7 @@
 
 SmoothValue = require '../../util/SmoothValue'
 
-loadHoverEffect = (mesh, showHover = -> true) ->
+loadHoverEffect = (mesh, clickable = (-> true), clickHandler = (->)) ->
   mesh.userData.hoverEffectActive = false
 
   hoverPulse = new SmoothValue 600, 0
@@ -9,7 +9,7 @@ loadHoverEffect = (mesh, showHover = -> true) ->
   oldEnterHandler = mesh.userData.mouseEnterHandler
   mesh.userData.mouseEnterHandler = ->
     oldEnterHandler?()
-    return unless showHover()
+    return unless clickable()
     mesh.userData.hoverEffectActive = true
     hoverPulse.set 1
 
@@ -23,9 +23,12 @@ loadHoverEffect = (mesh, showHover = -> true) ->
     oldLeaveHandler?()
     resetHover()
 
+  mesh.userData.clickHandler = ->
+    clickHandler() if clickable()
 
   hoverPulse.addFinishHandler =>
     hoverPulse.set 1 - hoverPulse.get()
+
   hoverPulse.addUpdateHandler (hoverFade) =>
     mat = mesh.material
     mat = mat[0] if mat[0]?

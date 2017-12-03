@@ -6,14 +6,15 @@ loadHoverEffect = require '../actor/HoverEffect'
 
 class Door
   constructor: (rotated, clickHandler) ->
+    @hasFocus = true
+    #TODO focus animation here maybe
     @visible = false
     @mesh = AssetCache.getModel 'door',
       copyMaterials: true
     @rotationOffset = if rotated then Math.PI / 2 else 0
     @mesh.rotation.y = @rotationOffset
 
-    @mesh.userData.clickHandler = => clickHandler @
-    loadHoverEffect @mesh, @isVisible
+    loadHoverEffect @mesh, (=> @isVisible() and not gs.camera.focusMode), (=> clickHandler @)
 
     @openCloseAnimationProgress = new SmoothValue 400, 0
     @openCloseAnimationProgress.addUpdateHandler (progress) =>

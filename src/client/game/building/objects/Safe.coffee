@@ -17,7 +17,10 @@ HANDLE_Z = 0
 
 class Safe extends RoomObject
   constructor: (room, clickHandler) ->
-    super 'safe', room, clickHandler
+    super 'safe', room, clickHandler,
+      cameraPosition: new THREE.Vector3 0, 1, 0
+      cameraLookAt: new THREE.Vector3 1.2, 0.56, -1.4
+      playerPosition: new THREE.Vector3 1.3, 0, -0.5
     @loadDoor()
     @loadHandle()
     @safeIsAnimating = false
