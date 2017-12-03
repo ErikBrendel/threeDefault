@@ -16,7 +16,7 @@
     "materials":[{
         "visible":true,
         "colorSpecular":[0.7,0.7,0.7],
-        "specularCoef":50,
+        "specularCoef":64,
         "depthWrite":true,
         "mapDiffuseWrap":["repeat","repeat"],
         "DbgIndex":0,

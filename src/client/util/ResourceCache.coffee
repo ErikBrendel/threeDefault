@@ -21,9 +21,12 @@ class ResourceCache
 
   loadSound: (name) ->
     unless @sounds[name]?
-      @audioLoader.load "assets/sounds/#{name}.mp3", (buffer) =>
+      url = "assets/sounds/#{name}.mp3"
+      @audioLoader.manager.itemStart "Decode: #{url}"
+      @audioLoader.load url, (buffer) =>
         console.debug "Loaded sound #{name}."
         @sounds[name] = buffer
+        @audioLoader.manager.itemEnd "Decode: #{url}"
     else
       console.warn "Sound #{name} already loaded."
 
