@@ -16,6 +16,7 @@ class Safe extends RoomObject
     super 'safe', room, clickHandler
     @loadDoor()
     @loadHandle()
+    @safeIsAnimating = false
     @inventory = [new GoldIngot @]
     @safeOpened = false
     @doorOpened = false
@@ -30,6 +31,8 @@ class Safe extends RoomObject
     @doorAnimator.addFinishHandler =>
       if not @doorOpened
         @doorHandleAnimator.set 0
+      else
+        @safeIsAnimating = false
 
   loadHandle: ->
     @doorHandle = AssetCache.getModel 'objects/safe_handle'
@@ -41,6 +44,8 @@ class Safe extends RoomObject
     @doorHandleAnimator.addFinishHandler =>
       if @doorOpened
         @doorAnimator.set 1
+      else
+        @safeIsAnimating = false
 
 
   onInteract: (person) ->
@@ -62,10 +67,14 @@ class Safe extends RoomObject
     @safeOpened = true
 
   onSafeOpenAnimation: ->
+    return if @safeIsAnimating
+    @safeIsAnimating = true
     @doorOpened = true
     @doorHandleAnimator.set 1
 
   onSafeCloseAnimation: ->
+    return if @safeIsAnimating
+    @safeIsAnimating = true
     @doorOpened = false
     @doorAnimator.set 0
 
