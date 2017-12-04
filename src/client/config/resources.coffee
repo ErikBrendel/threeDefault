@@ -25,6 +25,8 @@ models = [
 
 sounds = [
   'move',
+  'lock_tick',
+  'lock_correct',
 ]
 
 music = [
