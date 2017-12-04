@@ -1,4 +1,4 @@
-Room = require './AlarmRoom'
+AlarmRoom = require './AlarmRoom'
 Laser = require './objects/Laser'
 
 class LaserRoom extends AlarmRoom

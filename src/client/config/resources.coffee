@@ -16,6 +16,7 @@ models = [
   'objects/item_GoldIngot',
   'objects/camera',
   'objects/laser',
+  'objects/alarm',
 ]
 
 sounds = [
