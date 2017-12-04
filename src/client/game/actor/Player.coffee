@@ -1,7 +1,7 @@
 # the controllable player object
 Person = require './Person'
 Inventory = require '../items/Inventory'
-SuitCase = require '../items/SuitCase'
+Coins = require '../items/Coins'
 Constants = require '../../config/Constants'
 SmoothValue = require '../../util/SmoothValue'
 
