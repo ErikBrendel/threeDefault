@@ -45,6 +45,7 @@ class Door
     @mesh.userData.description =
       header: 'Door'
       text: 'Click the door to peek into the Room behind. This will take a bit of time, but keeps you from getting surprised by lasers.'
+      cost: => Constants.basePeekDelay if @hasFocus
 
     loadHoverEffect @mesh, (=> @isVisible() and (@hasFocus or not gs.camera.focusMode)), (=> clickHandler @)
 

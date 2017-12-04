@@ -16,9 +16,11 @@ class Room extends Group
     @userData.description =
       header: 'Undiscovered Room'
       text: 'What might be there?'
+      cost: => gs.player.walkWaitTime() if gs.player.currentRoom.canEnter @
     @description =
       header: 'Normal Room'
       text: 'Nothing special in here...'
+      cost: => gs.player.walkWaitTime() if gs.player.currentRoom.canEnter @
 
   addWalls: (up, right, down, left) ->
     @wallUp = new Wall Math.PI * 0.5, up

@@ -95,6 +95,7 @@ class ResourceCache
   applyMusicOptions: (music) ->
     @applyAudioOptions(music)
     music.setLoop true
+    music.setVolume 0.5
 
   applyPositionalAudioOptions: (sound) ->
     @applyAudioOptions sound

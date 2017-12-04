@@ -5,7 +5,7 @@ SafeLock = require './objects/SafeLock'
 class SafeRoom extends Room
   constructor: ({up, right, down, left, objectClickHandler}) ->
     super({up, right, down, left, objectClickHandler})
-    @description =
+    Object.assign @description,
       header: 'Safe Room'
       text: 'There is a safe in this room! Crack it, to receive the treasures inside!'
 

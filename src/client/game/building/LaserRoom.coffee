@@ -5,7 +5,7 @@ class LaserRoom extends AlarmRoom
   constructor: ({up, right, down, left, objectClickHandler}) ->
     super({up, right, down, left, objectClickHandler})
     @enteredSilently = false
-    @description =
+    Object.assign @description,
       header: 'Laser Room'
       text: 'You have to walk in carefully to not trigger the alarm. If you just run in, the guards will come for you.'
 
