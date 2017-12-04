@@ -12,7 +12,7 @@ class Player extends Person
       header: 'You'
       text: 'This is you. You want to get rich, so let\'s go and steal some good stuff!<br>Click to wait in this room'
     @addEars(audioListener)
-    @inventory = new Inventory((new SuitCase @), (new SuitCase @), (new SuitCase @), (new SuitCase @), (new SuitCase @), (new SuitCase @))
+    @inventory = new Inventory()#(new SuitCase @), (new SuitCase @), (new SuitCase @), (new SuitCase @), (new SuitCase @), (new SuitCase @))
     @isDran = false
     @health = Constants.basePlayerHealth
     @updateHealthUI()
