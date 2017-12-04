@@ -9,6 +9,10 @@
             margin: 0;
             overflow: hidden;
             background: #515151;
+            outline:none !important;
+        }
+        input::-moz-focus-inner {
+            border: 0;
         }
         div.hud {
             pointer-events: none;
@@ -134,10 +138,19 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            background: green;
             width: 64px;
             height: 64px;
             text-align: center;
+            background: rgb(130, 60, 0);
+            border: 5px outset rgb(130, 60, 0);
+            font-size: 150%;
+            color: white;
+        }
+        .safe-container input:active {
+            border-style: inset;
+        }
+        .safe-container input:disabled {
+            border-style: inset;
         }
         .leds {
             margin: auto auto;
