@@ -63,6 +63,9 @@ class Player extends Person
 
   onAction: (done) ->
     @isDran = true
+    if @hidden
+      @waitTime = 1
+      done()
     @doneHandler = done
 
   onRoomClicked: (room) ->
