@@ -22,6 +22,7 @@ class Guard extends Person
 
 
   setAlerted: ->
+    Jukebox.fadeTo 'fast', 500 unless @alerted
     @alerted = true
     @questionMark.position.x = 0
     @numActionsAlerted = Constants.baseNumActionsAlerted
@@ -29,6 +30,7 @@ class Guard extends Person
   updateAlerted: ->
     @numActionsAlerted--
     if @numActionsAlerted <= 0 and @alerted
+      Jukebox.fadeTo 'slow', 500
       @alerted = false
       @questionMark.position.x = 10000
 
