@@ -6,6 +6,9 @@ Constants = require '../../config/Constants'
 class Player extends Person
   constructor: (audioListener) ->
     super 'player', 'You'
+    @userData.description =
+      header: 'You'
+      text: 'This is you. You want to get richt, so let\'s go and steal some good stuff!'
     @addEars(audioListener)
     @inventory = new Inventory()
     @isDran = false
