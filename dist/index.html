@@ -167,6 +167,30 @@
         .OK {
             width: 100% !important;
         }
+        .prioBar {
+            background-image: url('assets/texture/boebbelLeiste.png');
+            position: absolute;
+            height: 64px;
+            width: 640px;
+            left: calc(-640px + 64px * 2);
+        }
+        .secondBar {
+            top: 64px;
+        }
+        .avatar {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 64px;
+            height: 64px;
+            background-size: cover;
+        }
+        .playerAvatar {
+            background-image: url('assets/texture/avatar_player.png');
+        }
+        .guardAvatar {
+            background-image: url('assets/texture/avatar_guard.png');
+        }
     </style>
     <script src="three/three.js"></script>
     <script src="three/orbitControls.js"></script>
@@ -174,7 +198,7 @@
 </head>
 <body>
     <div class="hud noSelect">
-        <div id="health-bar" class="health-bar top left container">
+        <div id="health-bar" class="health-bar top right container">
             <img src="assets/texture/hearth.png"/>
             <img src="assets/texture/hearth.png"/>
             <img src="assets/texture/hearth.png"/>
@@ -187,7 +211,15 @@
                 <div id="info-text" class="info-text"></div>
             </div>
         </div>
-        <div id="prio" class="prio-container container top right">It's your turn</div>
+        <!-- <div id="prio" class="prio-container container top right">It's your turn</div> -->
+        <div id="prioBars" class="container top left">
+            <div id="prioBar-player" class="prioBar">
+                <img id="avatar-player" class="avatar playerAvatar">
+            </div>
+            <div id="prioBar-guard" class="prioBar secondBar">
+                <img id="avatar-guard" class="avatar guardAvatar">
+            </div>
+        </div>
         <div id="fps" class="container bottom left">all of them fps</div>
         <div class="full bottom">
             <div style="text-align: center;">

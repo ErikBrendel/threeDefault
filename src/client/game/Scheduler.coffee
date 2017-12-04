@@ -2,7 +2,7 @@
 
 class Scheduler
   constructor: (@persons...) ->
-    @div = document.getElementById 'prio'
+    @bars = document.getElementById 'prioBars'
 
   step: ->
     @persons.sort (a, b) ->
@@ -20,13 +20,17 @@ class Scheduler
     setTimeout (=> @wait amount - 1, waitingDone), 200
 
   updateUI: ->
-    newContent = ''
-    max = @persons[@persons.length - 1].waitTime
-    for line in [0 .. max]
-      newContent += @persons.filter((p) -> p.waitTime is line).map((p) -> p.name).join(', ')
-      newContent += '<br>'
+    maxWait = @persons
+      .map (p) -> p.waitTime
+      .reduce (a, b) -> Math.max a, b
+    unless @persons.length is 2
+      console.warn 'Not exactly 2 persons to schedule! Could break!'
+    for person in @persons
+      bar = document.getElementById "prioBar-#{person.type}"
+      bar.style.left = "#{-640 + 64 * (maxWait + 1)}px"
+      avatar = document.getElementById "avatar-#{person.type}"
+      avatar.style.right = "#{64 * person.waitTime}px"
 
-    @div.innerHTML = newContent
 
 
 
