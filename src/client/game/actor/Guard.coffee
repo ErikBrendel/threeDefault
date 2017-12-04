@@ -5,11 +5,17 @@ Constants = require '../../config/Constants'
 GuardCounter = 0
 
 class Guard extends Person
-  constructor: (@floor) ->
+  constructor: (@floor, @onClickHandler) ->
     super 'guard', "Guard #{GuardCounter++}", 1
     @userData.description =
       header: 'A Guard'
       text: 'Stay away from him! He will cost you a life.'
+
+  onClick: ->
+    @onClickHandler()
+
+  onInteract: (person) ->
+
 
   onAction: (done) ->
     console.log 'onAction'

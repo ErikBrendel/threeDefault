@@ -23,7 +23,22 @@ class GameScene
     @audioListener = new THREE.AudioListener
     window.audioListener = @audioListener
 
-    @guard = new Guard @currentFloor
+    @objectClickHandler = (clickedObject) ->
+      if clickedObject.hasFocus
+        return @player.interactWith clickedObject
+      else
+        clickedObject.hasFocus = true
+        focus = clickedObject.getFocusData()
+        return unless focus?
+        player.setPosition focus.playerPosition.clone().add focus.offset
+        camera.focusObject focus, clickedObject
+        exitHandler = ->
+          camera.resetFocus()
+          player.moveToRoomCenter()
+          exitHandler = undefined
+        return true
+
+    @guard = new Guard @currentFloor, @objectClickHandler
     @add @guard
     @guard.setRoom @currentFloor.rooms[1][1]
 
@@ -162,6 +177,7 @@ class GameScene
     @exitHandler = undefined
 
   goToNextFloor: ->
+    AlarmLight.instance().deactivate()
     if @currentFloor isnt @building.floors[@building.floors.length - 1]
       @remove @currentFloor
       @currentFloor = @building.floors[@building.floors.indexOf(@currentFloor) + 1]

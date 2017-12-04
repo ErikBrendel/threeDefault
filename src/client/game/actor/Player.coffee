@@ -2,22 +2,40 @@
 Person = require './Person'
 Inventory = require '../collectables/Inventory'
 Constants = require '../../config/Constants'
+SmoothValue = require '../../util/SmoothValue'
 
 class Player extends Person
   constructor: (audioListener) ->
     super 'player', 'You'
     @userData.description =
       header: 'You'
-      text: 'This is you. You want to get rich, so let\'s go and steal some good stuff!'
+      text: 'This is you. You want to get rich, so let\'s go and steal some good stuff!<br>Click to wait in this room'
     @addEars(audioListener)
     @inventory = new Inventory()
     @isDran = false
     @health = Constants.basePlayerHealth
     @updateHealthUI()
+    @sleepSmoother = new SmoothValue Constants.msSleep, 0
+    @sleepSmoother.addUpdateHandler @newSleepRotation
+    @sleepSmoother.addFinishHandler (=> setTimeout (=> @standUpSmoother.set 0), Constants.msSleeping)
+    @standUpSmoother = new SmoothValue Constants.msSleep, Math.PI / 2
+    @standUpSmoother.addUpdateHandler @newSleepRotation
+    @sleepSmoother.addFinishHandler @doneSleeping
+
+  doneSleeping: =>
+    @doneHandler()
+    @sleepSmoother.inject -> 0
+    @standUpSmoother.inject -> Math.PI / 2
+
+  newSleepRotation: (rotation) =>
+    @model.rotation.x = rotation
 
   heal: (amount = 1) ->
     @health = Math.min(@health + amount, Constants.basePlayerHealth)
     @updateHealthUI()
+
+  onClick: (clickedObject) =>
+    @interactWith clickedObject
 
   damage: (amount = 1) ->
     return unless amount > 0
@@ -66,6 +84,11 @@ class Player extends Person
       setTimeout @doneHandler, Constants.msToMoveToRoom
       return true
     return false
+
+  onInteract: (person) ->
+    #@model.rotation.x = Math.PI / 2
+    @sleepSmoother.set Math.PI / 2
+    return 1
 
   ascend: ->
     unless @moving

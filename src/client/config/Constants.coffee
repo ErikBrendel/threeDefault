@@ -7,6 +7,8 @@ module.exports =
   baseOpenSafeDelay: 1
   baseCloseSafeDelay: 1
   msToMoveToRoom: 900
+  msSleep: 300
+  msSleeping: 1000
   Items:
     Coins:
       title: "Sack of coins"
