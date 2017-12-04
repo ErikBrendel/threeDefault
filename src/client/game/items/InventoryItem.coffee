@@ -16,6 +16,9 @@ class InventoryItem
     @changeOwner(person)
     return Constants.baseTakeItemDelay
 
+  onEnter: (room) ->
+  onLeave: (room) ->
+
   changeOwner: (newOwner) ->
     @inventoryHolder.inventory?.onObjectTaken(@)
     @inventoryHolder = newOwner
