@@ -25,7 +25,9 @@ class PlayerCamera extends THREE.PerspectiveCamera
     @position.copy pos
     @setLookAt @lookAtTarget()
 
-  focusObject: ({offset, cameraPosition, cameraLookAt}, focusObject) ->
+  focusObject: ({offset, cameraPosition, cameraLookAt, playerPosition}, focusObject) ->
+    gs.player.setPosition playerPosition.clone().add offset
+
     if @focusMode
       @focusedObject?.hasFocus = false
       @focusedObject = undefined
@@ -36,6 +38,11 @@ class PlayerCamera extends THREE.PerspectiveCamera
 
     @smoothPosition.set cameraPosition.clone().add offset
     @focusLookAtTarget.set cameraLookAt.clone().add offset
+
+    gs.exitHandler = =>
+      @resetFocus()
+      gs.player.moveToRoomCenter()
+      gs.exitHandler = undefined
 
   resetFocus: ->
     return unless @focusMode

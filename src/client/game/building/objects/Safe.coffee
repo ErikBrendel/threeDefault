@@ -4,6 +4,7 @@ RoomObject = require './RoomObject'
 Inventory = require '../../collectables/Inventory'
 GoldIngot = require '../../collectables/GoldIngot'
 Coins = require '../../collectables/Coins'
+SuitCase = require '../../collectables/SuitCase'
 SmoothValue = require '../../../util/SmoothValue'
 Constants = require '../../../config/Constants'
 loadHoverEffect = require '../../actor/HoverEffect'
@@ -37,11 +38,13 @@ class Safe extends RoomObject
     @inventory = new Inventory()
     count = 1 + Math.floor Math.random() * 4
     for [1 .. count]
-      lootType = Math.floor Math.random() * 2
-      if lootType == 1
+      lootType = Math.floor Math.random() * 3
+      if lootType == 0
         @inventory.addContents new GoldIngot @
-      else
+      else if lootType == 1
         @inventory.addContents new Coins @
+      else
+        @inventory.addContents new SuitCase @
     @updateContent()
     @safeOpened = false
     @doorOpened = false

@@ -70,8 +70,11 @@ class SafeLock extends RoomObject
         return
       currentDiv.classList.toggle 'correct', rightValue
       currentDiv.classList.toggle 'incorrect', not rightValue
+      if rightValue and @currentCrackingLayer is @solution.length - 1
+        document.getElementById('safe-open-button').disabled = false
 
   onInteract: (person) ->
+    return if @safe.safeOpened
     return unless person.type is 'player'
     @initOpening()
 
@@ -108,11 +111,10 @@ class SafeLock extends RoomObject
     @lastSignum = @signum unless @lastSignum?
     @updateLockValue()
 
-
   crack_open: =>
-    #TODO: if opened
     @crackingDone()
-    gs.exitHandler?()
+    gs.camera.focusObject @safe.getFocusData(), @safe
+    @safe.onSafeOpenAnimation()
 
   crackingDone: ->
     document.getElementById('safe-container').style.visibility = 'hidden'
