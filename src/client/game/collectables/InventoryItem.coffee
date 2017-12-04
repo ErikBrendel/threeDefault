@@ -7,7 +7,9 @@ class InventoryItem
     @hasFocus = true
     @mesh = AssetCache.getModel "objects/item_#{@name}",
       copyMaterials: true
-
+    @mesh.userData.description =
+      header: Constants.Items[@name]?.title
+      text: Constants.Items[@name]?.description
 
   onInteract: (person)  ->
     console.log 'You got: ' + @name
