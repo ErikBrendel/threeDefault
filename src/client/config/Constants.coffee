@@ -21,7 +21,6 @@ module.exports =
       value: 100
       moveDelay: 1
     SuitCase:
-      #TODO: Moneycase description
-      title: "Money case"
-      description: "A money of cases. This is very loud and might alert guards while moving."
+      title: "Suitcase"
+      description: "A suitcase filled with money. This might drop bills that allow guards to follow you."
       value: 90
