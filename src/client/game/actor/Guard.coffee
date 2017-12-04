@@ -37,7 +37,7 @@ class Guard extends Person
     console.log 'onAction'
 
     if @currentRoom is @targetRoom or not @targetRoom?
-      @targetRoom.deactivateAlarm() if @targetRoom?
+      @targetRoom.deactivateAlarm?() if @targetRoom?
       @targetRoom = @chooseRoom()
 
     @nextRoom = @findNextRoom()

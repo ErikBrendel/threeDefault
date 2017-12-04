@@ -1,8 +1,25 @@
 # Schedules person's actions in the game
 
+SmoothValue = require '../util/SmoothValue'
+
 class Scheduler
   constructor: (@persons...) ->
     @bars = document.getElementById 'prioBars'
+
+    @avatarFade = {}
+    @boebbelBars = []
+
+    for type in ['player', 'guard']
+      do (type) =>
+        smooth = new SmoothValue 100
+        @avatarFade[type] = smooth
+        smooth.addUpdateHandler (avatarPos) ->
+          document.getElementById("avatar-#{type}").style.right = "#{avatarPos}px"
+        @boebbelBars.push document.getElementById "prioBar-#{type}"
+
+    @maxWaitFade = new SmoothValue 400
+    @maxWaitFade.addUpdateHandler (boebbelBarPos) =>
+      bar.style.left = "#{boebbelBarPos}px" for bar in @boebbelBars
 
   step: ->
     @persons.sort (a, b) ->
@@ -26,10 +43,10 @@ class Scheduler
     unless @persons.length is 2
       console.warn 'Not exactly 2 persons to schedule! Could break!'
     for person in @persons
-      bar = document.getElementById "prioBar-#{person.type}"
-      bar.style.left = "#{-640 + 64 * (maxWait + 1)}px"
-      avatar = document.getElementById "avatar-#{person.type}"
-      avatar.style.right = "#{64 * person.waitTime}px"
+      @maxWaitFade.set -640 + 64 * (maxWait + 1)
+      @avatarFade[person.type].set 64 * person.waitTime
+      document.getElementById("avatar-#{person.type}").classList
+        .toggle "#{person.type}Avatar-active", person is @persons[0]
 
 
 
