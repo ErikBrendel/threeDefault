@@ -3,6 +3,7 @@
 GameScene = require './game/GameScene'
 RotatingIcoSphere = require './game/RotatingIcoSphere'
 LoadResources = require './config/resources'
+require './util/DescriptionHelper'
 
 
 gameInit = ->

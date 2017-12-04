@@ -39,7 +39,7 @@ class ResourceCache
     materials = @models[name].materials
     materials = (m.clone() for m in materials) if copyMaterials
     mesh = new THREE.Mesh geometry, materials
-    @applyMeshOptions mesh
+    @applyMeshOptions mesh unless name is 'objects/laser'
     mesh
 
   getSound: (name, listener = window.audioListener) ->
