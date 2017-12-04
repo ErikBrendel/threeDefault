@@ -1,4 +1,5 @@
 require '../util/ResourceCache'
+require '../util/MusicHelper'
 
 models = [
   'wall',
@@ -26,10 +27,16 @@ sounds = [
   'move',
 ]
 
+music = [
+  'fast',
+  'slow',
+]
+
 module.exports = ->
   #TODO: Set THREE.DefaultLoadingManager listeners for progress reports
   new Promise (resolve) ->
     AssetCache.loadModel name for name in models
     AssetCache.loadSound name for name in sounds
+    AssetCache.loadMusic name for name in music
     THREE.DefaultLoadingManager.onLoad = ->
       resolve()

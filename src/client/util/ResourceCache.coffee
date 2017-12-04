@@ -2,6 +2,7 @@ class ResourceCache
   constructor: ->
     @models = {}
     @sounds = {}
+    @musics = {}
     @textures = {}
     @jsonLoader = new THREE.JSONLoader
     @audioLoader = new THREE.AudioLoader
@@ -18,6 +19,17 @@ class ResourceCache
           materials: mats
     else
       console.warn "Model #{name} already loaded."
+
+  loadMusic: (name) ->
+    unless @musics[name]?
+      url = "assets/music/#{name}.mp3"
+      @audioLoader.manager.itemStart "Decode: #{url}"
+      @audioLoader.load url, (buffer) =>
+        console.debug "Loaded music #{name}."
+        @musics[name] = buffer
+        @audioLoader.manager.itemEnd "Decode: #{url}"
+    else
+      console.warn "Music #{name} already loaded."
 
   loadSound: (name) ->
     unless @sounds[name]?
@@ -52,6 +64,16 @@ class ResourceCache
     @applyPositionalAudioOptions audio
     audio
 
+  getMusic: (name, listener = window.audioListener) ->
+    buffer = @musics[name]
+    unless buffer?
+      console.error "Cannot find music named #{name}. Have you added it to config/resources?"
+      return
+    audio = new THREE.Audio listener
+    audio.setBuffer buffer
+    @applyMusicOptions audio
+    audio
+
   applyTextureOptions: (texture) ->
     return unless texture?
     texture.anisotropy = 4
@@ -67,8 +89,12 @@ class ResourceCache
     mesh.castShadow = true
     mesh.receiveShadow = true
 
-  applyAudioOptions: (sound) ->
-    sound.setVolume 1
+  applyAudioOptions: (audio) ->
+    audio.setVolume 1
+
+  applyMusicOptions: (music) ->
+    @applyAudioOptions(music)
+    music.setLoop true
 
   applyPositionalAudioOptions: (sound) ->
     @applyAudioOptions sound
