@@ -7,9 +7,13 @@ loadHoverEffect = (mesh, clickable = (-> true), clickHandler = (->), {
   g = 1
   b = 0
   baseIntensity = 0.05
-  intensityIncrease = 0.05
+  intensityIncrease = 0.1
   } = {}) ->
   mesh.userData.hoverEffectActive = false
+  mat = mesh.material
+  mat = mat[0] if mat[0]?
+  defaultEmissiveColor = mat.emissive
+  defaultEmissiveIntensity = mat.emissiveIntensity
 
   hoverPulse = new SmoothValue speed, 0
 
@@ -19,6 +23,12 @@ loadHoverEffect = (mesh, clickable = (-> true), clickHandler = (->), {
     return unless clickable()
     mesh.userData.hoverEffectActive = true
     hoverPulse.set 1
+
+  updateMat = (mat2) ->
+    unless mat2 is mat
+      mat = mat2
+      defaultEmissiveColor = mat.emissive
+      defaultEmissiveIntensity = mat.emissiveIntensity
 
   resetHover = ->
     mesh.userData.hoverEffectActive = false
@@ -39,10 +49,13 @@ loadHoverEffect = (mesh, clickable = (-> true), clickHandler = (->), {
   hoverPulse.addUpdateHandler (hoverFade) =>
     mat = mesh.material
     mat = mat[0] if mat[0]?
+    updateMat mat
     if mesh.userData.hoverEffectActive
       hoverIntensity = baseIntensity + hoverFade * intensityIncrease
-      mat.emissive = (new THREE.Color r, g, b).multiplyScalar hoverIntensity
+      mat.emissiveIntensity = 1
+      mat.emissive = defaultEmissiveColor.clone().lerp((new THREE.Color r, g, b), hoverIntensity)
     else
-      mat.emissive = new THREE.Color 0, 0, 0
+      mat.emissiveIntensity = defaultEmissiveIntensity
+      mat.emissive = defaultEmissiveColor
 
 module.exports = loadHoverEffect
