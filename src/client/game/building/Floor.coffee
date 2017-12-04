@@ -34,6 +34,7 @@ class Floor extends Group
         focus = clickedObject.getFocusData()
         return unless focus?
         scene.camera.focusObject focus, clickedObject
+        return true
 
     for x in [0..@floorSize.x - 1]
       @rooms[x] = []
