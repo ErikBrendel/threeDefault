@@ -10,7 +10,10 @@ class Laser extends RoomObject
     @hasFocus = true
 
   onInteract: (person) ->
+    @room.enteredSilently = true
     person.setRoom(@room)
+    gs.camera.resetFocus()
+    gs.exitHandler = undefined
     return Constants.baseMoveThroughLaserDelay
 
   isVisible: ->
