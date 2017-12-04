@@ -49,7 +49,7 @@ class SmoothValue
     currentValue = @get()
     @oldTarget = currentValue
     @target = undefined
-    @oldTime = Date.now() - 2 * @lerpTime
+    @oldTime = 0
 
   #aborts everything
   destroy: ->

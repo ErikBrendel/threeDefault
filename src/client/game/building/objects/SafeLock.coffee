@@ -13,6 +13,9 @@ LOCK_X = HANDLE_X
 LOCK_Y = 0.73733 - DOOR_Y
 LOCK_Z = 0
 
+NORMAL_LOCK_SPEED = 300
+SLOW_LOCK_SPEED = 700
+
 rawRotationToValue = (rawRotation) ->
   lockValue = Math.round rawRotation
   while lockValue <= 0 then lockValue += 20
@@ -37,7 +40,7 @@ class SafeLock extends RoomObject
       text: 'Click here to start cracking the safe.'
     @mesh.position.set LOCK_X, LOCK_Y, LOCK_Z
     @safe.doorMesh.add @mesh
-    @lockValue = new SmoothValue 300, 20
+    @lockValue = new SmoothValue NORMAL_LOCK_SPEED, 20
 
     @solution = [7, 2]
     #crackHardness = 3
@@ -129,7 +132,11 @@ class SafeLock extends RoomObject
 
   crack_rotate: (amount) =>
     # only +-1 and +-5 are inputs here
-
+    # @lockValue.halt()
+    if Math.abs(amount) > 3
+      @lockValue.lerpTime = SLOW_LOCK_SPEED
+    else
+      @lockValue.lerpTime = NORMAL_LOCK_SPEED
     @lockValue.set @lockValue.target + amount
 
     newSign = Math.sign amount

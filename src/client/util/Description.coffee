@@ -23,7 +23,7 @@ showDescription = ({header, text = '', value, cost} = {}) ->
   info_text.innerHTML = text
 
   if value?
-    info_value.innerText = value
+    info_value.innerText = "Item value: #{value}"
     show info_value
   else
     info_value.innerText = ''
@@ -31,7 +31,7 @@ showDescription = ({header, text = '', value, cost} = {}) ->
 
   cost = cost() if typeof cost is 'function'
   if cost?
-    info_cost.innerText = cost
+    info_cost.innerText = "Action Cost: #{cost}"
     show info_cost
   else
     info_cost.innerText = ''
