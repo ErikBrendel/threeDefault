@@ -12,6 +12,12 @@ LOCK_X = HANDLE_X
 LOCK_Y = 0.73733 - DOOR_Y
 LOCK_Z = 0
 
+rawRotationToValue = (rawRotation) ->
+  lockValue = Math.round rawRotation
+  while lockValue <= 0 then lockValue += 20
+  while lockValue > 20 then lockValue -= 20
+  return lockValue
+
 class SafeLock extends RoomObject
   constructor: (room, clickHandler, @safe) ->
     super 'safe_lock', room, clickHandler, (
@@ -35,11 +41,31 @@ class SafeLock extends RoomObject
 
     @lockValue.addUpdateHandler (rawRotation) =>
       @mesh.rotation.z = Math.PI * (rawRotation / 10)
+      if @currentCrackingLayer?
+        lockValue = rawRotationToValue rawRotation
+        rightValue = lockValue is @solution[@currentCrackingLayer]
+        currentDiv = document.getElementById "safe-led-#{@currentCrackingLayer}"
+        if @signum isnt @lastSignum
+          @lastSignum = @signum
+          if rightValue
+            currentDiv.classList.remove 'correct'
+            currentDiv.classList.add 'locked'
+            @currentCrackingLayer++
+          else
+            @failedToOpen()
+          return
+        if lockValue is @solution[@currentCrackingLayer] + @signum #overshoot
+          @failedToOpen()
+          return
+        currentDiv.classList.toggle 'correct', rightValue
+        currentDiv.classList.toggle 'incorrect', not rightValue
 
 
   onInteract: (person) ->
     return unless person.type is 'player'
+    @initOpening()
 
+  initOpening: ->
     window.crack_rotate = @crack_rotate
     window.crack_open = @crack_open
     document.getElementById('safe-container').style.visibility = 'visible'
@@ -51,10 +77,24 @@ class SafeLock extends RoomObject
       ledsDivContent += "<div id='safe-led-#{ledId}'></div>"
       ledId++
     ledsDiv.innerHTML = ledsDivContent
+    document.getElementById('safe-led-0').classList.add 'incorrect'
+
+    @currentCrackingLayer = 0
+    @lastSignum = undefined
+
+  failedToOpen: ->
+    @initOpening()
 
   crack_rotate: (amount) =>
-    newValue = @lockValue.target + amount
-    @lockValue.set newValue
+    # only +-1 and +-5 are inputs here
+
+    @lockValue.set @lockValue.target + amount
+
+    newSign = Math.sign amount
+    @lastSignum = @signum
+    @signum = newSign
+    @lastSignum = @signum unless @lastSignum?
+
 
   crack_open: =>
     #TODO: if opened
@@ -66,5 +106,6 @@ class SafeLock extends RoomObject
     @safe.safeOpened = true
     window.crack_rotate = undefined
     window.crack_open = undefined
+    @currentCrackingLayer = undefined
 
 module.exports = SafeLock
