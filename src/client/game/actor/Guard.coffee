@@ -7,6 +7,7 @@ GuardCounter = 0
 class Guard extends Person
   constructor: (@floor, @onClickHandler) ->
     super 'guard', "Guard #{GuardCounter++}", 1
+    @alerted = false
     @userData.description =
       header: 'A Guard'
       text: 'Stay away from him! He will cost you a life.'
@@ -15,6 +16,16 @@ class Guard extends Person
     @onClickHandler()
 
   onInteract: (person) ->
+
+
+  setAlerted: ->
+    @alerted = true
+    @numActionsAlerted = Constants.baseNumActionsAlerted
+
+  updateAlerted: ->
+    @numActionsAlerted--
+    if @numActionsAlerted > 0 and @alerted
+      @alerted = false
 
 
   onAction: (done) ->
@@ -27,8 +38,15 @@ class Guard extends Person
 
     @setRoom @nextRoom
 
+    @updateAlerted
+
     @waitTime = Constants.baseMoveDelay
     setTimeout done, Constants.msToMoveToRoom
+
+  getMoveCost: ->
+    #TODO: balance here
+    return Constants.baseMoveDelay - (if @alerted then 1 else 0)
+
 
   chooseRoom: ->
     newTarget = @currentRoom

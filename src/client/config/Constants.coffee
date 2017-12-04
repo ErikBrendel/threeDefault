@@ -6,6 +6,7 @@ module.exports =
   baseTakeItemDelay: 1
   baseOpenSafeDelay: 1
   baseCloseSafeDelay: 1
+  baseNumActionsAlerted: 5
   msToMoveToRoom: 900
   msSleep: 300
   msSleeping: 1000
