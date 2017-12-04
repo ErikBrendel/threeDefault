@@ -23,9 +23,13 @@ class InventoryItem
     @inventoryHolder.inventory?.onObjectTaken(@)
     @inventoryHolder = newOwner
     newOwner.inventory?.onReceiveObject(@)
-    @addToPlayerInventory() if newOwner.type is 'player'
+    @addToPlayerInventory newOwner if newOwner.type is 'player'
 
-  addToPlayerInventory: ->
+  addToPlayerInventory: (player) ->
+    score = document.getElementById('inventory-score')
+
+    score.innerText = 'Score: ' + player.inventory.totalValue()
+
     inf = document.getElementById('inventory')
     img = document.createElement('img')
     img.src = "assets/texture/item/#{@name}.png"

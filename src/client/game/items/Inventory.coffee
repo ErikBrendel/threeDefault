@@ -26,4 +26,7 @@ class Inventory
   changeContentOwner: (newOwner) ->
     @contents.forEach((item) -> item.changeOwner newOwner)
 
+  totalValue: ->
+    @contents.map((item) -> item.value()).reduce((a, b) -> a + b)
+
 module.exports = Inventory

@@ -210,6 +210,10 @@
         .guardAvatar-active {
             background-image: url('assets/texture/avatar_guard_selected.png');
         }
+        .scoreText {
+            text-align: center;
+            font-size: 200%;
+        }
     </style>
     <script src="three/three.js"></script>
     <script src="three/orbitControls.js"></script>
@@ -258,7 +262,12 @@
             </div>
         </div>
     </div>
-    <div id="inventory" class="container inventory-container bottom right"></div>
+    <div class="container bottom right">
+        <div id="inventory-score" class="scoreText">
+            Score: 0
+        </div>
+        <div id="inventory" class="inventory-container"></div>
+    </div>
 </div>
 </body>
 </html>
