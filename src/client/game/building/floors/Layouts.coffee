@@ -3,8 +3,8 @@ module.exports = [
     floorSize: {x: 4, y: 4}
     rooms: {
       stairs: 1,
-      safe: 8,
-      camera: 2,
+      safe: 2,
+      camera: 8,
       laser: 4,
       default: 1
     }

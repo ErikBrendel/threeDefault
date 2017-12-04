@@ -2,8 +2,8 @@ AlarmRoom = require './AlarmRoom'
 Laser = require './objects/Laser'
 
 class LaserRoom extends AlarmRoom
-  constructor: ({up, right, down, left, type, objectClickHandler}) ->
-    super({up, right, down, left, type, objectClickHandler})
+  constructor: ({up, right, down, left, objectClickHandler}) ->
+    super({up, right, down, left, objectClickHandler})
     @enteredSilently = false
     @description =
       header: 'Laser Room'

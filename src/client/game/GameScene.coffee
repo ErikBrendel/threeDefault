@@ -35,11 +35,11 @@ class GameScene
 
     @guard = new Guard @currentFloor, @objectClickHandler
     @add @guard
-    @guard.setRoom @currentFloor.rooms[1][1]
-
     @player = new Player @audioListener
-    @player.setRoom @currentFloor.rooms[0][0]
     @add @player
+
+    @guard.setRoom @currentFloor.rooms[2][2]
+    @player.setRoom @currentFloor.rooms[0][0]
 
     @add AlarmLight.instance()
     @add AlarmLight.instance().target
