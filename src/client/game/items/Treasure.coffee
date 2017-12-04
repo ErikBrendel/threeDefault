@@ -6,11 +6,9 @@ Constants = require '../../config/Constants'
 class Treasure extends InventoryItem
   constructor: (name, inventoryHolder) ->
     super 'treasure', name, inventoryHolder
-    @mesh.userData.description.value = Constants.Items[@name]?.value
+    @mesh.userData.description.value = @value()
 
-  getDescriptionObject: ->
-    s = super()
-    s.value = @value
-    s
+  value: ->
+    Constants.Items[@name]?.value
 
 module.exports = Treasure
