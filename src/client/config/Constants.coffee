@@ -20,3 +20,8 @@ module.exports =
       description: "A gold ingot. This is very heavy and will slow you down."
       value: 100
       moveDelay: 1
+    SuitCase:
+      #TODO: Moneycase description
+      title: "Money case"
+      description: "A money of cases. This is very loud and might alert guards while moving."
+      value: 90

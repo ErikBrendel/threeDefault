@@ -111,7 +111,8 @@ class SafeLock extends RoomObject
 
   crack_open: =>
     @crackingDone()
-    gs.exitHandler?()
+    @safe.onSafeOpenAnimation()
+    gs.camera.focusObject @safe.getFocusData(), @safe
 
   crackingDone: ->
     document.getElementById('safe-container').style.visibility = 'hidden'
