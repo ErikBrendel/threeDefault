@@ -33,15 +33,24 @@ class SafeLock extends RoomObject
 
     @solution = [7, 2, 18]
 
-
     @lockValue.addUpdateHandler (rawRotation) =>
       @mesh.rotation.z = Math.PI * (rawRotation / 10)
 
 
   onInteract: (person) ->
+    return unless person.type is 'player'
+
     window.crack_rotate = @crack_rotate
     window.crack_open = @crack_open
     document.getElementById('safe-container').style.visibility = 'visible'
+
+    ledsDiv = document.getElementById 'safe-leds'
+    ledsDivContent = ''
+    ledId = 0
+    for number in @solution
+      ledsDivContent += "<div id='safe-led-#{ledId}'></div>"
+      ledId++
+    ledsDiv.innerHTML = ledsDivContent
 
   crack_rotate: (amount) =>
     newValue = @lockValue.target + amount
