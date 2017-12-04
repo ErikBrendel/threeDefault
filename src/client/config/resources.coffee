@@ -16,6 +16,7 @@ models = [
   'objects/item_Coins',
   'objects/item_GoldIngot',
   'objects/item_SuitCase',
+  'objects/BankNotePile',
   'objects/camera',
   'objects/laser',
   'objects/alarm',

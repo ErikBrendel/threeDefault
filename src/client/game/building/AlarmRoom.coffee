@@ -4,8 +4,8 @@ AlarmLight = require './../actor/AlarmLight'
 
 class AlarmRoom extends Room
 
-  constructor: ({up, right, down, left, type, objectClickHandler}) ->
-    super({up, right, down, left, type, objectClickHandler})
+  constructor: ({up, right, down, left, objectClickHandler}) ->
+    super({up, right, down, left, objectClickHandler})
 
   addObjects: (objectClickHandler) ->
     @alarm = new Alarm @, objectClickHandler
