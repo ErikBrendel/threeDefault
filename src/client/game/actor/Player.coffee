@@ -64,4 +64,17 @@ class Player extends Person
       return true
     return false
 
+  ascend: ->
+    unless @moving
+      newRoom = @currentRoom.neighbourRooms.above
+      if @currentRoom? and @currentRoom.canEnter(newRoom)
+        @currentRoom.onLeave @, newRoom
+        oldRoom = @currentRoom
+        @position.copy(newRoom.position)
+        @currentRoom = newRoom
+        @currentRoom.onEnter @, oldRoom
+        return true
+    false
+  #@player.currentRoom.neighbourRooms.above
+
 module.exports = Player

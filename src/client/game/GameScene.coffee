@@ -160,7 +160,7 @@ class GameScene
       @currentFloor = @building.floors[@building.floors.indexOf(@currentFloor) + 1]
       @add @currentFloor
       console.dir @player.currentRoom
-      @player.setRoom @player.currentRoom.neighbourRooms.above
+      @player.ascend()
       console.dir @player.nextRoom
     else
       alert 'YOU WON!!!!!!!!!!!!!!!!!!!!!'
@@ -171,7 +171,6 @@ class GameScene
     @guard.setRoom @currentFloor.rooms[1][1]
 
     @scheduler = new Scheduler @player, @guard
-
     @scheduler.step()
 
 
