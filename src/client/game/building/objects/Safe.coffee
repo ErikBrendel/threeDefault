@@ -86,9 +86,11 @@ class Safe extends RoomObject
 
     if not @doorOpened
       @onSafeOpenAnimation()
-      return
+      @mesh.userData.description.cost = Constants.baseCloseSafeDelay
+      return Constants.baseOpenSafeDelay
     else
       @onSafeCloseAnimation()
+      @mesh.userData.description.cost = Constants.baseOpenSafeDelay
       return Constants.baseCloseSafeDelay
 
   onSafeOpenAnimation: ->
