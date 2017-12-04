@@ -1,6 +1,7 @@
 # a heavy shiny bag of coins that makes you loud and rich
 
 Treasure = require './Treasure'
+BankNotePile = require './BankNotePile'
 Constants = require '../../config/Constants'
 
 class SuitCase extends Treasure
@@ -10,6 +11,6 @@ class SuitCase extends Treasure
   onLeave: (room) ->
     number = Math.floor Math.random() * 3
     if number == 0
-      room.push new BankNotePile
+      room.objects.push new BankNotePile room, (->)
 
 module.exports = SuitCase
