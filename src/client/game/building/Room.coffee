@@ -4,7 +4,7 @@ loadHoverEffect = require '../actor/HoverEffect'
 { Group } = THREE
 
 class Room extends Group
-  constructor: ({up, right, down, left, @objectClickHandler}) ->
+  constructor: ({up, right, down, left, @objectClickHandler, @logicalPosition}) ->
     super()
     @seen = false
     @addWalls up, right, down, left
@@ -48,7 +48,7 @@ class Room extends Group
 
   canEnter: (newRoom) ->
     door = @getSharedDoorWith(newRoom)
-    door?
+    return door? or @neighbourRooms.above is newRoom
 
   onDepart: (newRoom) ->
     # door animation

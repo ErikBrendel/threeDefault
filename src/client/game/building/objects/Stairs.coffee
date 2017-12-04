@@ -7,10 +7,11 @@ class Stairs extends RoomObject
     @mesh.userData.description =
       header: 'Stairs'
       text: 'They will take you to the next floor. <br><br>You cannot come back, so be sure to take everything from this floor you want to steel.'
+    @hasFocus = true
 
   onInteract: (person) ->
     return unless person.currentRoom is @room
-    console.log 'YOU WON THIS LEVEL!'
-
+    alert 'YOU WON THIS FLOOR!'
+    gs.goToNextFloor()
 
 module.exports = Stairs

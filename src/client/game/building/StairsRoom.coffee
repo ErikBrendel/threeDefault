@@ -7,9 +7,9 @@ class SafeRoom extends Room
     @description =
       header: 'Stairs Room'
       text: 'Here you can enter the next Floor of the current building'
+    @isStairs = true
 
   addObjects: (objectClickHandler) ->
     @objects.push new Stairs @, objectClickHandler
-
 
 module.exports = SafeRoom

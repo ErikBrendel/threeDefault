@@ -32,6 +32,7 @@ class Floor extends Group
       else
         clickedObject.hasFocus = true
         focus = clickedObject.getFocusData()
+        return unless focus?
         scene.player.setPosition focus.playerPosition.clone().add focus.offset
         scene.camera.focusObject focus, clickedObject
         scene.exitHandler = ->
@@ -47,9 +48,9 @@ class Floor extends Group
 
         room.position.set x * 4, 0, y * 4
 
-        room.neighbourRooms.up = @rooms[x][y - 1]
+        room.neighbourRooms.up = @rooms[x][y - 1] if @rooms[x][y - 1]?
         @rooms[x][y - 1]?.neighbourRooms.down = room
-        room.neighbourRooms.left = @rooms[x - 1]?[y]
+        room.neighbourRooms.left = @rooms[x - 1][y] if @rooms[x - 1]?[y]
         @rooms[x - 1]?[y].neighbourRooms.right = room
 
         room.onGroundClick = (room) ->

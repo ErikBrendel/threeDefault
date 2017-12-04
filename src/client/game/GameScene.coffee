@@ -1,10 +1,10 @@
 # The GameScene encapsulates the three-stuff behind a running game
 
 require '../util/ThrottleResizeEvent'
+Building = require './building/Building'
 Floor = require './building/Floor'
 Player = require './actor/Player'
 Guard = require './actor/Guard'
-layouts = require './building/floors/Layouts'
 PlayerCamera = require './actor/PlayerCamera'
 PlayerLight = require './actor/PersonLight'
 Scheduler = require './Scheduler'
@@ -13,19 +13,21 @@ class GameScene
   constructor: (@updateCallback) ->
     @scene = new THREE.Scene()
 
-    @floor = new Floor layouts[0], @
-    @add @floor
+    @building = new Building 3, @
+
+    @currentFloor = @building.floors[0]
+    @add @currentFloor
 
     @audioListener = new THREE.AudioListener
     window.audioListener = @audioListener
 
     @player = new Player @audioListener
-    @player.setRoom @floor.rooms[0][0]
+    @player.setRoom @currentFloor.rooms[0][0]
     @add @player
 
-    @guard = new Guard @floor
+    @guard = new Guard @currentFloor
     @add @guard
-    @guard.setRoom @floor.rooms[1][1]
+    @guard.setRoom @currentFloor.rooms[1][1]
 
     @scheduler = new Scheduler @player, @guard
     @camera = new PlayerCamera @player
@@ -48,7 +50,6 @@ class GameScene
     window.addEventListener 'click', ((event) => @onClick event), false
     @rayCaster = new THREE.Raycaster
     @hoveredObjects = []
-    @lastHoveredObject
 
     # uncomment to hide all shader compilation warnings
     @ignoreShaderLogs()
@@ -136,6 +137,9 @@ class GameScene
   add: (newObject) ->
     @scene.add if newObject.mesh then newObject.mesh else newObject
 
+  remove: (object) ->
+    @scene.remove if object.mesh then object.mesh else object
+
   onClick: (event) ->
     event.preventDefault()
     clicked = @hoveredObjects[0]
@@ -149,5 +153,27 @@ class GameScene
     @player.onRoomClicked room
     @camera.resetFocus()
     @exitHandler = undefined
+
+  goToNextFloor: ->
+    if @currentFloor isnt @building.floors[@building.floors.length - 1]
+      @remove @currentFloor
+      @currentFloor = @building.floors[@building.floors.indexOf(@currentFloor) + 1]
+      @add @currentFloor
+      console.dir @player.currentRoom
+      @player.setRoom @player.currentRoom.neighbourRooms.above
+      console.dir @player.nextRoom
+    else
+      alert 'YOU WON!!!!!!!!!!!!!!!!!!!!!'
+      return
+    @remove @guard
+    @guard = new Guard @currentFloor
+    @add @guard
+    @guard.setRoom @currentFloor.rooms[1][1]
+
+    @scheduler = new Scheduler @player, @guard
+
+    @scheduler.step()
+
+
 
 module.exports = GameScene
