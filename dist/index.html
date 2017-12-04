@@ -2,250 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>threeDefault</title>
-    <style type="text/css">
+    <title>Risky Robbery</title>
+    <style>
         body {
-            /* enable render surface to go fullscreen */
-            margin: 0;
-            overflow: hidden;
-            background: #515151;
+            background-color: #1c1b18;
+            color: #ffffff;
         }
-        div.hud {
-            pointer-events: none;
+        .myButton {
+            -moz-box-shadow: 0px 1px 0px 0px #1c1b18;
+            -webkit-box-shadow: 0px 1px 0px 0px #1c1b18;
+            box-shadow: 0px 1px 0px 0px #1c1b18;
+            background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #eae0c2), color-stop(1, #ccc2a6));
+            background:-moz-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+            background:-webkit-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+            background:-o-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+            background:-ms-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+            background:linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
+            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eae0c2', endColorstr='#ccc2a6',GradientType=0);
+            background-color:#eae0c2;
+            -moz-border-radius:15px;
+            -webkit-border-radius:15px;
+            border-radius:15px;
+            border:2px solid #333029;
+            display:inline-block;
+            cursor:pointer;
+            color:#505739;
+            font-family:Arial;
+            font-size:14px;
+            font-weight:bold;
+            padding:12px 16px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #ffffff;
+            width: 400px;
         }
-        div.hud > div {
-            position: absolute;
-            color: #f3ffe6;
+        .myButton:hover {
+            background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ccc2a6), color-stop(1, #eae0c2));
+            background:-moz-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+            background:-webkit-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+            background:-o-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+            background:-ms-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+            background:linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
+            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ccc2a6', endColorstr='#eae0c2',GradientType=0);
+            background-color:#ccc2a6;
         }
-        .full {
-            width: 100%;
+        .myButton:active {
+            position:relative;
+            top:1px;
         }
-        .top {
-            top: 0;
-        }
-        .left {
-            left: 0;
-        }
-        .right {
-            right: 0;
-        }
-        .bottom {
-            bottom: 0;
-        }
-        .container {
-            -webkit-box-shadow: 0 0 10px rgba(25,25,25,0.75);
-            -moz-box-shadow: 0 0 10px rgba(25,25,25,0.75);
-            box-shadow: 0 0 10px rgba(25,25,25,0.75);
-            background: rgba(25,25,25,0.5);
-        }
-        .info-container{
-            width: 20%;
-            min-width: 200px;
-            margin: auto auto;
-            padding: 5px 10px 10px;
-            border-bottom-left-radius: 7px;
-            border-bottom-right-radius: 7px;
-        }
-        .safe-center {
-            display: inline-block;
-        }
-        .safe-container {
-            pointer-events: all;
-            width: content-box;
-            padding: 10px 10px 5px;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            background: url("assets/texture/steel.jpg");
-            border: 1px #2f2f2f solid;
-            display: grid;
-            grid-template-columns: min-content min-content min-content;
-            grid-template-rows: min-content min-content;
-            grid-gap: 5px;
-        }
-        .info-header{
-            padding-bottom: .5em;
-            font-size: 1.25em;
-            font-weight: bold;
-        }
-        .prio-container {
-            width: 200px;
-            border-bottom-left-radius: 7px;
-            padding: 5px 5px 10px 10px;
-            text-align: right;
-        }
-        .inventory-container {
-            pointer-events: all;
-            border-top-left-radius: 7px;
-            padding: 10px 5px 5px 10px;
-            display: grid;
-            grid-template-columns: repeat(3, 64px);
-            grid-auto-flow: row;
-            grid-auto-rows: 64px;
-            grid-area: ;
-            grid-gap: 5px;
-        }
-        .noSelect {
-            /* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css */
-            -webkit-touch-callout: none; /* iOS Safari */
-            -webkit-user-select: none; /* Safari */
-            -khtml-user-select: none; /* Konqueror HTML */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
-        }
-        .inventory-container > div,img {
-            -webkit-transition: background-color .25s;
-            -moz-transition: background-color .25s;
-            -ms-transition: background-color .25s;
-            -o-transition: background-color .25s;
-            transition: background-color .25s;
-            cursor: pointer;
-        }
-        .hidden {
-            opacity: 0;
-        }
-        .inventory-container > img {
-            width: 64px;
-            height: 64px;
-        }
-        .inventory-container > :not(:hover) {
-            background: rgba(25,25,25,0.25);
-        }
-        .inventory-container > :hover {
-            background: rgba(66, 104, 104, 0.75);
-        }
-        #fps {
-            padding: 5px;
-            border-top-right-radius: 7px;
-            color: lime;
-        }
-        .health-bar {
-            padding: 5px;
-            border-bottom-right-radius: 10px;
-        }
-        .health-bar > img {
-            width: 64px;
-        }
-        .health-bar > img.dead {
-            opacity: 0;
-        }
-        .safe-container input {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background: green;
-            width: 64px;
-            height: 64px;
-            text-align: center;
-        }
-        .leds {
-            margin: auto auto;
-            display: grid;
-            grid-auto-columns: min-content;
-            grid-auto-flow: column;
-            grid-gap: 20px;
-            padding-right: 10px;
-            padding-left: 10px;
-        }
-        .leds > div {
-            border: #a8a8a8 1px solid;
-            width: 30px;
-            height: 20px;
-            box-shadow: 0 0 2px rgba(25,25,25,0.75) inset;
-            background: gray;
-        }
-        .leds > div.locked {
-            background: #00d700;
-        }
-        .leds > div.correct {
-            background: #e6e63b;
-        }
-        .leds > div.incorrect {
-            background: #e30000;
-        }
-        .OK {
-            width: 100% !important;
-        }
-        .prioBar {
-            background-image: url('assets/texture/boebbelLeiste.png');
-            position: absolute;
-            height: 64px;
-            width: 640px;
-            left: calc(-640px + 64px * 2);
-        }
-        .secondBar {
-            top: 64px;
-        }
-        .avatar {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            width: 64px;
-            height: 64px;
-            background-size: 100%;
-        }
-        .playerAvatar {
-            background-image: url('assets/texture/avatar_player.png');
-        }
-        .playerAvatar-active {
-            background-image: url('assets/texture/avatar_player_selected.png');
-        }
-        .guardAvatar {
-            background-image: url('assets/texture/avatar_guard.png');
-        }
-        .guardAvatar-active {
-            background-image: url('assets/texture/avatar_guard_selected.png');
-        }
+
     </style>
-    <script src="three/three.js"></script>
-    <script src="three/orbitControls.js"></script>
-    <script src="bundle/main.js"></script>
 </head>
 <body>
-    <div class="hud noSelect">
-        <div id="health-bar" class="health-bar top right container">
-            <img src="assets/texture/hearth.png"/>
-            <img src="assets/texture/hearth.png"/>
-            <img src="assets/texture/hearth.png"/>
-        </div>
-        <div class="full top">
-            <div id="info-container" class="info-container container">
-                <div id="info-header" class="info-header"></div>
-                <div id="info-value" class="info-value"></div>
-                <div id="info-cost" class="info-cost"></div>
-                <div id="info-text" class="info-text"></div>
-            </div>
-        </div>
-        <!-- <div id="prio" class="prio-container container top right">It's your turn</div> -->
-        <div id="prioBars" class="container top left">
-            <div id="prioBar-player" class="prioBar">
-                <div id="avatar-player" class="avatar playerAvatar"></div>
-            </div>
-            <div id="prioBar-guard" class="prioBar secondBar">
-                <div id="avatar-guard" class="avatar guardAvatar"></div>
-            </div>
-        </div>
-        <div id="fps" class="container bottom left">all of them fps</div>
-        <div class="full bottom">
-            <div style="text-align: center;">
-                <div class="safe-center">
-                    <div id="safe-container" class="safe-container container" style="visibility: hidden;">
-                        <input type="button" value="-1" onclick="if(typeof crack_rotate === 'function') crack_rotate(-1)" />
-                        <div id="safe-leds" class="leds">
-                            <!--<div class="locked"></div>
-                            <div class="incorrect"></div>
-                            <div class="correct"></div>-->
-                        </div>
-                        <input type="button" value="+1" onclick="if(typeof crack_rotate === 'function') crack_rotate(+1)" />
-                        <input type="button" value="-5" onclick="if(typeof crack_rotate === 'function') crack_rotate(-5)" />
-                        <input type="button" id="safe-open-button" class="OK" value="OPEN" onclick="if(typeof crack_open === 'function') crack_open()" disabled="true"/>
-                        <input type="button" value="+5" onclick="if(typeof crack_rotate === 'function') crack_rotate(+5)" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="inventory" class="container inventory-container bottom right"></div>
+    <div style="text-align: center;">
+        <h1>Risky Robbery</h1>
+        <br>
+        <a href="game.html" class="myButton">Start Game</a>
+        <br>
+        <br>
+        <a href="controls.html" class="myButton">Controls</a>
+        <br>
+        <br>
+        <a class="myButton" href="https://github.com/ErikBrendel/threeDefault" target="_blank">
+            <span class="d-none d-sm-inline"> View on GitHub </span>
+            <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-mark-github" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+        </a>
+        <br>
+        <br>
+        <a href="https://ldjam.com/events/ludum-dare/40/$54924" class="myButton" target="_blank">Visit Ludum Dare Site</a>
     </div>
 </body>
 </html>

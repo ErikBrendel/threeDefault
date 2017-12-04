@@ -10,7 +10,7 @@ class PlayerCamera extends THREE.PerspectiveCamera
     super 45, 1, 0.1, 100
     @focusMode = false # true to focus a specific thing and disable controls
     @focusLookAtTarget = undefined
-    @height = MIN_HEIGHT
+    @height = (MIN_HEIGHT + MAX_HEIGHT) / 2
     @position.set @positionTarget()
 
     @setLookAt @player.position
