@@ -98,5 +98,6 @@ class Room extends Group
 
   triggerAlarm: ->
     console.log 'Alarm! Alarm! Alarm!'
+    gs.guard.targetRoom = @
 
 module.exports = Room
