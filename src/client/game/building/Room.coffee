@@ -66,6 +66,9 @@ class Room extends Group
 
     @doors[direction]?.onPersonLeavesAdjacentRoom person for direction, neighbourRoom of @neighbourRooms
     #console.log 'LEAVE'
+    if gs.player.hidden and person.type isnt 'player'
+      gs.player.moveToRoomCenter()
+      gs.player.hidden = false
 
   onEnter: (person, oldRoom) =>
     @currentPersons.add(person)
@@ -84,6 +87,7 @@ class Room extends Group
         @objects = @objects.filter((item) -> not item.isBankNotePile)
         person.setAlerted()
     #console.log 'ENTER'
+    gs.player.hide() if gs.player?.currentRoom is gs.guard?.currentRoom
 
   getPlayerInRoom: =>
     (Array.from(@currentPersons).filter (person) ->

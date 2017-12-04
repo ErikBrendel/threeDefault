@@ -83,6 +83,11 @@ class Person extends THREE.Group
     @setPosition(@currentRoom.position.clone())
 
 
+  hide: ->
+    @hidden = true
+    @setPosition @currentRoom.position.clone().add(new THREE.Vector3(1.6, 0, 1.6))
+
+
   onAction: (done) ->
 
 module.exports = Person
