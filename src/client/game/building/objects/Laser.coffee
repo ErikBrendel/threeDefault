@@ -9,7 +9,7 @@ class Laser extends RoomObject
     super 'laser', room, clickHandler
     @hasFocus = true
     @mesh.userData.description =
-      header: 'Layer Beams'
+      header: 'Laser Beams'
       text: 'They will trigger an alarm when you move normally into this Room.<br><br>Click on the lasers to move carefully into this room. This will not trigger any alarm, but will take more time.'
 
   onInteract: (person) ->

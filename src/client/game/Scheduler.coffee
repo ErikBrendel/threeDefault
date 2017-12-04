@@ -23,7 +23,7 @@ class Scheduler
     newContent = ''
     max = @persons[@persons.length - 1].waitTime
     for line in [0 .. max]
-      newContent += @persons.filter((p) -> p.waitTime is line).map((p) -> p.name).join('<br>')
+      newContent += @persons.filter((p) -> p.waitTime is line).map((p) -> p.name).join(', ')
       newContent += '<br>'
 
     @div.innerHTML = newContent
