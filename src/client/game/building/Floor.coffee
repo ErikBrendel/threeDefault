@@ -54,8 +54,6 @@ class Floor extends Group
 
         room.onGroundClick = (room) ->
           scene.onRoomClicked room
-        room.showDescription = (description, details) ->
-          scene.showDescription description, details
         @add room
         @rooms[x][y] = room
 

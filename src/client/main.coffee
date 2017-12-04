@@ -1,9 +1,8 @@
 # test main implementation
 
 GameScene = require './game/GameScene'
-RotatingIcoSphere = require './game/RotatingIcoSphere'
 LoadResources = require './config/resources'
-require './util/DescriptionHelper'
+initDescriptions = require './util/Description'
 
 
 gameInit = ->
@@ -20,6 +19,7 @@ gameInit = ->
 # export to the browser console
 
 window.onload = ->
+  initDescriptions()
   await LoadResources()
   gameInit()
 

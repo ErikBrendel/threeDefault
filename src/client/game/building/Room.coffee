@@ -7,14 +7,18 @@ class Room extends Group
   constructor: ({up, right, down, left, @objectClickHandler}) ->
     super()
     @seen = false
-    @description = 'Default Room'
-    @details = 'Some boring room'
     @addWalls up, right, down, left
     @addGround()
     @doors = {}
     @neighbourRooms = {}
     @objects = []
     @currentPersons = new Set
+    @userData.description =
+      header: 'Undiscovered Room'
+      text: 'What might be there?'
+    @description =
+      header: 'Normal Room'
+      text: 'Nothing special in here...'
 
   addWalls: (up, right, down, left) ->
     @wallUp = new Wall Math.PI * 0.5, up
@@ -31,8 +35,6 @@ class Room extends Group
     @ground.material = new THREE.MeshPhongMaterial
       color: 0
 
-    @userData.mouseEnterHandler = =>
-      @showDescription? @description, @details
     @add @ground
 
     loadHoverEffect @ground,
@@ -93,6 +95,7 @@ class Room extends Group
   discover: ->
     return if @seen
     @seen = true
+    @userData.description = @description
     @ground.material = @groundMaterial
     @addObjects? @objectClickHandler
 

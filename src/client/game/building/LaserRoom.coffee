@@ -4,8 +4,10 @@ Laser = require './objects/Laser'
 class LaserRoom extends Room
   constructor: ({up, right, down, left, type, objectClickHandler}) ->
     super({up, right, down, left, type, objectClickHandler})
-    @description = 'Laser Room'
     @enteredSilently = false
+    @description =
+      header: 'Laser Room'
+      text: 'You have to walk in carefully to not trigger the alarm. If you just run in, the guards will come for you.'
 
   addObjects: (objectClickHandler) ->
     @objects.push new Laser @, objectClickHandler
