@@ -1,6 +1,6 @@
 # the controllable player object
 Person = require './Person'
-Inventory = require '../collectables/Inventory'
+Inventory = require '../items/Inventory'
 Constants = require '../../config/Constants'
 SmoothValue = require '../../util/SmoothValue'
 

@@ -2,6 +2,7 @@
 
 RoomObject = require './RoomObject'
 SmoothValue = require '../../../util/SmoothValue'
+Constants = require '../../../config/Constants'
 
 DOOR_X = 1.69044
 DOOR_Y = 0
@@ -117,10 +118,14 @@ class SafeLock extends RoomObject
     @safe.onSafeOpenAnimation()
 
   crackingDone: ->
-    document.getElementById('safe-container').style.visibility = 'hidden'
     @safe.safeOpened = true
+    @onFocusLost()
+    @currentCrackingLayer = undefined
+
+  onFocusLost: ->
+    document.getElementById('safe-container').style.visibility = 'hidden'
+    @safe.mesh.userData.description.cost = Constants.baseCloseSafeDelay
     window.crack_rotate = undefined
     window.crack_open = undefined
-    @currentCrackingLayer = undefined
 
 module.exports = SafeLock

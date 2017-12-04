@@ -1,10 +1,10 @@
 # the (un)penetrable vault that stores all kinds of treasures
 
 RoomObject = require './RoomObject'
-Inventory = require '../../collectables/Inventory'
-GoldIngot = require '../../collectables/GoldIngot'
-Coins = require '../../collectables/Coins'
-SuitCase = require '../../collectables/SuitCase'
+Inventory = require '../../items/Inventory'
+GoldIngot = require '../../items/GoldIngot'
+Coins = require '../../items/Coins'
+SuitCase = require '../../items/SuitCase'
 SmoothValue = require '../../../util/SmoothValue'
 Constants = require '../../../config/Constants'
 loadHoverEffect = require '../../actor/HoverEffect'
@@ -86,9 +86,11 @@ class Safe extends RoomObject
 
     if not @doorOpened
       @onSafeOpenAnimation()
-      return
+      @mesh.userData.description.cost = Constants.baseCloseSafeDelay
+      return Constants.baseOpenSafeDelay
     else
       @onSafeCloseAnimation()
+      @mesh.userData.description.cost = Constants.baseOpenSafeDelay
       return Constants.baseCloseSafeDelay
 
   onSafeOpenAnimation: ->

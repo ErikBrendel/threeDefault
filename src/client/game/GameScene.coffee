@@ -30,12 +30,7 @@ class GameScene
         clickedObject.hasFocus = true
         focus = clickedObject.getFocusData()
         return unless focus?
-        player.setPosition focus.playerPosition.clone().add focus.offset
         camera.focusObject focus, clickedObject
-        exitHandler = ->
-          camera.resetFocus()
-          player.moveToRoomCenter()
-          exitHandler = undefined
         return true
 
     @guard = new Guard @currentFloor, @objectClickHandler

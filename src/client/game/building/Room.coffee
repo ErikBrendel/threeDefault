@@ -59,6 +59,11 @@ class Room extends Group
   onLeave: (person, newRoom) ->
     @currentPersons.delete(person)
     object.onLeave person, newRoom for object in @objects
+
+    if person.type is 'player'
+      for item in person.inventory.contents
+        item.onLeave @
+
     @doors[direction]?.onPersonLeavesAdjacentRoom person for direction, neighbourRoom of @neighbourRooms
     #console.log 'LEAVE'
 
