@@ -9,6 +9,10 @@
             margin: 0;
             overflow: hidden;
             background: #515151;
+            outline:none !important;
+        }
+        input::-moz-focus-inner {
+            border: 0;
         }
         div.hud {
             pointer-events: none;
@@ -134,10 +138,19 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            background: green;
             width: 64px;
             height: 64px;
             text-align: center;
+            background: rgb(130, 60, 0);
+            border: 5px outset rgb(130, 60, 0);
+            font-size: 150%;
+            color: white;
+        }
+        .safe-container input:active {
+            border-style: inset;
+        }
+        .safe-container input:disabled {
+            border-style: inset;
         }
         .leds {
             margin: auto auto;
@@ -203,49 +216,49 @@
     <script src="bundle/main.js"></script>
 </head>
 <body>
-    <div class="hud noSelect">
-        <div id="health-bar" class="health-bar top right container">
-            <img src="assets/texture/hearth.png"/>
-            <img src="assets/texture/hearth.png"/>
-            <img src="assets/texture/hearth.png"/>
+<div class="hud noSelect">
+    <div id="health-bar" class="health-bar top right container">
+        <img src="assets/texture/hearth.png"/>
+        <img src="assets/texture/hearth.png"/>
+        <img src="assets/texture/hearth.png"/>
+    </div>
+    <div class="full top">
+        <div id="info-container" class="info-container container">
+            <div id="info-header" class="info-header"></div>
+            <div id="info-value" class="info-value"></div>
+            <div id="info-cost" class="info-cost"></div>
+            <div id="info-text" class="info-text"></div>
         </div>
-        <div class="full top">
-            <div id="info-container" class="info-container container">
-                <div id="info-header" class="info-header"></div>
-                <div id="info-value" class="info-value"></div>
-                <div id="info-cost" class="info-cost"></div>
-                <div id="info-text" class="info-text"></div>
-            </div>
+    </div>
+    <!-- <div id="prio" class="prio-container container top right">It's your turn</div> -->
+    <div id="prioBars" class="container top left">
+        <div id="prioBar-player" class="prioBar">
+            <div id="avatar-player" class="avatar playerAvatar"></div>
         </div>
-        <!-- <div id="prio" class="prio-container container top right">It's your turn</div> -->
-        <div id="prioBars" class="container top left">
-            <div id="prioBar-player" class="prioBar">
-                <div id="avatar-player" class="avatar playerAvatar"></div>
-            </div>
-            <div id="prioBar-guard" class="prioBar secondBar">
-                <div id="avatar-guard" class="avatar guardAvatar"></div>
-            </div>
+        <div id="prioBar-guard" class="prioBar secondBar">
+            <div id="avatar-guard" class="avatar guardAvatar"></div>
         </div>
-        <div id="fps" class="container bottom left">all of them fps</div>
-        <div class="full bottom">
-            <div style="text-align: center;">
-                <div class="safe-center">
-                    <div id="safe-container" class="safe-container container" style="visibility: hidden;">
-                        <input type="button" value="-1" onclick="if(typeof crack_rotate === 'function') crack_rotate(-1)" />
-                        <div id="safe-leds" class="leds">
-                            <!--<div class="locked"></div>
-                            <div class="incorrect"></div>
-                            <div class="correct"></div>-->
-                        </div>
-                        <input type="button" value="+1" onclick="if(typeof crack_rotate === 'function') crack_rotate(+1)" />
-                        <input type="button" value="-5" onclick="if(typeof crack_rotate === 'function') crack_rotate(-5)" />
-                        <input type="button" id="safe-open-button" class="OK" value="OPEN" onclick="if(typeof crack_open === 'function') crack_open()" disabled="true"/>
-                        <input type="button" value="+5" onclick="if(typeof crack_rotate === 'function') crack_rotate(+5)" />
+    </div>
+    <div id="fps" class="container bottom left">all of them fps</div>
+    <div class="full bottom">
+        <div style="text-align: center;">
+            <div class="safe-center">
+                <div id="safe-container" class="safe-container container" style="visibility: hidden;">
+                    <input type="button" value="-1" onclick="if(typeof crack_rotate === 'function') crack_rotate(-1)" />
+                    <div id="safe-leds" class="leds">
+                        <!--<div class="locked"></div>
+                        <div class="incorrect"></div>
+                        <div class="correct"></div>-->
                     </div>
+                    <input type="button" value="+1" onclick="if(typeof crack_rotate === 'function') crack_rotate(+1)" />
+                    <input type="button" value="-5" onclick="if(typeof crack_rotate === 'function') crack_rotate(-5)" />
+                    <input type="button" id="safe-open-button" class="OK" value="OPEN" onclick="if(typeof crack_open === 'function') crack_open()" disabled="true"/>
+                    <input type="button" value="+5" onclick="if(typeof crack_rotate === 'function') crack_rotate(+5)" />
                 </div>
             </div>
         </div>
-        <div id="inventory" class="container inventory-container bottom right"></div>
     </div>
+    <div id="inventory" class="container inventory-container bottom right"></div>
+</div>
 </body>
 </html>
