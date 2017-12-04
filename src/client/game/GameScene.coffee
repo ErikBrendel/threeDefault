@@ -117,6 +117,7 @@ class GameScene
     @mouse.x = event.clientX / window.innerWidth * 2 - 1
     @mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
     hovered = @hoveredObjects[0]
+    @describe hovered
 
     while hovered? and not (hovered.userData.mouseEnterHandler? or hovered.userData.mouseLeaveHandler?)
       hovered = hovered.parent
@@ -125,6 +126,12 @@ class GameScene
       @lastHoveredObject?.userData.mouseLeaveHandler?()
       hovered?.userData.mouseEnterHandler?()
       @lastHoveredObject = hovered
+
+  describe: (aMesh) ->
+    toDescribe = aMesh
+    while toDescribe? and not toDescribe.userData.description?
+      toDescribe = toDescribe.parent
+    showDescription toDescribe?.userData.description
 
   add: (newObject) ->
     @scene.add if newObject.mesh then newObject.mesh else newObject
@@ -137,10 +144,6 @@ class GameScene
       clicked = clicked.parent
 
     clicked?.userData.clickHandler?()
-
-  showDescription: (description, details) ->
-    document.getElementById('info-header').innerText = description
-    document.getElementById('info-text').innerText = details
 
   onRoomClicked: (room) ->
     @player.onRoomClicked room

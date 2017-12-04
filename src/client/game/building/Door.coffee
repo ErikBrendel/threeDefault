@@ -42,6 +42,9 @@ class Door
       copyMaterials: true
     @rotationOffset = if @rotated then Math.PI / 2 else 0
     @mesh.rotation.y = @rotationOffset
+    @mesh.userData.description =
+      header: 'Door'
+      text: 'Click the door to peek into the Room behind. This will take a bit of time, but keeps you from getting surprised by lasers.'
 
     loadHoverEffect @mesh, (=> @isVisible() and (@hasFocus or not gs.camera.focusMode)), (=> clickHandler @)
 

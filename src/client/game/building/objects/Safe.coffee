@@ -26,6 +26,10 @@ class Safe extends RoomObject
       cameraPosition: new THREE.Vector3 0, 1, 0
       cameraLookAt: new THREE.Vector3 1.2, 0.56, -1.4
       playerPosition: new THREE.Vector3 1.3, 0, -0.5
+    @mesh.userData.description =
+      header: 'Safe'
+      text: 'Crack this safe to steal the treasures inside. Be aware, that this takes some time. Do not get caught!<br>
+             Make sure to close the door. The guards will trigger an alarm when they see an open safe door.'
     @loadDoor()
     @loadHandle()
     @loadLock()
@@ -58,6 +62,9 @@ class Safe extends RoomObject
 
   loadHandle: ->
     @doorHandle = AssetCache.getModel 'objects/safe_handle'
+    @doorHandle.userData.description =
+      header: 'Safe Door Handle'
+      text: 'Whhhheeeeeee!'
     @doorHandle.position.set HANDLE_X, HANDLE_Y, HANDLE_Z
     @doorMesh.add @doorHandle
     @doorHandleAnimator = new SmoothValue 600, 0
@@ -72,6 +79,9 @@ class Safe extends RoomObject
   loadLock: ->
     @doorLock = AssetCache.getModel 'objects/safe_lock',
       copyMaterials: true
+    @doorLock.userData.description =
+      header: 'Safe Lock'
+      text: 'Click here to start cracking the safe.'
     @doorLock.position.set LOCK_X, LOCK_Y, LOCK_Z
     @doorMesh.add @doorLock
     loadHoverEffect @doorLock, (-> true), (-> alert 'now cracking safe...'),
