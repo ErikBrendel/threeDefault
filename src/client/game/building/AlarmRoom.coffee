@@ -19,6 +19,7 @@ class AlarmRoom extends Room
     console.log 'Alarm! Alarm! Alarm!'
     AlarmLight.instance().setRoom @
     gs.guard.targetRoom = @
+    gs.guard.setAlerted()
 
   deactivateAlarm: ->
     AlarmLight.instance().deactivate() if AlarmLight.instance().room is @
