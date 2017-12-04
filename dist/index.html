@@ -46,10 +46,12 @@
             border-bottom-left-radius: 7px;
             border-bottom-right-radius: 7px;
         }
+        .safe-center {
+            display: inline-block;
+        }
         .safe-container {
             pointer-events: all;
-            margin: auto auto;
-            width: fit-content;
+            width: content-box;
             padding: 10px 10px 5px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
@@ -150,17 +152,17 @@
             border: #a8a8a8 1px solid;
             width: 30px;
             height: 20px;
-            box-shadow: 0 0 2px rgba(25,25,25,0.5) inset;
+            box-shadow: 0 0 2px rgba(25,25,25,0.75) inset;
             background: gray;
         }
         .leds > div.locked {
-            background: lime;
+            background: #00d700;
         }
         .leds > div.correct {
-            background: yellow;
+            background: #e6e63b;
         }
         .leds > div.incorrect {
-            background: red;
+            background: #e30000;
         }
         .OK {
             width: 100% !important;
@@ -188,23 +190,27 @@
         <div id="prio" class="prio-container container top right">It's your turn</div>
         <div id="fps" class="container bottom left">all of them fps</div>
         <div class="full bottom">
-            <div id="safe-container" class="safe-container container">
-                <input type="button" value="-1"/>
-                <div class="leds">
-                    <div class="locked"></div>
-                    <div class="incorrect"></div>
-                    <div class="correct"></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+            <div style="text-align: center;">
+                <div class="safe-center">
+                    <div id="safe-container" class="safe-container container">
+                        <input type="button" value="-1"/>
+                        <div class="leds">
+                            <div class="locked"></div>
+                            <div class="incorrect"></div>
+                            <div class="correct"></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <input type="button" value="+1"/>
+                        <input type="button" value="-5"/>
+                        <input type="button" class="OK" value="OPEN"/>
+                        <input type="button" value="+5"/>
+                    </div>
                 </div>
-                <input type="button" value="+1"/>
-                <input type="button" value="-5"/>
-                <input type="button" class="OK" value="OPEN"/>
-                <input type="button" value="+5"/>
             </div>
         </div>
         <div id="inventory" class="container inventory-container bottom right"></div>
