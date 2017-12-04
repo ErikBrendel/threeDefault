@@ -35,9 +35,7 @@ class PlayerCamera extends THREE.PerspectiveCamera
     @focusedObject = focusObject
     @focusedObject?.hasFocus = true
 
-
     gs.player.setPosition playerPosition.clone().add offset
-
 
     @focusLookAtTarget = new SmoothVector 500, @lookVector.clone()
 

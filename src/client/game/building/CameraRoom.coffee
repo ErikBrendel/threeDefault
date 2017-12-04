@@ -1,16 +1,19 @@
 AlarmRoom = require './AlarmRoom'
 Camera = require './objects/Camera'
+Monitor = require './objects/Monitor'
 
 class CameraRoom extends AlarmRoom
   constructor: ({up, right, down, left, type, objectClickHandler}) ->
     super({up, right, down, left, type, objectClickHandler})
     @isCameraRoom = true
+    @otherCameras = []
     Object.assign @description,
       header: 'Camera Room'
       text: 'You will get seen (and an alarm will get triggered) when you are in a Camera Room and a Guard is in another Camera Room'
 
   addObjects: (objectClickHandler) ->
     super(objectClickHandler)
+    @objects.push new Monitor @, objectClickHandler
     @objects.push new Camera @, objectClickHandler
 
   onEnter: (person, oldRoom) =>

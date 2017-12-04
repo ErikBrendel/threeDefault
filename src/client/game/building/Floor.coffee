@@ -25,6 +25,7 @@ class Floor extends Group
     @createDoors()
 
   createRooms: (scene) ->
+    @cameraRooms = []
     @rooms = []
     @objectClickHandler = (clickedObject) ->
       if clickedObject.hasFocus
@@ -54,16 +55,21 @@ class Floor extends Group
         @add room
         @rooms[x][y] = room
 
+    console.dir @cameraRooms
+    cameraRoom.otherCameras = @cameraRooms for cameraRoom in @cameraRooms
+
   createRoom: (x, y) ->
     roomType = @roomTypes[x + y * @floorSize.x]
     roomClass = @classFromRoomType roomType
-    new roomClass
+    newRoom = new roomClass
       up: @isUp x, y
       right: @isRight x, y
       down: @isDown x, y
       left: @isLeft x, y
       objectClickHandler: @objectClickHandler
       position: {x,y}
+    @cameraRooms.push newRoom if roomType is 'camera'
+    newRoom
 
   classFromRoomType: (type) ->
     {

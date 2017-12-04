@@ -4,12 +4,10 @@ RoomObject = require './RoomObject'
 class Camera extends RoomObject
   constructor: (room, clickHandler) ->
     super 'camera', room, clickHandler
-    @loadCamera()
-
-  loadCamera: ->
-    @mesh = AssetCache.getModel 'objects/camera'
 
   onInteract: (person) ->
 
+  isVisible: ->
+    false
 
 module.exports = Camera
