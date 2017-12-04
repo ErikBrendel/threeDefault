@@ -171,6 +171,7 @@ class GameScene
       console.dir @player.nextRoom
     else
       alert 'YOU WON!!!!!!!!!!!!!!!!!!!!!'
+      #TODO: end the game here
       return
     @remove @guard
     @guard = new Guard @currentFloor
