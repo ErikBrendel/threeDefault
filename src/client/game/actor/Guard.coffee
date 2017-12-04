@@ -1,19 +1,39 @@
 # the feared watching enemy who wants to find the Players
 Person = require './Person'
 Constants = require '../../config/Constants'
+SmoothValue = require '../../util/SmoothValue'
+SmoothVector3 = require '../../util/SmoothVector3'
 
 GuardCounter = 0
 
 class Guard extends Person
   constructor: (@floor, @onClickHandler) ->
     super 'guard', "Guard #{GuardCounter++}", 1
-    @alerted = false
-    @questionMark = AssetCache.getModel 'questionMark'
-    @add @questionMark
-    @questionMark.position.x = 10000
     @userData.description =
       header: 'A Guard'
       text: 'Stay away from him! He will cost you a life.'
+    @alerted = false
+    @questionMark = AssetCache.getModel 'questionMark'
+    @add @questionMark
+
+    @questionMarkPositionAnimator = new SmoothVector3 700, new THREE.Vector3 0, 0, 0
+    switchDirection = =>
+      @questionMarkPositionAnimator.set new THREE.Vector3(0, 0.4, 0).sub @questionMarkPositionAnimator.get()
+    @questionMarkPositionAnimator.addFinishHandler switchDirection
+    switchDirection()
+    @questionMarkPositionAnimator.addUpdateHandler (position) =>
+      if @alerted
+        @questionMark.position.copy position
+      else
+        @questionMark.position.x = 10000
+
+    @questionMarkRotator = new SmoothValue 2000, 0, 0
+    @questionMarkRotator.addFinishHandler =>
+      @questionMarkRotator.set @questionMarkRotator.get() + 2 * Math.PI
+    @questionMarkRotator.addUpdateHandler (rotation) =>
+      @questionMark.rotation.y = rotation
+    @questionMarkRotator.set 2 * Math.PI
+
 
   onClick: ->
     @onClickHandler()
@@ -24,7 +44,6 @@ class Guard extends Person
   setAlerted: ->
     Jukebox.fadeTo 'fast', 500 unless @alerted
     @alerted = true
-    @questionMark.position.x = 0
     @numActionsAlerted = Constants.baseNumActionsAlerted
 
   updateAlerted: ->
@@ -32,7 +51,6 @@ class Guard extends Person
     if @numActionsAlerted <= 0 and @alerted
       Jukebox.fadeTo 'slow', 500
       @alerted = false
-      @questionMark.position.x = 10000
 
 
   onAction: (done) ->
