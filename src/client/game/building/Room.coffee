@@ -74,7 +74,15 @@ class Room extends Group
     @discover() if person.type == 'player'
     object.onEnter person, oldRoom for object in @objects
     @doors[direction]?.onPersonEntersAdjacentRoom person for direction, neighbourRoom of @neighbourRooms
-
+    if person.type == 'guard'
+      console.log 'took money'
+      piles = @objects.filter((item) -> item.isBankNotePile)
+      if piles.length > 0
+        for item in piles
+          @remove item.mesh
+        console.dir @objects.filter((item) -> item.isBankNotePile)
+        @objects = @objects.filter((item) -> not item.isBankNotePile)
+        person.setAlerted()
     #console.log 'ENTER'
 
   getPlayerInRoom: =>

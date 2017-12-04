@@ -1,6 +1,7 @@
 # the controllable player object
 Person = require './Person'
 Inventory = require '../items/Inventory'
+SuitCase = require '../items/SuitCase'
 Constants = require '../../config/Constants'
 SmoothValue = require '../../util/SmoothValue'
 
@@ -11,7 +12,7 @@ class Player extends Person
       header: 'You'
       text: 'This is you. You want to get rich, so let\'s go and steal some good stuff!<br>Click to wait in this room'
     @addEars(audioListener)
-    @inventory = new Inventory()
+    @inventory = new Inventory((new SuitCase @), (new SuitCase @), (new SuitCase @), (new SuitCase @), (new SuitCase @), (new SuitCase @))
     @isDran = false
     @health = Constants.basePlayerHealth
     @updateHealthUI()
