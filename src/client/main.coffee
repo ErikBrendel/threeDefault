@@ -22,5 +22,5 @@ window.onload = ->
   await LoadResources()
   gameInit()
 
-window.addEventListener 'keydown', ->
-  gs.exitHandler?()
+window.addEventListener 'keydown', (event) ->
+  gs.exitHandler?() if event.keyCode is 27 or event.keyCode is 32
