@@ -37,29 +37,39 @@ class SafeLock extends RoomObject
     @safe.doorMesh.add @mesh
     @lockValue = new SmoothValue 300, 20
 
-    @solution = [7, 2, 18]
+    @solution = [7, 2]
+    #crackHardness = 3
+    #@solution = []
+    #for [ 1 .. crackHardness]
+    #  @solution.push Math.floor(Math.random() * 20) + 1
 
-    @lockValue.addUpdateHandler (rawRotation) =>
-      @mesh.rotation.z = Math.PI * (rawRotation / 10)
-      if @currentCrackingLayer?
-        lockValue = rawRotationToValue rawRotation
-        rightValue = lockValue is @solution[@currentCrackingLayer]
-        currentDiv = document.getElementById "safe-led-#{@currentCrackingLayer}"
-        if @signum isnt @lastSignum
-          @lastSignum = @signum
-          if rightValue
-            currentDiv.classList.remove 'correct'
-            currentDiv.classList.add 'locked'
-            @currentCrackingLayer++
-          else
-            @failedToOpen()
-          return
-        if lockValue is @solution[@currentCrackingLayer] + @signum #overshoot
+    @lockValue.addUpdateHandler @updateLockValue
+
+  updateLockValue: (rawRotation = @lockValue.get()) =>
+    @mesh.rotation.z = Math.PI * (rawRotation / 10)
+    if @currentCrackingLayer?
+      document.getElementById("safe-led-#{@currentCrackingLayer - 1}")?.classList.add 'locked'
+      if @currentCrackingLayer is @solution.length
+        document.getElementById('safe-open-button').disabled = false
+        return
+      lockValue = rawRotationToValue rawRotation
+      rightValue = lockValue is @solution[@currentCrackingLayer]
+      currentDiv = document.getElementById "safe-led-#{@currentCrackingLayer}"
+      #bugfix incoming
+      if @signum isnt @lastSignum
+        @lastSignum = @signum
+        if rightValue
+          currentDiv.classList.remove 'correct'
+          currentDiv.classList.add 'locked'
+          @currentCrackingLayer++
+        else
           @failedToOpen()
-          return
-        currentDiv.classList.toggle 'correct', rightValue
-        currentDiv.classList.toggle 'incorrect', not rightValue
-
+        return
+      if lockValue is @solution[@currentCrackingLayer] + @signum #overshoot
+        @failedToOpen()
+        return
+      currentDiv.classList.toggle 'correct', rightValue
+      currentDiv.classList.toggle 'incorrect', not rightValue
 
   onInteract: (person) ->
     return unless person.type is 'player'
@@ -68,7 +78,6 @@ class SafeLock extends RoomObject
   initOpening: ->
     window.crack_rotate = @crack_rotate
     window.crack_open = @crack_open
-    document.getElementById('safe-container').style.visibility = 'visible'
 
     ledsDiv = document.getElementById 'safe-leds'
     ledsDivContent = ''
@@ -79,8 +88,11 @@ class SafeLock extends RoomObject
     ledsDiv.innerHTML = ledsDivContent
     document.getElementById('safe-led-0').classList.add 'incorrect'
 
+    document.getElementById('safe-open-button').disabled = true
+    document.getElementById('safe-container').style.visibility = 'visible'
+
     @currentCrackingLayer = 0
-    @lastSignum = undefined
+    @lastSignum = @signum
 
   failedToOpen: ->
     @initOpening()
@@ -94,6 +106,7 @@ class SafeLock extends RoomObject
     @lastSignum = @signum
     @signum = newSign
     @lastSignum = @signum unless @lastSignum?
+    @updateLockValue()
 
 
   crack_open: =>
