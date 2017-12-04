@@ -1,5 +1,6 @@
 Room = require './Room'
 Safe = require './objects/Safe'
+SafeLock = require './objects/SafeLock'
 
 class SafeRoom extends Room
   constructor: ({up, right, down, left, type, objectClickHandler}) ->
@@ -9,7 +10,9 @@ class SafeRoom extends Room
       text: 'There is a safe in this room! Crack it, to receive the treasures inside!'
 
   addObjects: (objectClickHandler) ->
-    @objects.push new Safe @, objectClickHandler
+    safe = new Safe @, objectClickHandler
+    @objects.push safe
+    @objects.push new SafeLock @, objectClickHandler, safe
 
 
 module.exports = SafeRoom

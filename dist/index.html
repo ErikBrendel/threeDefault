@@ -192,8 +192,8 @@
         <div class="full bottom">
             <div style="text-align: center;">
                 <div class="safe-center">
-                    <div id="safe-container" class="safe-container container">
-                        <input type="button" value="-1"/>
+                    <div id="safe-container" class="safe-container container" style="visibility: hidden;">
+                        <input type="button" value="-1" onclick="if(typeof crack_rotate === 'function') crack_rotate(-1)" />
                         <div class="leds">
                             <div class="locked"></div>
                             <div class="incorrect"></div>
@@ -205,10 +205,10 @@
                             <div></div>
                             <div></div>
                         </div>
-                        <input type="button" value="+1"/>
-                        <input type="button" value="-5"/>
-                        <input type="button" class="OK" value="OPEN"/>
-                        <input type="button" value="+5"/>
+                        <input type="button" value="+1" onclick="if(typeof crack_rotate === 'function') crack_rotate(+1)" />
+                        <input type="button" value="-5" onclick="if(typeof crack_rotate === 'function') crack_rotate(-5)" />
+                        <input type="button" class="OK" value="OPEN" onclick="if(typeof crack_open === 'function') crack_open()" />
+                        <input type="button" value="+5" onclick="if(typeof crack_rotate === 'function') crack_rotate(+5)" />
                     </div>
                 </div>
             </div>
