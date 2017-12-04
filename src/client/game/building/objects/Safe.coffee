@@ -59,8 +59,11 @@ class Safe extends RoomObject
     @doorAnimator.addFinishHandler =>
       if not @doorOpened
         @doorHandleAnimator.set 0
+        @handleSound.play()
       else
         @safeIsAnimating = false
+    @doorSound = AssetCache.getSound 'door_squeak'
+    @doorMesh.add @doorSound
 
   loadHandle: ->
     @doorHandle = AssetCache.getModel 'objects/safe_handle'
@@ -75,8 +78,11 @@ class Safe extends RoomObject
     @doorHandleAnimator.addFinishHandler =>
       if @doorOpened
         @doorAnimator.set 1
+        @doorSound.play()
       else
         @safeIsAnimating = false
+    @handleSound = AssetCache.getSound 'door_wheel'
+    @doorHandle.add @handleSound
 
   onInteract: (person) ->
     #This method is called by the guard, if he sees that the door is open
@@ -97,11 +103,13 @@ class Safe extends RoomObject
     @safeIsAnimating = true
     @doorOpened = true
     @doorHandleAnimator.set 1
+    @handleSound.play()
 
   onSafeCloseAnimation: ->
     @safeIsAnimating = true
     @doorOpened = false
     @doorAnimator.set 0
+    @doorSound.play()
 
   updateContent: ->
     placeIndex = 0

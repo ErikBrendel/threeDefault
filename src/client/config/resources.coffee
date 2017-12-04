@@ -27,6 +27,8 @@ sounds = [
   'move',
   'lock_tick',
   'lock_correct',
+  'door_squeak',
+  'door_wheel',
 ]
 
 music = [
