@@ -74,6 +74,13 @@ class Room extends Group
     (Array.from(@currentPersons).filter (person) ->
       person.type is 'player')[0]
 
+  isPlayerInRoom: =>
+    @getPlayerInRoom()?
+
+  isPlayerInAdjacentRoom: =>
+    ((n for d, n of @neighbourRooms).filter (neighbourRoom) ->
+      neighbourRoom?.isPlayerInRoom())[0]?
+
   onPeek: (person) ->
     return if @seen
     if person.type is 'player'
