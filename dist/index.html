@@ -17,7 +17,7 @@
             position: absolute;
             color: #f3ffe6;
         }
-        .info-box {
+        .full {
             width: 100%;
         }
         .top {
@@ -46,6 +46,22 @@
             border-bottom-left-radius: 7px;
             border-bottom-right-radius: 7px;
         }
+        .safe-center {
+            display: inline-block;
+        }
+        .safe-container {
+            pointer-events: all;
+            width: content-box;
+            padding: 10px 10px 5px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            background: url("assets/texture/steel.jpg");
+            border: 1px #2f2f2f solid;
+            display: grid;
+            grid-template-columns: min-content min-content min-content;
+            grid-template-rows: min-content min-content;
+            grid-gap: 5px;
+        }
         .info-header{
             padding-bottom: .5em;
             font-size: 1.25em;
@@ -60,11 +76,12 @@
         .inventory-container {
             pointer-events: all;
             border-top-left-radius: 7px;
-            padding: 10px 20px 5px 10px;
+            padding: 10px 5px 5px 10px;
             display: grid;
             grid-template-columns: repeat(3, 64px);
             grid-auto-flow: row;
             grid-auto-rows: 64px;
+            grid-area: ;
             grid-gap: 5px;
         }
         .noSelect {
@@ -113,6 +130,43 @@
         .health-bar > img.dead {
             opacity: 0;
         }
+        .safe-container input {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: green;
+            width: 64px;
+            height: 64px;
+            text-align: center;
+        }
+        .leds {
+            margin: auto auto;
+            display: grid;
+            grid-auto-columns: min-content;
+            grid-auto-flow: column;
+            grid-gap: 20px;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+        .leds > div {
+            border: #a8a8a8 1px solid;
+            width: 30px;
+            height: 20px;
+            box-shadow: 0 0 2px rgba(25,25,25,0.75) inset;
+            background: gray;
+        }
+        .leds > div.locked {
+            background: #00d700;
+        }
+        .leds > div.correct {
+            background: #e6e63b;
+        }
+        .leds > div.incorrect {
+            background: #e30000;
+        }
+        .OK {
+            width: 100% !important;
+        }
     </style>
     <script src="three/three.js"></script>
     <script src="three/orbitControls.js"></script>
@@ -125,7 +179,7 @@
             <img src="assets/texture/hearth.png"/>
             <img src="assets/texture/hearth.png"/>
         </div>
-        <div class="info-box top">
+        <div class="full top">
             <div id="info-container" class="info-container container">
                 <div id="info-header" class="info-header"></div>
                 <div id="info-text" class="info-text"></div>
@@ -135,8 +189,25 @@
         </div>
         <div id="prio" class="prio-container container top right">It's your turn</div>
         <div id="fps" class="container bottom left">all of them fps</div>
-        <div id="inventory" class="container inventory-container bottom right">
+        <div class="full bottom">
+            <div style="text-align: center;">
+                <div class="safe-center">
+                    <div id="safe-container" class="safe-container container" style="visibility: hidden;">
+                        <input type="button" value="-1" onclick="if(typeof crack_rotate === 'function') crack_rotate(-1)" />
+                        <div id="safe-leds" class="leds">
+                            <!--<div class="locked"></div>
+                            <div class="incorrect"></div>
+                            <div class="correct"></div>-->
+                        </div>
+                        <input type="button" value="+1" onclick="if(typeof crack_rotate === 'function') crack_rotate(+1)" />
+                        <input type="button" value="-5" onclick="if(typeof crack_rotate === 'function') crack_rotate(-5)" />
+                        <input type="button" class="OK" value="OPEN" onclick="if(typeof crack_open === 'function') crack_open()" />
+                        <input type="button" value="+5" onclick="if(typeof crack_rotate === 'function') crack_rotate(+5)" />
+                    </div>
+                </div>
+            </div>
         </div>
+        <div id="inventory" class="container inventory-container bottom right"></div>
     </div>
 </body>
 </html>

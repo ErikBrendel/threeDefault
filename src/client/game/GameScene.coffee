@@ -7,10 +7,12 @@ Player = require './actor/Player'
 Guard = require './actor/Guard'
 PlayerCamera = require './actor/PlayerCamera'
 PlayerLight = require './actor/PersonLight'
+AlarmLight = require './actor/AlarmLight'
 Scheduler = require './Scheduler'
 
 class GameScene
   constructor: (@updateCallback) ->
+    window.gs = @
     @scene = new THREE.Scene()
 
     @building = new Building 3, @
@@ -21,13 +23,16 @@ class GameScene
     @audioListener = new THREE.AudioListener
     window.audioListener = @audioListener
 
+    @guard = new Guard @currentFloor
+    @add @guard
+    @guard.setRoom @currentFloor.rooms[1][1]
+
     @player = new Player @audioListener
     @player.setRoom @currentFloor.rooms[0][0]
     @add @player
 
-    @guard = new Guard @currentFloor
-    @add @guard
-    @guard.setRoom @currentFloor.rooms[1][1]
+    @add AlarmLight.instance()
+    @add AlarmLight.instance().target
 
     @scheduler = new Scheduler @player, @guard
     @camera = new PlayerCamera @player
@@ -141,6 +146,8 @@ class GameScene
     @scene.remove if object.mesh then object.mesh else object
 
   onClick: (event) ->
+    return unless event.target is @renderer.domElement
+
     event.preventDefault()
     clicked = @hoveredObjects[0]
 
