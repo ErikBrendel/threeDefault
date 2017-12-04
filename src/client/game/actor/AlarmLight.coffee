@@ -8,7 +8,7 @@ class AlarmLight extends THREE.SpotLight
     @shadow.mapSize.height = 1024
     @shadow.camera.near
     @shadowCameraNear = 0.1;
-    @position.set(0, 0.5, 0)
+    @position.set(-1000, 0.5, -1000)
     @directionAngleSmoother = new SmoothValue 500, 0, 0
     @directionAngleSmoother.set 2 * Math.PI
     @directionAngleSmoother.addFinishHandler =>
