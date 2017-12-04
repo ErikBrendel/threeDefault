@@ -43,7 +43,7 @@ class Player extends Person
     @updateHealthUI()
     @lost() if @health <= 0
 
-  updateHealthUI: () ->
+  updateHealthUI: ->
     hearts = document.getElementById('health-bar').children
     heart.classList.toggle('dead', i >= @health) for heart, i in hearts
 
@@ -101,6 +101,5 @@ class Player extends Person
         @currentRoom.onEnter @, oldRoom
         return true
     false
-  #@player.currentRoom.neighbourRooms.above
 
 module.exports = Player
