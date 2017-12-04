@@ -72,6 +72,7 @@ class SafeLock extends RoomObject
       currentDiv.classList.toggle 'incorrect', not rightValue
 
   onInteract: (person) ->
+    return if @safe.safeOpened
     return unless person.type is 'player'
     @initOpening()
 
@@ -108,9 +109,7 @@ class SafeLock extends RoomObject
     @lastSignum = @signum unless @lastSignum?
     @updateLockValue()
 
-
   crack_open: =>
-    #TODO: if opened
     @crackingDone()
     gs.exitHandler?()
 
