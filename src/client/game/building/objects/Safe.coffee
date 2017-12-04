@@ -76,6 +76,7 @@ class Safe extends RoomObject
         @safeIsAnimating = false
 
   onInteract: (person) ->
+    #This method is called by the guard, if he sees that the door is open
     return unless person.currentRoom is @room
     return if not @safeOpened
     return if @safeIsAnimating

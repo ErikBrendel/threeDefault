@@ -8,6 +8,9 @@ class Guard extends Person
   constructor: (@floor, @onClickHandler) ->
     super 'guard', "Guard #{GuardCounter++}", 1
     @alerted = false
+    @questionMark = AssetCache.getModel 'questionMark'
+    @add @questionMark
+    @questionMark.position.x = 10000
     @userData.description =
       header: 'A Guard'
       text: 'Stay away from him! He will cost you a life.'
@@ -20,12 +23,14 @@ class Guard extends Person
 
   setAlerted: ->
     @alerted = true
+    @questionMark.position.x = 0
     @numActionsAlerted = Constants.baseNumActionsAlerted
 
   updateAlerted: ->
     @numActionsAlerted--
-    if @numActionsAlerted > 0 and @alerted
+    if @numActionsAlerted <= 0 and @alerted
       @alerted = false
+      @questionMark.position.x = 10000
 
 
   onAction: (done) ->
@@ -38,9 +43,9 @@ class Guard extends Person
 
     @setRoom @nextRoom
 
-    @updateAlerted
+    @updateAlerted()
 
-    @waitTime = Constants.baseMoveDelay
+    @waitTime = @getMoveCost()
     setTimeout done, Constants.msToMoveToRoom
 
   getMoveCost: ->

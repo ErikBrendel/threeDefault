@@ -7,6 +7,7 @@ models = [
   'player',
   'guard',
   'door',
+  'questionMark',
   'objects/stairs',
   'objects/safe',
   'objects/safe_door',

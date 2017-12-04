@@ -14,5 +14,12 @@ class SafeRoom extends Room
     @objects.push safe
     @objects.push new SafeLock @, objectClickHandler, safe
 
+  onEnter: (person, oldRoom) =>
+    super(person, oldRoom)
+    return unless @objects[0]?
+    if person.type is 'guard' and @objects[0].doorOpened
+      person.setAlerted()
+      @objects[0].onInteract person
+
 
 module.exports = SafeRoom
