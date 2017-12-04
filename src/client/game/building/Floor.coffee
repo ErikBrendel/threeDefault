@@ -34,6 +34,7 @@ class Floor extends Group
         focus = clickedObject.getFocusData()
         return unless focus?
         scene.camera.focusObject focus, clickedObject
+        return scene.player.interactWith clickedObject if clickedObject.autoInteract?
         return true
 
     for x in [0..@floorSize.x - 1]

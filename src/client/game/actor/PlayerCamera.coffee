@@ -30,8 +30,10 @@ class PlayerCamera extends THREE.PerspectiveCamera
       @focusedObject.onFocusLost?()
       @focusedObject?.hasFocus = false
       @focusedObject = undefined
+
     @focusMode = true
     @focusedObject = focusObject
+    @focusedObject?.hasFocus = true
 
 
     gs.player.setPosition playerPosition.clone().add offset

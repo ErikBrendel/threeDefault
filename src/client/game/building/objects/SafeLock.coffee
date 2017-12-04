@@ -30,6 +30,7 @@ class SafeLock extends RoomObject
       r: 1
       g: 0.3
       b: 0
+    @autoInteract = true
 
     @mesh.userData.description =
       header: 'Safe Lock'
@@ -101,6 +102,9 @@ class SafeLock extends RoomObject
   failedToOpen: ->
     @initOpening()
 
+  isVisible: ->
+    super() and not @safe.safeOpened
+
   crack_rotate: (amount) =>
     # only +-1 and +-5 are inputs here
 
@@ -113,6 +117,7 @@ class SafeLock extends RoomObject
     @updateLockValue()
 
   crack_open: =>
+    @hasFocus = true
     @crackingDone()
     gs.camera.focusObject @safe.getFocusData(), @safe
     @safe.onSafeOpenAnimation()
