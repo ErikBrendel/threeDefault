@@ -6,5 +6,6 @@ Constants = require '../../config/Constants'
 class Coins extends Treasure
   constructor: (inventoryHolder) ->
     super 'Coins', inventoryHolder
+    @isCoins = true
 
 module.exports = Coins

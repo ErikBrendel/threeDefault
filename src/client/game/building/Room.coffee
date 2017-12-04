@@ -78,16 +78,25 @@ class Room extends Group
     object.onEnter person, oldRoom for object in @objects
     @doors[direction]?.onPersonEntersAdjacentRoom person for direction, neighbourRoom of @neighbourRooms
     if person.type == 'guard'
-      console.log 'took money'
+      #console.log 'took money'
       piles = @objects.filter((item) -> item.isBankNotePile)
       if piles.length > 0
         for item in piles
           @remove item.mesh
-        console.dir @objects.filter((item) -> item.isBankNotePile)
+        #console.dir @objects.filter((item) -> item.isBankNotePile)
         @objects = @objects.filter((item) -> not item.isBankNotePile)
         person.setAlerted()
     #console.log 'ENTER'
+    if person.type is 'player'
+      if person.inventory.findObjects((item) -> item.isCoins).length > 0
+        @alertNeighbourGuards()
     gs.player.hide() if gs.player?.currentRoom is gs.guard?.currentRoom
+
+  alertNeighbourGuards: ->
+    for name, room of @neighbourRooms
+      for guard in Array.from(room.currentPersons).filter((person) -> person.type is 'guard')
+        guard.setAlerted()
+
 
   getPlayerInRoom: =>
     (Array.from(@currentPersons).filter (person) ->

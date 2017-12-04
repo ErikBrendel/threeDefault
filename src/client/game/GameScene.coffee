@@ -78,6 +78,7 @@ class GameScene
     # called on "user want to exit the current view",
     # returning true when event was handled
     @exitHandler = undefined
+    Jukebox.fadeTo 'slow', 5000
 
   ignoreShaderLogs: ->
     @renderer.context.getShaderInfoLog = () -> ''
