@@ -7,10 +7,12 @@ Guard = require './actor/Guard'
 layouts = require './building/floors/Layouts'
 PlayerCamera = require './actor/PlayerCamera'
 PlayerLight = require './actor/PersonLight'
+AlarmLight = require './actor/AlarmLight'
 Scheduler = require './Scheduler'
 
 class GameScene
   constructor: (@updateCallback) ->
+    window.gs = @
     @scene = new THREE.Scene()
 
     @floor = new Floor layouts[0], @
@@ -19,13 +21,17 @@ class GameScene
     @audioListener = new THREE.AudioListener
     window.audioListener = @audioListener
 
+    @guard = new Guard @floor
+    @add @guard
+    @guard.setRoom @floor.rooms[1][1]
+
     @player = new Player @audioListener
     @player.setRoom @floor.rooms[0][0]
     @add @player
 
-    @guard = new Guard @floor
-    @add @guard
-    @guard.setRoom @floor.rooms[1][1]
+    @add AlarmLight.instance()
+    @add AlarmLight.instance().target
+
 
     @scheduler = new Scheduler @player, @guard
     @camera = new PlayerCamera @player
