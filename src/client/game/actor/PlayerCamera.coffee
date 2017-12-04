@@ -26,6 +26,9 @@ class PlayerCamera extends THREE.PerspectiveCamera
     @setLookAt @lookAtTarget()
 
   focusObject: ({offset, cameraPosition, cameraLookAt}, focusObject) ->
+    if @focusMode
+      @focusedObject?.hasFocus = false
+      @focusedObject = undefined
     @focusMode = true
     @focusedObject = focusObject
 

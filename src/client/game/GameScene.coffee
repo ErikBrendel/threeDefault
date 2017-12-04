@@ -143,6 +143,8 @@ class GameScene
     @scene.add if newObject.mesh then newObject.mesh else newObject
 
   onClick: (event) ->
+    return unless event.target is @renderer.domElement
+
     event.preventDefault()
     clicked = @hoveredObjects[0]
 

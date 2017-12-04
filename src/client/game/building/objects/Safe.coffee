@@ -32,7 +32,6 @@ class Safe extends RoomObject
              Make sure to close the door. The guards will trigger an alarm when they see an open safe door.'
     @loadDoor()
     @loadHandle()
-    @loadLock()
 
     @safeIsAnimating = false
     @inventory = new Inventory()
@@ -76,42 +75,17 @@ class Safe extends RoomObject
       else
         @safeIsAnimating = false
 
-  loadLock: ->
-    @doorLock = AssetCache.getModel 'objects/safe_lock',
-      copyMaterials: true
-    @doorLock.userData.description =
-      header: 'Safe Lock'
-      text: 'Click here to start cracking the safe.'
-    @doorLock.position.set LOCK_X, LOCK_Y, LOCK_Z
-    @doorMesh.add @doorLock
-    loadHoverEffect @doorLock, (-> true), (-> alert 'now cracking safe...'),
-      baseIntensity: 0.1
-      r: 1
-      g: 0.3
-      b: 0
-
   onInteract: (person) ->
     return unless person.currentRoom is @room
-    if not @safeOpened
-      @startOpeningMinigame()
-      return Constants.baseOpenSafeDelay
-
+    return if not @safeOpened
     return if @safeIsAnimating
 
     if not @doorOpened
       @onSafeOpenAnimation()
       return
-      if @inventory.size() is 0
-        console.log 'you look into the safe... and it is empty'
-      else
-        console.log 'you look into the safe... and find something'
-      return Constants.baseTakeItemDelay
     else
       @onSafeCloseAnimation()
       return Constants.baseCloseSafeDelay
-
-  startOpeningMinigame: ->
-    @safeOpened = true
 
   onSafeOpenAnimation: ->
     @safeIsAnimating = true

@@ -7,6 +7,9 @@ GuardCounter = 0
 class Guard extends Person
   constructor: (@floor) ->
     super 'guard', "Guard #{GuardCounter++}", 1
+    @userData.description =
+      header: 'A Guard'
+      text: 'Stay away from him! He will cost you a life.'
 
   onAction: (done) ->
     console.log 'onAction'
@@ -16,11 +19,6 @@ class Guard extends Person
 
     @nextRoom = @findNextRoom()
 
-    #console.log 'Target Room: '
-    #console.log  @targetRoom.position
-    #console.log 'Next Room: '
-    #console.log  @nextRoom.position
-    #console.log 'Current Room: '
     @setRoom @nextRoom
 
     @waitTime = Constants.baseMoveDelay
