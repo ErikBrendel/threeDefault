@@ -75,8 +75,8 @@ class Player extends Person
       @waitTime = @walkWaitTime()
       setTimeout @doneHandler, Constants.msToMoveToRoom
 
-  walkWaitTime: ->
-    Constants.baseMoveDelay + @inventory.findObjects((item) -> item.name is 'GoldIngot').length * Constants.Items.GoldIngot.moveDelay
+  walkWaitTime: (baseDelay = Constants.baseMoveDelay) ->
+    baseDelay + @inventory.findObjects((item) -> item.name is 'GoldIngot').length * Constants.Items.GoldIngot.moveDelay
     #TODO: balancing here
 
   interactWith: (roomObject) ->

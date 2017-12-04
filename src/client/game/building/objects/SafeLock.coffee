@@ -46,6 +46,18 @@ class SafeLock extends RoomObject
     #  @solution.push Math.floor(Math.random() * 20) + 1
 
     @lockValue.addUpdateHandler @updateLockValue
+    @lastLockValue = undefined
+    @sounds = {}
+    @sounds[true] = []
+    @sounds[false] = []
+    for [1 .. 1]
+      sound = AssetCache.getSound 'lock_correct'
+      @sounds[true].push sound
+      @mesh.add sound
+    for [1 .. 5]
+      sound = AssetCache.getSound 'lock_tick'
+      @sounds[false].push sound
+      @mesh.add sound
 
   updateLockValue: (rawRotation = @lockValue.get()) =>
     @mesh.rotation.z = Math.PI * (rawRotation / 10)
@@ -57,6 +69,7 @@ class SafeLock extends RoomObject
       lockValue = rawRotationToValue rawRotation
       rightValue = lockValue is @solution[@currentCrackingLayer]
       currentDiv = document.getElementById "safe-led-#{@currentCrackingLayer}"
+      @maybePlaySound lockValue, rightValue
       #bugfix incoming
       if @signum isnt @lastSignum
         @lastSignum = @signum
@@ -74,6 +87,15 @@ class SafeLock extends RoomObject
       currentDiv.classList.toggle 'incorrect', not rightValue
       if rightValue and @currentCrackingLayer is @solution.length - 1
         document.getElementById('safe-open-button').disabled = false
+
+  maybePlaySound: (lockValue, isRight) ->
+    return if lockValue is @lastLockValue
+    @lastLockValue = lockValue
+    sounds = @sounds[isRight]
+    index = 0
+    while sounds[index]? and sounds[index].isPlaying
+      index++
+    sounds[index]?.play()
 
   onInteract: (person) ->
     return if @safe.safeOpened

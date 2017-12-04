@@ -29,6 +29,7 @@ showDescription = ({header, text = '', value, cost} = {}) ->
     info_value.innerText = ''
     hide info_value
 
+  cost = cost() if typeof cost is 'function'
   if cost?
     info_cost.innerText = cost
     show info_cost
