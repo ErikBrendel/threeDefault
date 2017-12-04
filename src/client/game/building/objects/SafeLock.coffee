@@ -117,10 +117,13 @@ class SafeLock extends RoomObject
     @safe.onSafeOpenAnimation()
 
   crackingDone: ->
-    document.getElementById('safe-container').style.visibility = 'hidden'
     @safe.safeOpened = true
+    @onFocusLost()
+    @currentCrackingLayer = undefined
+
+  onFocusLost: ->
+    document.getElementById('safe-container').style.visibility = 'hidden'
     window.crack_rotate = undefined
     window.crack_open = undefined
-    @currentCrackingLayer = undefined
 
 module.exports = SafeLock
