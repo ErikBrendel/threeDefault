@@ -96,8 +96,4 @@ class Room extends Group
     @ground.material = @groundMaterial
     @addObjects? @objectClickHandler
 
-  triggerAlarm: ->
-    console.log 'Alarm! Alarm! Alarm!'
-    gs.guard.targetRoom = @
-
 module.exports = Room
