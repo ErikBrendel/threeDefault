@@ -5,6 +5,6 @@ Constants = require '../../config/Constants'
 
 class GoldIngot extends Treasure
   constructor: (inventoryHolder) ->
-    super 'GoldIngot', Constants.GoldIngotValue, inventoryHolder
+    super 'GoldIngot', inventoryHolder
 
 module.exports = GoldIngot

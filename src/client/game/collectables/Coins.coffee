@@ -5,6 +5,6 @@ Constants = require '../../config/Constants'
 
 class Coins extends Treasure
   constructor: (inventoryHolder) ->
-    super 'Coins', Constants.CoinsValue, inventoryHolder
+    super 'Coins', inventoryHolder
 
 module.exports = Coins

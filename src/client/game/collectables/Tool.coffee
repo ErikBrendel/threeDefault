@@ -3,7 +3,7 @@
 InventoryItem = require './InventoryItem'
 
 class Tool extends InventoryItem
-  constructor: inventoryHolder ->
+  constructor: (inventoryHolder) ->
     super 'tool', inventoryHolder
 
 module.exports = Tool

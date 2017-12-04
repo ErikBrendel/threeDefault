@@ -182,20 +182,28 @@ class GameScene
       @remove @currentFloor
       @currentFloor = @building.floors[@building.floors.indexOf(@currentFloor) + 1]
       @add @currentFloor
-      console.dir @player.currentRoom
       @player.ascend()
-      console.dir @player.nextRoom
     else
       alert 'YOU WON!!!!!!!!!!!!!!!!!!!!!'
+      #TODO: end the game here
       return
     @remove @guard
     @guard = new Guard @currentFloor
     @add @guard
-    @guard.setRoom @currentFloor.rooms[1][1]
+    @guard.setRoom @findGuardRoom(@player.currentRoom, @currentFloor)
 
     @scheduler = new Scheduler @player, @guard
     @scheduler.step()
 
+  findGuardRoom: (playerRoom, floor) ->
+    newTarget = playerRoom
+    roomX = 0
+    roomY = 0
+    while newTarget is playerRoom
+      roomX = Math.floor Math.random() * floor.floorSize.x
+      roomY = Math.floor Math.random() * floor.floorSize.y
+      newTarget = floor.rooms[roomX][roomY]
+    return newTarget
 
 
 module.exports = GameScene
