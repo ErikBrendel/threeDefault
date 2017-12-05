@@ -4,12 +4,14 @@ Inventory = require '../items/Inventory'
 Coins = require '../items/Coins'
 Constants = require '../../config/Constants'
 SmoothValue = require '../../util/SmoothValue'
+loadHoverEffect = require './HoverEffect'
 
 class Player extends Person
   constructor: (audioListener) ->
     super 'player', 'You'
     @userData.description =
       header: 'You'
+      cost: 1
       text: 'This is you. You want to get rich, so let\'s go and steal some good stuff!<br>Click to wait in this room'
     @addEars(audioListener)
     @inventory = new Inventory()#(new SuitCase @), (new SuitCase @), (new SuitCase @), (new SuitCase @), (new SuitCase @), (new SuitCase @))
@@ -22,6 +24,7 @@ class Player extends Person
     @standUpSmoother = new SmoothValue Constants.msSleep, Math.PI / 2
     @standUpSmoother.addUpdateHandler @newSleepRotation
     @sleepSmoother.addFinishHandler @doneSleeping
+    loadHoverEffect @model, @isVisible, (=> @onClick @)
 
   doneSleeping: =>
     @doneHandler()

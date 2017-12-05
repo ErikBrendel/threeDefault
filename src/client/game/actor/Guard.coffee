@@ -7,7 +7,7 @@ SmoothVector3 = require '../../util/SmoothVector3'
 GuardCounter = 0
 
 class Guard extends Person
-  constructor: (@floor, @onClickHandler) ->
+  constructor: (@floor) ->
     super 'guard', "Guard #{GuardCounter++}", 1
     @userData.description =
       header: 'A Guard'
@@ -33,13 +33,6 @@ class Guard extends Person
     @questionMarkRotator.addUpdateHandler (rotation) =>
       @questionMark.rotation.y = rotation
     @questionMarkRotator.set 2 * Math.PI
-
-
-  onClick: ->
-    @onClickHandler()
-
-  onInteract: (person) ->
-
 
   setAlerted: ->
     Jukebox.fadeTo 'fast', 500 unless @alerted

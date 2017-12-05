@@ -3,7 +3,6 @@
 SmoothVector3 = require '../../util/SmoothVector3'
 PersonLight = require './PersonLight'
 Constants = require '../../config/Constants'
-loadHoverEffect = require './HoverEffect'
 
 class Person extends THREE.Group
   constructor: (@type, @name, @waitTime = 0) ->
@@ -35,11 +34,8 @@ class Person extends THREE.Group
       @moving = false
 
     @light = new PersonLight @
-    loadHoverEffect @model, @isVisible, (=> @onClick @)
     @addSound()
     @hasFocus = true
-
-  onClick: ->
 
   addSound: ->
     @sound = AssetCache.getSound 'move'

@@ -12,7 +12,7 @@ class Monitor extends RoomObject
     @mesh.userData.description =
       header: 'Monitor'
       text: 'Look into the other rooms, that have a camera'
-
+      cost: Constants.basicMonitorDelay
 
   onInteract: (person) ->
     cameraRoom.discover() for cameraRoom in @room.otherCameras
