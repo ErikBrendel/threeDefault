@@ -9,12 +9,13 @@ class Building
     for i in [1 .. numberOfFloors]
       floor = new Floor layouts[i - 1], scene
       @floors.push floor
-    for i in [numberOfFloors - 2 .. 0]
-      floor = @floors[i]
-      for x in [0 .. floor.floorSize.x - 1]
-        for y in [0 .. floor.floorSize.y - 1]
-          if floor.rooms[x][y].isStairs?
-            floor.rooms[x][y].neighbourRooms.above = @floors[i + 1].rooms[x][y]
-            @floors[i + 1].rooms[x][y].neighbourRooms.below = floor.rooms[x][y]
+    if numberOfFloors > 1
+      for i in [numberOfFloors - 2 .. 0]
+        floor = @floors[i]
+        for x in [0 .. floor.floorSize.x - 1]
+          for y in [0 .. floor.floorSize.y - 1]
+            if floor.rooms[x][y].isStairs?
+              floor.rooms[x][y].neighbourRooms.above = @floors[i + 1].rooms[x][y]
+              @floors[i + 1].rooms[x][y].neighbourRooms.below = floor.rooms[x][y]
 
 module.exports = Building
