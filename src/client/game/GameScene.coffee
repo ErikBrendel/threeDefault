@@ -119,6 +119,7 @@ class GameScene
     window.requestAnimationFrame => @animation()
 
   onMouseMove: (event) =>
+    return if @disableInteraction
     # calculate mouse position in normalized device coordinates
     # (-1 to +1) for both components
     @mouse.x = event.clientX / window.innerWidth * 2 - 1
@@ -147,6 +148,7 @@ class GameScene
     @scene.remove if object.mesh then object.mesh else object
 
   onClick: (event) ->
+    return if @disableInteraction
     return unless event.target is @renderer.domElement
 
     event.preventDefault()
@@ -171,7 +173,10 @@ class GameScene
       @player.ascend()
     else
       alert 'YOU WON!!!!!!!!!!!!!!!!!!!!!'
-      #TODO: end the game here
+      @disableInteraction = true
+      showDescription
+        header: 'You won :)'
+        text: 'Your Score: ' + @player.inventory.totalValue() + '<br/> <a href="index.html">Try again.</a>'
       return
     @remove @guard
     @guard = new Guard @currentFloor
@@ -190,6 +195,5 @@ class GameScene
       roomY = Math.floor Math.random() * floor.floorSize.y
       newTarget = floor.rooms[roomX][roomY]
     return newTarget
-
 
 module.exports = GameScene
