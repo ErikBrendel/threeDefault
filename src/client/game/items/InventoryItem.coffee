@@ -10,6 +10,7 @@ class InventoryItem
     @mesh.userData.description =
       header: Constants.Items[@name]?.title
       text: Constants.Items[@name]?.description
+    @collectSound = AssetCache.getGlobalSound 'collect_coin' # TODO: add per item sound
 
   onInteract: (person)  ->
     console.log 'You got: ' + @name
@@ -28,6 +29,7 @@ class InventoryItem
   addToPlayerInventory: (player) ->
     score = document.getElementById('inventory-score')
 
+    @collectSound.play()
     score.innerText = 'Score: ' + player.inventory.totalValue()
 
     inf = document.getElementById('inventory')

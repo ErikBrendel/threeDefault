@@ -32,6 +32,7 @@ sounds = [
   'door_wheel',
   'door_open',
   'door_close',
+  'collect_coin',
 ]
 
 music = [
