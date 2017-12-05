@@ -35,6 +35,14 @@ class InventoryItem
     inf = document.getElementById('inventory')
     img = document.createElement('img')
     img.src = "assets/texture/item/#{@name}.png"
+    img.onmouseenter = =>
+      showDescription @mesh.userData.description, true
+    img.onmouseleave = =>
+      hideDescription(true)
+    img.onclick = =>
+      @inventoryHolder.inventory?.onObjectTaken @
+      img.parentNode.removeChild img
+      score.innerText = 'Score: ' + player.inventory.totalValue()
     inf.appendChild(img)
 
 module.exports = InventoryItem

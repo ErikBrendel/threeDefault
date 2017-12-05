@@ -5,15 +5,21 @@ info_text = undefined
 info_value = undefined
 info_cost = undefined
 
+forcing = false
+
 hide = (elem) ->
   elem.classList.add 'hidden'
 show = (elem) ->
   elem.classList.remove 'hidden'
 
-hideDescription = ->
+hideDescription = (force = false) ->
+  return if forcing and not force
+  forcing = false if force
   hide info_container
 
-showDescription = ({header, text = '', value, cost} = {}) ->
+showDescription = ({header, text = '', value, cost} = {}, force = false) ->
+  return if forcing and not force
+  forcing = true if force
   if not header?
     hideDescription()
     return
