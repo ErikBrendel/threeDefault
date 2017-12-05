@@ -26,7 +26,6 @@ class MusicHelper
       @nextTrack.play()
       fader = new SmoothValue time, 0
       fader.addUpdateHandler (value) =>
-        console.debug(value)
         @activeTrack.setVolume (1 - value) * @activeVolume if @activeTrack?
         @nextTrack.setVolume value * @nextVolume
       fader.set 1
