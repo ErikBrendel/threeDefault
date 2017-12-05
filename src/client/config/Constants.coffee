@@ -17,14 +17,14 @@ module.exports =
   Items:
     Coins:
       title: "Sack of coins"
-      description: "A sack of coins. This is very loud and might alert guards while moving."
+      description: "While carrying at least one Sack of coins, guards in adjacent rooms will get alerted you when entering a room."
       value: 40
     GoldIngot:
       title: "Gold ingot"
-      description: "A gold ingot. This is very heavy and will slow you down."
+      description: "This object is very heavy and will decrease your movement speed."
       value: 200
       moveDelay: 1
     SuitCase:
       title: "Suitcase"
-      description: "A suitcase filled with money. This might drop bills that allow guards to follow you."
+      description: "A suitcase filled with money. Each suitcase you carry might drop bills when you leave a room. When a guard sees these, he will get alerted."
       value: 90
