@@ -43,6 +43,10 @@ music = [
 
 module.exports = ->
   #TODO: Set THREE.DefaultLoadingManager listeners for progress reports
+  THREE.DefaultLoadingManager.onProgress = (url, done, total) ->
+    progress = done / total * 100
+    showDescription
+      header: "Loading, #{Math.round progress}% done"
   new Promise (resolve) ->
     AssetCache.loadModel name for name in models
     AssetCache.loadSound name for name in sounds

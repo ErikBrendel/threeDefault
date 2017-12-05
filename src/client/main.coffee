@@ -1,15 +1,15 @@
 # test main implementation
 
+initDescriptions = require './util/Description'
 GameScene = require './game/GameScene'
 LoadResources = require './config/resources'
-initDescriptions = require './util/Description'
 
 
 gameInit = ->
   gameScene = new GameScene (deltaTime) ->
     document.getElementById('fps').innerText = Math.floor(1000.0 / deltaTime)
 
-
+  hideDescription()
   #gameScene.addAxisHelper 1
   gameScene.appendChildFullscreen()
   gameScene.animation()
@@ -20,6 +20,8 @@ gameInit = ->
 window.onload = ->
   initDescriptions()
   await LoadResources()
+  showDescription
+    header: 'Loading scene...'
   gameInit()
 
 window.addEventListener 'keydown', (event) ->
