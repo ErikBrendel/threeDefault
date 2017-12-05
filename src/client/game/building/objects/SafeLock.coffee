@@ -43,7 +43,7 @@ class SafeLock extends RoomObject
     @lockValue = new SmoothValue NORMAL_LOCK_SPEED, 20
 
     #@solution = [5, 20]
-    crackHardness = 3
+    crackHardness = 1 + gs.building.floors.indexOf(gs.currentFloor)
     @solution = []
     last = -1
     rand = Math.floor(Math.random() * 20) + 1
@@ -137,7 +137,7 @@ class SafeLock extends RoomObject
   startTiming: ->
     @accumulatedTime = 0
     header = document.getElementById 'safe-header'
-    headerUpdate = => header.innerText = "Time passed: #{@accumulatedTime}"
+    headerUpdate = => header.innerText = "Time passed: #{Math.min @accumulatedTime, Constants.maxCrackTime}"
     @timer = new SmoothValue Constants.msCrackingTime, 1, 0
     @timer.addFinishHandler =>
       @timer.inject -> 1
