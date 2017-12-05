@@ -63,9 +63,7 @@ class Guard extends Person
     setTimeout done, Constants.msToMoveToRoom
 
   getMoveCost: ->
-    #TODO: balance here
-    return Constants.baseMoveDelay - (if @alerted then 1 else 0)
-
+    return Constants.baseGuardMoveDelay - (if @alerted then 1 else 0)
 
   chooseRoom: ->
     newTarget = @currentRoom
