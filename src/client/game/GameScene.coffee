@@ -172,6 +172,7 @@ class GameScene
       @add @currentFloor
       @player.ascend()
     else
+      document.getElementById('info-container').style.pointerEvents = 'all'
       @disableInteraction = true
       showDescription
         header: 'You won :)'

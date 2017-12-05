@@ -64,6 +64,16 @@ class ResourceCache
     @applyPositionalAudioOptions audio
     audio
 
+  getGlobalSound: (name, listener = window.audioListener) ->
+    buffer = @sounds[name]
+    unless buffer?
+      console.error "Cannot find sound named #{name}. Have you added it to config/resources?"
+      return
+    audio = new THREE.Audio listener
+    audio.setBuffer buffer
+    @applyAudioOptions audio
+    audio
+
   getMusic: (name, listener = window.audioListener) ->
     buffer = @musics[name]
     unless buffer?
