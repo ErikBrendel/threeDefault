@@ -16,6 +16,13 @@ LOCK_Z = 0
 NORMAL_LOCK_SPEED = 300
 SLOW_LOCK_SPEED = 700
 
+moduloDist = (a, b, mod) ->
+  dist = Math.abs a - b
+  while dist >= mod then dist -= mod
+  if dist > mod / 2
+    dist = mod - dist
+  return dist
+
 rawRotationToValue = (rawRotation) ->
   lockValue = Math.round rawRotation
   while lockValue <= 0 then lockValue += 20
@@ -48,7 +55,7 @@ class SafeLock extends RoomObject
     last = -1
     rand = Math.floor(Math.random() * 20) + 1
     for [ 1 .. crackHardness]
-      rand = Math.floor(Math.random() * 20) + 1 while Math.abs (rand - last) < 1
+      rand = Math.floor(Math.random() * 20) + 1 while moduloDist(rand, last, 20) < 1
       last = rand
       @solution.push rand
 
