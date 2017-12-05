@@ -52,8 +52,7 @@ class Player extends Person
     heart.classList.toggle('dead', i >= @health) for heart, i in hearts
 
   lost: ->
-    alert 'You have been discovered and were taken to jail, please try again'
-    window.location.href = 'index.html'
+    window.location.href = 'lost.html'
 
   addEars: (audioListener) ->
     @listener = audioListener
