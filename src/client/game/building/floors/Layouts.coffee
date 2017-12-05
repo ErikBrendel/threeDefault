@@ -26,7 +26,7 @@ module.exports = [
       safe: 1,
       camera: 3,
       laser: 5,
-      default: 7
+      default: 6
     layout:
       """
       +-+-+-+-+
@@ -46,7 +46,7 @@ module.exports = [
       safe: 2,
       camera: 4,
       laser: 6,
-      default: 4
+      default: 3
     layout:
       """
       +-+-+-+-+
