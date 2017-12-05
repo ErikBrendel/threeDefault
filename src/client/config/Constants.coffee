@@ -18,11 +18,11 @@ module.exports =
     Coins:
       title: "Sack of coins"
       description: "A sack of coins. This is very loud and might alert guards while moving."
-      value: 70
+      value: 40
     GoldIngot:
       title: "Gold ingot"
       description: "A gold ingot. This is very heavy and will slow you down."
-      value: 100
+      value: 200
       moveDelay: 1
     SuitCase:
       title: "Suitcase"
