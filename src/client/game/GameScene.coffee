@@ -17,7 +17,7 @@ class GameScene
     @audioListener = new THREE.AudioListener
     window.audioListener = @audioListener
 
-    @building = new Building 1, @
+    @building = new Building 3, @
 
     @currentFloor = @building.floors[0]
     @add @currentFloor
