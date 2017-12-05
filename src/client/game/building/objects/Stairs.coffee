@@ -11,7 +11,6 @@ class Stairs extends RoomObject
 
   onInteract: (person) ->
     return unless person.currentRoom is @room
-    alert 'YOU WON THIS FLOOR!'
     gs.goToNextFloor()
 
 module.exports = Stairs
