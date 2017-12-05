@@ -12,7 +12,7 @@ module.exports =
   msToMoveToRoom: 900
   msSleep: 300
   msSleeping: 1000
-  msCrackingTime: 7000
+  msCrackingTime: 4000
   maxCrackTime: 10
   Items:
     Coins:
