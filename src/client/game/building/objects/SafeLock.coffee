@@ -42,15 +42,15 @@ class SafeLock extends RoomObject
     @safe.doorMesh.add @mesh
     @lockValue = new SmoothValue NORMAL_LOCK_SPEED, 20
 
-    @solution = [5, 20]
-    #crackHardness = 2
-    #@solution = []
-    #last = -1
-    #rand = Math.floor(Math.random() * 20) + 1
-    #for [ 1 .. crackHardness]
-    #  rand = Math.floor(Math.random() * 20) + 1 while rand is last
-    #  last = rand
-    #  @solution.push rand
+    #@solution = [5, 20]
+    crackHardness = 3
+    @solution = []
+    last = -1
+    rand = Math.floor(Math.random() * 20) + 1
+    for [ 1 .. crackHardness]
+      rand = Math.floor(Math.random() * 20) + 1 while rand is last
+      last = rand
+      @solution.push rand
 
     @lockValue.addUpdateHandler @updateLockValue
     @lastLockValue = undefined
