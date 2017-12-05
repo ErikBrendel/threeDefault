@@ -30,6 +30,8 @@ sounds = [
   'lock_correct',
   'door_squeak',
   'door_wheel',
+  'door_open',
+  'door_close',
 ]
 
 music = [

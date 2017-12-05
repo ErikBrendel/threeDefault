@@ -42,11 +42,15 @@ class SafeLock extends RoomObject
     @safe.doorMesh.add @mesh
     @lockValue = new SmoothValue NORMAL_LOCK_SPEED, 20
 
-    @solution = [7, 2]
-    #crackHardness = 3
+    @solution = [5, 20]
+    #crackHardness = 2
     #@solution = []
+    #last = -1
+    #rand = Math.floor(Math.random() * 20) + 1
     #for [ 1 .. crackHardness]
-    #  @solution.push Math.floor(Math.random() * 20) + 1
+    #  rand = Math.floor(Math.random() * 20) + 1 while rand is last
+    #  last = rand
+    #  @solution.push rand
 
     @lockValue.addUpdateHandler @updateLockValue
     @lastLockValue = undefined
@@ -55,10 +59,14 @@ class SafeLock extends RoomObject
     @sounds[false] = []
     for [1 .. 1]
       sound = AssetCache.getSound 'lock_correct'
+      sound.setVolume 0.5
+      sound.setRefDistance 0.5
       @sounds[true].push sound
       @mesh.add sound
     for [1 .. 5]
       sound = AssetCache.getSound 'lock_tick'
+      sound.setVolume 0.5
+      sound.setRefDistance 0.5
       @sounds[false].push sound
       @mesh.add sound
 
@@ -104,6 +112,8 @@ class SafeLock extends RoomObject
     return if @safe.safeOpened
     return unless person.type is 'player'
     @initOpening()
+    @startTiming()
+    return
 
   initOpening: ->
     window.crack_rotate = @crack_rotate
@@ -123,6 +133,16 @@ class SafeLock extends RoomObject
 
     @currentCrackingLayer = 0
     @lastSignum = @signum
+
+  startTiming: ->
+    @accumulatedTime = 0
+    @timer = new SmoothValue Constants.msCrackingTime, 1, 0
+    @timer.addFinishHandler =>
+      @timer.inject -> 1
+      @timer.set 0
+    @timer.addFinishHandler =>
+      @accumulatedTime++
+    @timer.set 0
 
   failedToOpen: ->
     @initOpening()
@@ -157,9 +177,13 @@ class SafeLock extends RoomObject
     @currentCrackingLayer = undefined
 
   onFocusLost: ->
+    @timer.destroy()
     document.getElementById('safe-container').style.visibility = 'hidden'
     @safe.mesh.userData.description.cost = Constants.baseCloseSafeDelay
     window.crack_rotate = undefined
     window.crack_open = undefined
+    alert 'FUCK' unless gs.player.isDran
+    gs.player.waitTime = Math.min Constants.maxCrackTime, @accumulatedTime
+    gs.player.doneHandler()
 
 module.exports = SafeLock

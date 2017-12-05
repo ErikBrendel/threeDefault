@@ -99,6 +99,6 @@ class ResourceCache
 
   applyPositionalAudioOptions: (sound) ->
     @applyAudioOptions sound
-    sound.setRefDistance 20
+    sound.setRefDistance 1.0
 
 window.AssetCache = new ResourceCache

@@ -14,14 +14,14 @@ class GameScene
   constructor: (@updateCallback) ->
     window.gs = @
     @scene = new THREE.Scene()
+    @audioListener = new THREE.AudioListener
+    window.audioListener = @audioListener
 
     @building = new Building 3, @
 
     @currentFloor = @building.floors[0]
     @add @currentFloor
 
-    @audioListener = new THREE.AudioListener
-    window.audioListener = @audioListener
 
     @guard = new Guard @currentFloor
     @add @guard
@@ -68,7 +68,7 @@ class GameScene
     # called on "user want to exit the current view",
     # returning true when event was handled
     @exitHandler = undefined
-    Jukebox.fadeTo 'slow', 5000
+    Jukebox.startAudio 'slow'
 
   ignoreShaderLogs: ->
     @renderer.context.getShaderInfoLog = () -> ''
