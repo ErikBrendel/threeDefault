@@ -6,8 +6,8 @@ layouts = require './floors/Layouts'
 class Building
   constructor: (numberOfFloors, scene) ->
     @floors = []
-    for [1 .. numberOfFloors]
-      floor = new Floor layouts[0], scene
+    for i in [1 .. numberOfFloors]
+      floor = new Floor layouts[i - 1], scene
       @floors.push floor
     for i in [numberOfFloors - 2 .. 0]
       floor = @floors[i]
