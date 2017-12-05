@@ -55,7 +55,7 @@ class SafeLock extends RoomObject
     last = -1
     rand = Math.floor(Math.random() * 20) + 1
     for [ 1 .. crackHardness]
-      rand = Math.floor(Math.random() * 20) + 1 while moduloDist(rand, last, 20) < 1
+      rand = Math.floor(Math.random() * 20) + 1 while moduloDist(rand, last, 20) < 2
       last = rand
       @solution.push rand
 
