@@ -2,7 +2,7 @@ module.exports =
   baseMoveDelay: 2
   baseGuardMoveDelay: 4
   baseMoveThroughLaserDelay: 4
-  basePeekDelay: 2
+  basePeekDelay: 1
   basePlayerHealth: 3
   baseTakeItemDelay: 1
   baseOpenSafeDelay: 1
