@@ -112,6 +112,8 @@ class SafeLock extends RoomObject
     return if @safe.safeOpened
     return unless person.type is 'player'
     @initOpening()
+    @startTiming()
+    return
 
   initOpening: ->
     window.crack_rotate = @crack_rotate
@@ -131,6 +133,16 @@ class SafeLock extends RoomObject
 
     @currentCrackingLayer = 0
     @lastSignum = @signum
+
+  startTiming: ->
+    @accumulatedTime = 0
+    @timer = new SmoothValue Constants.msCrackingTime, 1, 0
+    @timer.addFinishHandler =>
+      @timer.inject -> 1
+      @timer.set 0
+    @timer.addFinishHandler =>
+      @accumulatedTime++
+    @timer.set 0
 
   failedToOpen: ->
     @initOpening()
@@ -165,9 +177,13 @@ class SafeLock extends RoomObject
     @currentCrackingLayer = undefined
 
   onFocusLost: ->
+    @timer.destroy()
     document.getElementById('safe-container').style.visibility = 'hidden'
     @safe.mesh.userData.description.cost = Constants.baseCloseSafeDelay
     window.crack_rotate = undefined
     window.crack_open = undefined
+    alert 'FUCK' unless gs.player.isDran
+    gs.player.waitTime = Math.min Constants.maxCrackTime, @accumulatedTime
+    gs.player.doneHandler()
 
 module.exports = SafeLock

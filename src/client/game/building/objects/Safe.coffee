@@ -57,6 +57,7 @@ class Safe extends RoomObject
     @doorAnimator.addUpdateHandler (doorOpenProgress) =>
       @doorMesh.rotation.y = doorOpenProgress * Math.PI / 2
     @doorAnimator.addFinishHandler =>
+      return unless @safeIsAnimating
       if not @doorOpened
         @doorHandleAnimator.set 0
         @handleSound.play()

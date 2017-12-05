@@ -14,7 +14,7 @@ class Laser extends RoomObject
       cost: => @carefulWalkWaitTime()
 
   carefulWalkWaitTime: ->
-    gs.player.walkWaitTime Constants.baseMoveThroughLaserDelay
+    gs.player.walkWaitTime Constants.baseMoveThroughLaserDelay if @isVisible()
 
   onInteract: (person) ->
     @room.enteredSilently = true

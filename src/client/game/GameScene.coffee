@@ -23,17 +23,7 @@ class GameScene
     @add @currentFloor
 
 
-    @objectClickHandler = (clickedObject) ->
-      if clickedObject.hasFocus
-        return @player.interactWith clickedObject
-      else
-        clickedObject.hasFocus = true
-        focus = clickedObject.getFocusData()
-        return unless focus?
-        camera.focusObject focus, clickedObject
-        return true
-
-    @guard = new Guard @currentFloor, @objectClickHandler
+    @guard = new Guard @currentFloor
     @add @guard
     @player = new Player @audioListener
     @add @player

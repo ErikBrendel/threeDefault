@@ -11,6 +11,8 @@ module.exports =
   msToMoveToRoom: 900
   msSleep: 300
   msSleeping: 1000
+  msCrackingTime: 2000
+  maxCrackTime: 10
   Items:
     Coins:
       title: "Sack of coins"

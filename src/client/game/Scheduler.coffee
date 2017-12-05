@@ -22,19 +22,21 @@ class Scheduler
       bar.style.left = "#{boebbelBarPos}px" for bar in @boebbelBars
 
   step: ->
-    @persons.sort (a, b) ->
-      a.waitTime > b.waitTime
-    shortestWaitTime = @persons[0].waitTime
-    @wait shortestWaitTime, =>
+    @wait =>
       @persons[0].onAction =>
         [@persons[0], @persons[@persons.length - 1]] = [@persons[@persons.length - 1], @persons[0]]
         @step()
 
-  wait: (amount, waitingDone) ->
+  wait: (waitingDone) ->
     @updateUI()
-    return waitingDone() if amount <= 0
+    return waitingDone() if @getCurrentMin() <= 0
     person.waitTime -= 1 for person in @persons
-    setTimeout (=> @wait amount - 1, waitingDone), 200
+    setTimeout (=> @wait waitingDone), 200
+
+  getCurrentMin: ->
+    @persons.sort (a, b) ->
+      a.waitTime > b.waitTime
+    return @persons[0].waitTime
 
   updateUI: ->
     maxWait = @persons
