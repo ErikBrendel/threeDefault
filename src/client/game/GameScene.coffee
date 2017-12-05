@@ -174,9 +174,7 @@ class GameScene
     else
       document.getElementById('info-container').style.pointerEvents = 'all'
       @disableInteraction = true
-      showDescription
-        header: 'You won :)'
-        text: 'Your Score: ' + @player.inventory.totalValue() + '<br/> <a href="index.html">Try again.</a>'
+      window.location.href = 'win.html?' + @player.inventory.totalValue()
       return
     @remove @guard
     @guard = new Guard @currentFloor
