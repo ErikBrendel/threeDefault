@@ -24,6 +24,11 @@ class Player extends Person
     @standUpSmoother = new SmoothValue Constants.msSleep, Math.PI / 2
     @standUpSmoother.addUpdateHandler @newSleepRotation
     @sleepSmoother.addFinishHandler @doneSleeping
+    @coinSound = AssetCache.getSound 'move_coin'
+    @coinSound.setRefDistance 0.3
+    @coinSound.setVolume 0.3
+    @add @coinSound
+    @coinSound.position.set 0, 0, 0
     loadHoverEffect @model, @isVisible, (=> @onClick @)
 
   doneSleeping: =>
@@ -70,6 +75,9 @@ class Player extends Person
       @waitTime = 1
       done()
     @doneHandler = done
+
+  playSound: ->
+    @coinSound.play() if @inventory.findObjects((item) -> item.name is 'Coins').length > 0
 
   onRoomClicked: (room) ->
     return unless @isDran

@@ -61,6 +61,7 @@ class Person extends THREE.Group
         @direction = @newRoom.position.clone().sub(@currentRoom.position).normalize()
         @currentRoom.onDepart(@newRoom)
         @setPosition(@newRoom.position.clone())
+        @playSound?()
         @sound.play()
         return true
       else if not @currentRoom?
