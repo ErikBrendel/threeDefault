@@ -3,6 +3,7 @@
 
 SmoothValue = require '../../util/SmoothValue'
 loadHoverEffect = require '../actor/HoverEffect'
+Constants = require '../../config/Constants'
 
 vec3 = (x, y, z) -> new THREE.Vector3 x, y, z
 
