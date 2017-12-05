@@ -7,7 +7,7 @@ class SafeRoom extends Room
     super({up, right, down, left, objectClickHandler})
     Object.assign @description,
       header: 'Safe Room'
-      text: 'There is a safe in this room! Crack it, to receive the treasures inside!'
+      text: 'There is a safe in this room! Crack it to receive the treasures inside!'
 
   addObjects: (objectClickHandler) ->
     safe = new Safe @, objectClickHandler

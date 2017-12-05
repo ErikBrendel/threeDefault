@@ -29,7 +29,7 @@ class Safe extends RoomObject
       playerPosition: new THREE.Vector3 1.3, 0, -0.5
     @mesh.userData.description =
       header: 'Safe'
-      text: 'Crack this safe to steal the treasures inside. Be aware, that this takes some time. Do not get caught!<br>
+      text: 'Crack this safe to steal the treasures inside. Be aware that this takes some time. Do not get caught!<br>
              Make sure to close the door. The guards will trigger an alarm when they see an open safe door.'
     @loadDoor()
     @loadHandle()

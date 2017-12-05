@@ -6,7 +6,7 @@ class SafeRoom extends Room
     super({up, right, down, left, objectClickHandler})
     Object.assign @description,
       header: 'Stairs Room'
-      text: 'Here you can enter the next Floor of the current building'
+      text: 'Here you can enter the next Floor of the current building.'
     @isStairs = true
 
   addObjects: (objectClickHandler) ->
