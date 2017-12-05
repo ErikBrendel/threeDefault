@@ -136,13 +136,17 @@ class SafeLock extends RoomObject
 
   startTiming: ->
     @accumulatedTime = 0
+    header = document.getElementById 'safe-header'
+    headerUpdate = => header.innerText = "Time passed: #{@accumulatedTime}"
     @timer = new SmoothValue Constants.msCrackingTime, 1, 0
     @timer.addFinishHandler =>
       @timer.inject -> 1
       @timer.set 0
     @timer.addFinishHandler =>
       @accumulatedTime++
+      headerUpdate @accumulatedTime
     @timer.set 0
+    headerUpdate 0
 
   failedToOpen: ->
     @initOpening()

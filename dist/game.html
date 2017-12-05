@@ -61,10 +61,16 @@
             border-top-right-radius: 10px;
             background: url("assets/texture/steel.jpg");
             border: 1px #2f2f2f solid;
+        }
+        .safe-grid {
             display: grid;
             grid-template-columns: min-content min-content min-content;
             grid-template-rows: min-content min-content;
             grid-gap: 5px;
+        }
+        .safe-header {
+            text-align: center;
+            font-size: 150%;
         }
         .info-header{
             padding-bottom: .2em;
@@ -253,16 +259,19 @@
         <div style="text-align: center;">
             <div class="safe-center">
                 <div id="safe-container" class="safe-container container" style="visibility: hidden;">
-                    <input type="button" value="-1" onclick="if(typeof crack_rotate === 'function') crack_rotate(-1)" />
-                    <div id="safe-leds" class="leds">
-                        <!--<div class="locked"></div>
-                        <div class="incorrect"></div>
-                        <div class="correct"></div>-->
+                    <div id="safe-header" class="safe-header"></div>
+                    <div class="safe-grid">
+                        <input type="button" value="-1" onclick="if(typeof crack_rotate === 'function') crack_rotate(-1)" />
+                        <div id="safe-leds" class="leds">
+                            <!--<div class="locked"></div>
+                            <div class="incorrect"></div>
+                            <div class="correct"></div>-->
+                        </div>
+                        <input type="button" value="+1" onclick="if(typeof crack_rotate === 'function') crack_rotate(+1)" />
+                        <input type="button" value="-5" onclick="if(typeof crack_rotate === 'function') crack_rotate(-5)" />
+                        <input type="button" id="safe-open-button" class="OK" value="OPEN" onclick="if(typeof crack_open === 'function') crack_open()" disabled="true"/>
+                        <input type="button" value="+5" onclick="if(typeof crack_rotate === 'function') crack_rotate(+5)" />
                     </div>
-                    <input type="button" value="+1" onclick="if(typeof crack_rotate === 'function') crack_rotate(+1)" />
-                    <input type="button" value="-5" onclick="if(typeof crack_rotate === 'function') crack_rotate(-5)" />
-                    <input type="button" id="safe-open-button" class="OK" value="OPEN" onclick="if(typeof crack_open === 'function') crack_open()" disabled="true"/>
-                    <input type="button" value="+5" onclick="if(typeof crack_rotate === 'function') crack_rotate(+5)" />
                 </div>
             </div>
         </div>
