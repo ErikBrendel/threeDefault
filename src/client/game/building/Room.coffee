@@ -41,7 +41,7 @@ class Room extends Group
 
     loadHoverEffect @ground,
       => @getSharedDoorWith(gs.player.currentRoom)? and (not gs.camera.focusMode or gs.camera.focusedObject.allowRoomMovement)
-      => @onGroundClick? @
+      => @onGroundClick? @ if gs.player.isDran
 
   getSharedDoorWith: (otherRoom) ->
     for direction, neighbourRoom of @neighbourRooms
