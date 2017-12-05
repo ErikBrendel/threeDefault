@@ -46,6 +46,12 @@ class Door
       header: 'Door'
       text: 'Click the door to peek into the Room behind. This will take a bit of time, but keeps you from getting surprised by lasers.'
       cost: => Constants.basePeekDelay if @hasFocus
+    @openSound = AssetCache.getSound 'door_open'
+    @closeSound = AssetCache.getSound 'door_close'
+    @mesh.add @openSound
+    @mesh.add @closeSound
+    @openSound.position.set 0,0,0
+    @closeSound.position.set 0,0,0
 
     loadHoverEffect @mesh, (=> @isVisible() and (@hasFocus or not gs.camera.focusMode)), (=> clickHandler @)
 
@@ -67,9 +73,11 @@ class Door
     @playOpenAnimation goesUpOrRight
     setTimeout (=>
       @playCloseAnimation()
+      setTimeout (=> @closeSound.play()), 350
     ), 700
 
   playOpenAnimation: (goesUpOrRight) ->
+    @openSound.play()
     direction = 1
     if (goesUpOrRight) then direction = 1 else direction = -1
     @openCloseAnimationProgress.set direction

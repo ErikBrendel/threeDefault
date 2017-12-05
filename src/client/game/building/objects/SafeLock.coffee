@@ -42,11 +42,15 @@ class SafeLock extends RoomObject
     @safe.doorMesh.add @mesh
     @lockValue = new SmoothValue NORMAL_LOCK_SPEED, 20
 
-    @solution = [7, 2]
-    #crackHardness = 3
+    @solution = [5, 20]
+    #crackHardness = 2
     #@solution = []
+    #last = -1
+    #rand = Math.floor(Math.random() * 20) + 1
     #for [ 1 .. crackHardness]
-    #  @solution.push Math.floor(Math.random() * 20) + 1
+    #  rand = Math.floor(Math.random() * 20) + 1 while rand is last
+    #  last = rand
+    #  @solution.push rand
 
     @lockValue.addUpdateHandler @updateLockValue
     @lastLockValue = undefined
@@ -55,10 +59,14 @@ class SafeLock extends RoomObject
     @sounds[false] = []
     for [1 .. 1]
       sound = AssetCache.getSound 'lock_correct'
+      sound.setVolume 0.5
+      sound.setRefDistance 0.5
       @sounds[true].push sound
       @mesh.add sound
     for [1 .. 5]
       sound = AssetCache.getSound 'lock_tick'
+      sound.setVolume 0.5
+      sound.setRefDistance 0.5
       @sounds[false].push sound
       @mesh.add sound
 
