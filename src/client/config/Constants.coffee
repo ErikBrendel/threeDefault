@@ -1,5 +1,6 @@
 module.exports =
   baseMoveDelay: 2
+  baseGuardMoveDelay: 4
   baseMoveThroughLaserDelay: 4
   basePeekDelay: 2
   basePlayerHealth: 3
@@ -11,7 +12,7 @@ module.exports =
   msToMoveToRoom: 900
   msSleep: 300
   msSleeping: 1000
-  msCrackingTime: 2000
+  msCrackingTime: 7000
   maxCrackTime: 10
   Items:
     Coins:
