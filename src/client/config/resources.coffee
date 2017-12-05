@@ -26,6 +26,7 @@ models = [
 
 sounds = [
   'move',
+  'move_coin',
   'lock_tick',
   'lock_correct',
   'door_squeak',
