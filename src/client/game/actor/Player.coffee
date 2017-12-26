@@ -47,10 +47,11 @@ class Player extends Person
     @interactWith clickedObject
 
   damage: (amount = 1) ->
-    return unless amount > 0
+    return false unless amount > 0
     @health = @health - amount
     @updateHealthUI()
     @lost() if @health <= 0
+    return true
 
   updateHealthUI: ->
     hearts = document.getElementById('health-bar').children

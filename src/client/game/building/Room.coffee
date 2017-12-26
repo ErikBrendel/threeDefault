@@ -74,9 +74,10 @@ class Room extends Group
 
   onEnter: (person, oldRoom) =>
     @currentPersons.add(person)
-    @getPlayerInRoom()?.damage(@currentPersons.size - 1)
     @ground.userData.resetHover()
     @discover() if person.type == 'player'
+    if @getPlayerInRoom()?.damage(@currentPersons.size - 1)
+      @blinkRed 3
     object.onEnter person, oldRoom for object in @objects
     @doors[direction]?.onPersonEntersAdjacentRoom person for direction, neighbourRoom of @neighbourRooms
     if person.type == 'guard'
@@ -93,6 +94,21 @@ class Room extends Group
       if person.inventory.findObjects((item) -> item.isCoins).length > 0
         @alertNeighbourGuards()
     gs.player.hide() if gs.player?.currentRoom is gs.guard?.currentRoom
+
+  blinkRed: (amount) ->
+    if amount <= 0
+      @ground.userData.hoverEffectDisabled = false
+      return
+    @ground.userData.hoverEffectDisabled = true
+    mat = @ground.material[0]
+    mat.emissive = new THREE.Color 1, 0, 0
+    mat.emissiveIntensity = 1
+    console.log mat
+    setTimeout (=>
+      mat.emissiveIntensity = 0
+      setTimeout (=> @blinkRed amount - 1; return), 300
+      return
+    ), 300
 
   alertNeighbourGuards: ->
     for name, room of @neighbourRooms

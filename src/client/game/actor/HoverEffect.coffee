@@ -10,6 +10,7 @@ loadHoverEffect = (mesh, clickable = (-> true), clickHandler = (->), {
   intensityIncrease = 0.1
   } = {}) ->
   mesh.userData.hoverEffectActive = false
+  mesh.userData.hoverEffectDisabled = false
   mat = mesh.material
   mat = mat[0] if mat[0]?
   defaultEmissiveColor = mat.emissive
@@ -47,6 +48,7 @@ loadHoverEffect = (mesh, clickable = (-> true), clickHandler = (->), {
     hoverPulse.set 1 - hoverPulse.get()
 
   hoverPulse.addUpdateHandler (hoverFade) =>
+    return if mesh.userData.hoverEffectDisabled
     mat = mesh.material
     mat = mat[0] if mat[0]?
     updateMat mat
