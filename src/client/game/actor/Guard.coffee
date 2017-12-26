@@ -34,10 +34,20 @@ class Guard extends Person
       @questionMark.rotation.y = rotation
     @questionMarkRotator.set 2 * Math.PI
 
+
+    @caughtSound = AssetCache.getSound 'player_caught'
+    @caughtSound.setRefDistance 0.3
+    @caughtSound.setVolume 0.8
+    @add @caughtSound
+    @caughtSound.position.set 0, 0, 0
+
   setAlerted: ->
     Jukebox.fadeTo 'fast', 500 unless @alerted
     @alerted = true
     @numActionsAlerted = Constants.baseNumActionsAlerted
+
+  playCaughtSound: ->
+    @caughtSound.play()
 
   updateAlerted: ->
     @numActionsAlerted--

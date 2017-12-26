@@ -77,6 +77,7 @@ class Room extends Group
     @ground.userData.resetHover()
     @discover() if person.type == 'player'
     if @getPlayerInRoom()?.damage(@currentPersons.size - 1)
+      @getGuardInRoom()?.playCaughtSound()
       @blinkRed 3
     object.onEnter person, oldRoom for object in @objects
     @doors[direction]?.onPersonEntersAdjacentRoom person for direction, neighbourRoom of @neighbourRooms
@@ -119,6 +120,10 @@ class Room extends Group
   getPlayerInRoom: =>
     (Array.from(@currentPersons).filter (person) ->
       person.type is 'player')[0]
+
+  getGuardInRoom: =>
+    (Array.from(@currentPersons).filter (person) ->
+      person.type is 'guard')[0]
 
   isPlayerInRoom: =>
     @getPlayerInRoom()?
