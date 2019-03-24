@@ -1,20 +1,28 @@
 # test main implementation
 
-GameScene = require './GameScene'
-RotatingIcoSphere = require './RotatingIcoSphere'
+initDescriptions = require './util/Description'
+GameScene = require './game/GameScene'
+LoadResources = require './config/resources'
 
 
-ico = new RotatingIcoSphere 5, 1, ICO_COLOR
+gameInit = ->
+  gameScene = new GameScene (deltaTime) ->
+    document.getElementById('fps').innerText = Math.floor(1000.0 / deltaTime)
 
-gameScene = new GameScene ->
-  console.log 'update!'
-
-gameScene.add ico
-gameScene.addAxisHelper 10
-
-# export to the browser console
-window.gs = gameScene
-
-window.onload = ->
+  hideDescription()
+  #gameScene.addAxisHelper 1
   gameScene.appendChildFullscreen()
   gameScene.animation()
+  gameScene.scheduler.step()
+
+# export to the browser console
+
+window.onload = ->
+  initDescriptions()
+  await LoadResources()
+  showDescription
+    header: 'Loading scene...'
+  gameInit()
+
+window.addEventListener 'keydown', (event) ->
+  gs.exitHandler?() if event.keyCode is 27 or event.keyCode is 32

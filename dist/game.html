@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Risky Robbery</title>
+    <style type="text/css">
+        body {
+            /* enable render surface to go fullscreen */
+            margin: 0;
+            overflow: hidden;
+            background: #515151;
+            outline:none !important;
+        }
+        input::-moz-focus-inner {
+            border: 0;
+        }
+        div.hud {
+            pointer-events: none;
+        }
+        div.hud > div {
+            position: absolute;
+            color: #f3ffe6;
+        }
+        .full {
+            width: 100%;
+        }
+        .top {
+            top: 0;
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            right: 0;
+        }
+        .bottom {
+            bottom: 0;
+        }
+        .container {
+            -webkit-box-shadow: 0 0 10px rgba(25,25,25,0.75);
+            -moz-box-shadow: 0 0 10px rgba(25,25,25,0.75);
+            box-shadow: 0 0 10px rgba(25,25,25,0.75);
+            background: rgba(25,25,25,0.5);
+        }
+        .info-container {
+            width: 20%;
+            min-width: 200px;
+            margin: auto auto;
+            padding: 5px 10px 10px;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+        }
+        .safe-center {
+            display: inline-block;
+        }
+        .safe-container {
+            pointer-events: all;
+            width: content-box;
+            padding: 10px 10px 5px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            background: url("assets/texture/steel.jpg");
+            border: 1px #2f2f2f solid;
+        }
+        .safe-grid {
+            display: grid;
+            grid-template-columns: min-content min-content min-content;
+            grid-template-rows: min-content min-content;
+            grid-gap: 5px;
+        }
+        .safe-header {
+            text-align: center;
+            font-size: 150%;
+            font-weight: bold;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .info-header{
+            padding-bottom: .2em;
+            font-size: 1.25em;
+            font-weight: bold;
+            text-align: center;
+        }
+        .info-text {
+            text-align: justify;}
+        .info-cost,.info-value {
+            padding-bottom: .2em;
+            font-weight: bolder;
+            font-size: 110%;
+            color: #ffd46b;
+            text-align: center;
+        }
+
+        .inventory-container {
+            pointer-events: all;
+            border-top-left-radius: 7px;
+            padding: 10px 5px 5px 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 64px);
+            grid-auto-flow: row;
+            grid-auto-rows: 64px;
+            grid-area: ;
+            grid-gap: 5px;
+        }
+        .noSelect {
+            /* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting-using-css */
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+        }
+        .inventory-container > div,img {
+            -webkit-transition: background-color .25s;
+            -moz-transition: background-color .25s;
+            -ms-transition: background-color .25s;
+            -o-transition: background-color .25s;
+            transition: background-color .25s;
+            cursor: pointer;
+        }
+        .hidden {
+            opacity: 0;
+        }
+        .inventory-container > img {
+            width: 64px;
+            height: 64px;
+        }
+        .inventory-container > :not(:hover) {
+            background: rgba(25,25,25,0.25);
+        }
+        .inventory-container > :hover {
+            background: rgba(104, 39, 37, 0.75);
+        }
+        #fps {
+            padding: 5px;
+            border-top-right-radius: 7px;
+            color: lime;
+        }
+        .health-bar {
+            padding: 5px;
+            border-bottom-right-radius: 10px;
+        }
+        .health-bar > img {
+            width: 64px;
+        }
+        .health-bar > img.dead {
+            opacity: 0;
+        }
+        .safe-container input {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 64px;
+            height: 64px;
+            text-align: center;
+            background: rgb(130, 60, 0);
+            border: 5px outset rgb(130, 60, 0);
+            font-size: 150%;
+            color: white;
+        }
+        .safe-container input:active {
+            border-style: inset;
+        }
+        .safe-container input:disabled {
+            border-style: inset;
+        }
+        .leds {
+            margin: auto auto;
+            display: grid;
+            grid-auto-columns: min-content;
+            grid-auto-flow: column;
+            grid-gap: 20px;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+        .leds > div {
+            border: #a8a8a8 1px solid;
+            width: 30px;
+            height: 20px;
+            box-shadow: 0 0 2px rgba(25,25,25,0.75) inset;
+            background: gray;
+        }
+        .leds > div.locked {
+            background: #00d700;
+        }
+        .leds > div.correct {
+            background: #e6e63b;
+        }
+        .leds > div.incorrect {
+            background: #e30000;
+        }
+        .OK {
+            width: 100% !important;
+        }
+        .prioBar {
+            background-image: url('assets/texture/boebbelLeiste.png');
+            position: absolute;
+            height: 64px;
+            width: 640px;
+            left: calc(-640px + 64px * 1);
+        }
+        .secondBar {
+            top: 64px;
+        }
+        .avatar {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 64px;
+            height: 64px;
+            background-size: 100%;
+        }
+        .playerAvatar {
+            background-image: url('assets/texture/avatar_player.png');
+        }
+        .playerAvatar-active {
+            background-image: url('assets/texture/avatar_player_selected.png');
+        }
+        .guardAvatar {
+            background-image: url('assets/texture/avatar_guard.png');
+        }
+        .guardAvatar-active {
+            background-image: url('assets/texture/avatar_guard_selected.png');
+        }
+        .scoreText {
+            text-align: center;
+            font-size: 200%;
+        }
+    </style>
+    <script src="three/three.js"></script>
+    <script src="three/orbitControls.js"></script>
+    <script src="bundle/main.js"></script>
+</head>
+<body>
+<div class="hud noSelect">
+    <div id="health-bar" class="health-bar top right container">
+        <img src="assets/texture/hearth.png"/>
+        <img src="assets/texture/hearth.png"/>
+        <img src="assets/texture/hearth.png"/>
+    </div>
+    <div class="full top">
+        <div id="info-container" class="info-container container">
+            <div id="info-header" class="info-header"></div>
+            <div id="info-value" class="info-value"></div>
+            <div id="info-cost" class="info-cost"></div>
+            <div id="info-text" class="info-text"></div>
+        </div>
+    </div>
+    <!-- <div id="prio" class="prio-container container top right">It's your turn</div> -->
+    <div id="prioBars" class="container top left">
+        <div id="prioBar-player" class="prioBar">
+            <div id="avatar-player" class="avatar playerAvatar"></div>
+        </div>
+        <div id="prioBar-guard" class="prioBar secondBar">
+            <div id="avatar-guard" class="avatar guardAvatar"></div>
+        </div>
+    </div>
+    <div id="fps" class="container bottom left">all of them fps</div>
+    <div class="full bottom">
+        <div style="text-align: center;">
+            <div class="safe-center">
+                <div id="safe-container" class="safe-container container" style="visibility: hidden;">
+                    <div id="safe-header" class="safe-header"></div><br>
+                    <div class="safe-grid">
+                        <input type="button" value="-1" onclick="if(typeof crack_rotate === 'function') crack_rotate(-1)" />
+                        <div id="safe-leds" class="leds">
+                            <!--<div class="locked"></div>
+                            <div class="incorrect"></div>
+                            <div class="correct"></div>-->
+                        </div>
+                        <input type="button" value="+1" onclick="if(typeof crack_rotate === 'function') crack_rotate(+1)" />
+                        <input type="button" value="-5" onclick="if(typeof crack_rotate === 'function') crack_rotate(-5)" />
+                        <input type="button" id="safe-open-button" class="OK" value="OPEN" onclick="if(typeof crack_open === 'function') crack_open()" disabled="true"/>
+                        <input type="button" value="+5" onclick="if(typeof crack_rotate === 'function') crack_rotate(+5)" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container bottom right">
+        <div id="inventory-score" class="scoreText">
+            Score: 0
+        </div>
+        <div id="inventory" class="inventory-container"></div>
+    </div>
+</div>
+</body>
+</html>

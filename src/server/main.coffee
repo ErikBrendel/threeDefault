@@ -2,7 +2,7 @@ app = require './app'
 http = require 'http'
 webpack = require './webpack'
 
-port = 3000
+port = process.env.PORT || 3000
 
 app.set 'port', port
 
